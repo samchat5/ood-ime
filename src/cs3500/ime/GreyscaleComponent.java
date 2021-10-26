@@ -6,7 +6,7 @@ package cs3500.ime;
  */
 public enum GreyscaleComponent {
   LUMA,
-  BRIGHTNESS,
+  VALUE,
   INTENSITY,
   RED,
   BLUE,

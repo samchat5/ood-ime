@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/ood-ime.iml" filepath="$PROJECT_DIR$/ood-ime.iml" />
-    </modules>
-  </component>
-=======
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
@@ -14,5 +5,4 @@
       <module fileurl="file://$PROJECT_DIR$/HW4.iml" filepath="$PROJECT_DIR$/HW4.iml" />
     </modules>
   </component>
->>>>>>> f730af05a8c4057b1a55d607054091fd27e39608
 </project>
