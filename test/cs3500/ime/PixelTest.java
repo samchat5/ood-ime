@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.Random;
 import org.junit.Test;
 
+import cs3500.ime.pixel.IPixel;
+import cs3500.ime.pixel.Pixel;
+
 /**
  * Tests for pixel class.
  */
