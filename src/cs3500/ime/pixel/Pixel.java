@@ -61,7 +61,19 @@ public class Pixel implements IPixel {
    */
   @Override
   public IPixel brighten(int value) {
-    return null;
+    return new Pixel(brightenHelper(this.red, value), brightenHelper(this.green, value),
+                    brightenHelper(this.blue, value));
+  }
+
+  private int brightenHelper(int originalColor, int value) {
+    int maxValue = (int) (Math.pow(2, bits) - 1);
+    int newColorVal = originalColor + value;
+    if (newColorVal < 0) {
+      return 0;
+    }
+    else  {
+      return Math.min(newColorVal, maxValue);
+    }
   }
 
   /**
