@@ -13,6 +13,12 @@ public class Image implements IImage {
   private int width;
   private IPixel[][] pixelArray;
 
+  public Image(int height, int width, IPixel[][] pixelArray) {
+    this.height = height;
+    this.width = width;
+    this.pixelArray = pixelArray;
+  }
+
   @Override
   public IImage getComponent(GreyscaleComponent component) {
     return null;
@@ -31,5 +37,19 @@ public class Image implements IImage {
   @Override
   public IImage verticalFlip() {
     return null;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder output = new StringBuilder();
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        IPixel foo = pixelArray[i][j];
+        output.append("Pixel at (").append(i).append(", ").append(j).append("):  ");
+        output.append(foo.toString());
+        output.append("\n");
+      }
+    }
+    return output.toString();
   }
 }

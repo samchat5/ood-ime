@@ -16,11 +16,15 @@ public class Pixel implements IPixel {
   private final int bits;
 
   public Pixel(int val) throws IllegalArgumentException {
-    this(val, val, val);
+    this(val, val, val, 8);
   }
 
   public Pixel(int red, int green, int blue) throws IllegalArgumentException {
-    this.bits = 8;
+    this(red, green, blue, 8);
+  }
+
+  public Pixel (int red, int green, int blue, int bits) throws IllegalArgumentException {
+    this.bits = bits;
     if (outOfRange(red, green, blue)) {
       throw new IllegalArgumentException("Invalid values for red, green, and/or blue.");
     }
@@ -36,6 +40,11 @@ public class Pixel implements IPixel {
     }
     Pixel that = (Pixel) o;
     return this.red == that.red && this.green == that.green && this.blue == that.blue;
+  }
+
+  @Override
+  public String toString() {
+    return "(" + red + ", " + green + ", " + blue + ") with " + bits + " bits";
   }
 
   private boolean outOfRange(int... vals) {

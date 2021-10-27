@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import cs3500.ime.pixel.IPixel;
+import cs3500.ime.pixel.Pixel;
+
 
 /**
  * This class contains utility methods to read a PPM image from file and simply print its contents.
@@ -16,14 +19,14 @@ public class ImageUtil {
    *
    * @param filename the path of the file.
    */
-  public static void readPPM(String filename) {
+  public static IImage readPPM(String filename) throws IllegalArgumentException {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
-      System.out.println("File " + filename + " not found!");
-      return;
+//      System.out.println("File " + filename + " not found!");
+      throw new IllegalArgumentException("File " + filename + " not found!");
     }
     StringBuilder builder = new StringBuilder();
     // read the file line by line, and populate a string. This will throw away any comment lines
@@ -41,23 +44,33 @@ public class ImageUtil {
 
     token = sc.next();
     if (!token.equals("P3")) {
-      System.out.println("Invalid PPM file: plain RAW file should begin with P3");
+      throw new IllegalArgumentException("Invalid PPM file: plain RAW file should begin with P3");
     }
     int width = sc.nextInt();
-    System.out.println("Width of image: " + width);
+//    System.out.println("Width of image: " + width);
     int height = sc.nextInt();
-    System.out.println("Height of image: " + height);
+//    System.out.println("Height of image: " + height);
     int maxValue = sc.nextInt();
-    System.out.println("Maximum value of a color in this file (usually 255): " + maxValue);
+//    System.out.println("Maximum value of a color in this file (usually 255): " + maxValue);
+
+    int numBits = (int) (Math.log(maxValue + 1) / Math.log(2));
+
+    IPixel[][] image = new IPixel[width][height];
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         int r = sc.nextInt();
         int g = sc.nextInt();
         int b = sc.nextInt();
-        System.out.println("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
+
+        IPixel foo = new Pixel(r,g,b,numBits);
+        image[j][i] = foo;
+
+
+//        System.out.println("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
       }
     }
+    return new Image(height, width, image);
   }
 
   // demo main
@@ -67,9 +80,10 @@ public class ImageUtil {
     if (args.length > 0) {
       filename = args[0];
     } else {
-      filename = "sample.ppm";
+      filename = "C:\\Users\\IkeKaper\\Documents\\Northeastern documents\\Fall 2021\\OOD\\HW\\ood-ime\\Images\\PPM Images\\koala-green-greyscale.ppm";
     }
-    ImageUtil.readPPM(filename);
+    IImage foo = ImageUtil.readPPM(filename);
+    System.out.print(foo);
   }
 }
 
