@@ -1,11 +1,11 @@
 package cs3500.ime.image;
 
+import cs3500.ime.pixel.IPixel;
+import cs3500.ime.pixel.Pixel;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-import cs3500.ime.pixel.IPixel;
-import cs3500.ime.pixel.Pixel;
 
 
 /**
@@ -25,7 +25,7 @@ public class ImageUtil {
     try {
       sc = new Scanner(new FileInputStream(filename));
     } catch (FileNotFoundException e) {
-//      System.out.println("File " + filename + " not found!");
+      // System.out.println("File " + filename + " not found!");
       throw new IllegalArgumentException("File " + filename + " not found!");
     }
     StringBuilder builder = new StringBuilder();
@@ -47,13 +47,9 @@ public class ImageUtil {
       throw new IllegalArgumentException("Invalid PPM file: plain RAW file should begin with P3");
     }
     int width = sc.nextInt();
-//    System.out.println("Width of image: " + width);
+    // System.out.println("Width of image: " + width);
     int height = sc.nextInt();
-//    System.out.println("Height of image: " + height);
-    int maxValue = sc.nextInt();
-//    System.out.println("Maximum value of a color in this file (usually 255): " + maxValue);
-
-    int numBits = (int) (Math.log(maxValue + 1) / Math.log(2));
+    // System.out.println("Height of image: " + height);
 
     IPixel[][] image = new IPixel[width][height];
 
@@ -63,11 +59,10 @@ public class ImageUtil {
         int g = sc.nextInt();
         int b = sc.nextInt();
 
-        IPixel foo = new Pixel(r,g,b,numBits);
+        IPixel foo = new Pixel(r, g, b);
         image[j][i] = foo;
 
-
-//        System.out.println("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
+        // System.out.println("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
       }
     }
     return new Image(height, width, image);
@@ -80,7 +75,9 @@ public class ImageUtil {
     if (args.length > 0) {
       filename = args[0];
     } else {
-      filename = "C:\\Users\\IkeKaper\\Documents\\Northeastern documents\\Fall 2021\\OOD\\HW\\ood-ime\\Images\\PPM Images\\koala-green-greyscale.ppm";
+      filename =
+          new File(System.getProperty("user.dir") + "/../../../../images/PPMImages/koala-green"
+              + "-greyscale.ppm").getAbsolutePath();
     }
     IImage foo = ImageUtil.readPPM(filename);
     System.out.print(foo);

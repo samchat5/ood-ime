@@ -1,8 +1,7 @@
 package cs3500.ime.pixel;
 
-import java.util.Arrays;
-
 import cs3500.ime.GreyscaleComponent;
+import java.util.Arrays;
 
 /**
  * Concrete class for an {@code IPixel}. Has a red, green, and blue value, each in the range of [0,
@@ -16,23 +15,20 @@ public class Pixel implements IPixel {
   private final int bits;
 
   public Pixel(int val) throws IllegalArgumentException {
-    this(val, val, val, 8);
+    this(val, val, val);
   }
 
   public Pixel(int red, int green, int blue) throws IllegalArgumentException {
-    this(red, green, blue, 8);
-  }
-
-  public Pixel (int red, int green, int blue, int bits) throws IllegalArgumentException {
-    this.bits = bits;
+    this.bits = 8;
     if (outOfRange(red, green, blue)) {
       throw new IllegalArgumentException("Invalid values for red, green, and/or blue.");
     }
     this.red = red;
     this.green = green;
     this.blue = blue;
+
   }
-  
+
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof IPixel)) {
