@@ -23,8 +23,10 @@ public class Image implements IImage {
   }
 
   private boolean heightWidthMatch(int height, int width, IPixel[][] pixelArray) {
-    return pixelArray.length == height && ((pixelArray.length == 0 && width == 0) || (
-        pixelArray[0].length == width));
+    if (pixelArray.length == height) {
+      return pixelArray.length == 0 ? width == 0 : pixelArray[0].length == width;
+    }
+    return false;
   }
 
   @Override
@@ -53,7 +55,7 @@ public class Image implements IImage {
     for (int i = 0; i < width; i++) {
       for (int j = 0; j < height; j++) {
         IPixel foo = pixelArray[i][j];
-        output.append("Pixel at (").append(i).append(", ").append(j).append("):  ");
+        output.append("Pixel at (").append(i).append(", ").append(j).append("): ");
         output.append(foo.toString());
         output.append("\n");
       }

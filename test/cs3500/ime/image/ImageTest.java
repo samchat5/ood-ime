@@ -413,10 +413,10 @@ public class ImageTest {
 
     assertEquals(greyScale.toString(), "Pixel at (0, 0): (233, 233, 233) with 8 bits\nPixel at "
         + "(0, 1): (125, 125, 125) with 8 bits\nPixel at (1, 0): (123, 123, 123) with 8 "
-        + "bits\nPixel at (1, 1): (187, 187, 187) with 8 bits");
+        + "bits\nPixel at (1, 1): (187, 187, 187) with 8 bits\n");
     assertEquals(color.toString(), "Pixel at (0, 0): (12, 44, 198) with 8 bits\nPixel at "
         + "(0, 1): (244, 109, 77) with 8 bits\nPixel at (1, 0): (87, 65, 176) with 8 "
-        + "bits\nPixel at (1, 1): (98, 2, 199) with 8 bits");
+        + "bits\nPixel at (1, 1): (98, 2, 199) with 8 bits\n");
   }
 
   @Test(expected = IllegalArgumentException.class)
