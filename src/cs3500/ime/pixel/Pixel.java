@@ -2,6 +2,7 @@ package cs3500.ime.pixel;
 
 import cs3500.ime.GreyscaleComponent;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Concrete class for an {@code IPixel}. Has a red, green, and blue value, each in the range of [0,
@@ -36,6 +37,11 @@ public class Pixel implements IPixel {
     }
     Pixel that = (Pixel) o;
     return this.red == that.red && this.green == that.green && this.blue == that.blue;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(this.red, this.green, this.blue, this.bits);
   }
 
   @Override

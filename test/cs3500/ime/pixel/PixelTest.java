@@ -1,20 +1,18 @@
-package cs3500.ime;
+package cs3500.ime.pixel;
 
 import static org.junit.Assert.assertEquals;
 
+import cs3500.ime.GreyscaleComponent;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 import org.junit.Test;
 
-import cs3500.ime.pixel.IPixel;
-import cs3500.ime.pixel.Pixel;
-
 /**
  * Tests for pixel class.
  */
 public class PixelTest {
-  
+
   private final IPixel white = new Pixel(255);
   private final IPixel yellow = new Pixel(255, 255, 0);
   private final IPixel magenta = new Pixel(255, 0, 255);
@@ -23,6 +21,18 @@ public class PixelTest {
   private final IPixel green = new Pixel(0, 255, 0);
   private final IPixel blue = new Pixel(0, 0, 255);
   private final IPixel black = new Pixel(0);
+
+  @Test
+  public void testToString() {
+    assertEquals(white.toString(), "(255, 255, 255) with 8 bits");
+    assertEquals(yellow.toString(), "(255, 255, 0) with 8 bits");
+    assertEquals(magenta.toString(), "(255, 0, 255) with 8 bits");
+    assertEquals(cyan.toString(), "(0, 255, 255) with 8 bits");
+    assertEquals(red.toString(), "(255, 0, 0) with 8 bits");
+    assertEquals(green.toString(), "(0, 255, 0) with 8 bits");
+    assertEquals(blue.toString(), "(0, 0, 255) with 8 bits");
+    assertEquals(black.toString(), "(0, 0, 0) with 8 bits");
+  }
 
   @Test
   public void testConstructor() {

@@ -9,14 +9,22 @@ import cs3500.ime.pixel.IPixel;
  */
 public class Image implements IImage {
 
-  private int height;
-  private int width;
-  private IPixel[][] pixelArray;
+  private final int height;
+  private final int width;
+  private final IPixel[][] pixelArray;
 
-  public Image(int height, int width, IPixel[][] pixelArray) {
+  public Image(int height, int width, IPixel[][] pixelArray) throws IllegalArgumentException {
     this.height = height;
     this.width = width;
+    if (!heightWidthMatch(height, width, pixelArray)) {
+      throw new IllegalArgumentException("Height/width mismatch.");
+    }
     this.pixelArray = pixelArray;
+  }
+
+  private boolean heightWidthMatch(int height, int width, IPixel[][] pixelArray) {
+    return pixelArray.length == height && ((pixelArray.length == 0 && width == 0) || (
+        pixelArray[0].length == width));
   }
 
   @Override
