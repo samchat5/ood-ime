@@ -7,3 +7,5 @@
 /httpRequests/
 # IntelliJ configs
 /.idea/*
+
+/out/*
