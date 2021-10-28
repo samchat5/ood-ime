@@ -155,20 +155,20 @@ public class ImageTest {
     assertNotEquals(darkImage.brighten(-20).brighten(20), darkImage);
 
     // test brighten/darken random greyscale image
-    int[][] greyVals = generateRandomPixelValues(50, 50);
-    int[][] greyValsBrightened = new int[50][50];
-    int[][] greyValsDarkened = new int[50][50];
-    IImage grey = new Image(50, 50, pixelArrayFromChannelArrays(greyVals));
+    int[][] greyVals = generateRandomPixelValues(50, 45);
+    int[][] greyValsBrightened = new int[50][45];
+    int[][] greyValsDarkened = new int[50][45];
+    IImage grey = new Image(50, 45, pixelArrayFromChannelArrays(greyVals));
 
     for (int i = 0; i < 50; i++) {
-      for (int j = 0; j < 50; j++) {
+      for (int j = 0; j < 45; j++) {
         greyValsBrightened[i][j] = Math.min(greyVals[i][j] + 26, 255);
         greyValsDarkened[i][j] = Math.max(greyVals[i][j] - 26, 0);
       }
     }
 
-    IImage greyBright = new Image(50, 50, pixelArrayFromChannelArrays(greyValsBrightened));
-    IImage greyDark = new Image(50, 50, pixelArrayFromChannelArrays(greyValsDarkened));
+    IImage greyBright = new Image(50, 45, pixelArrayFromChannelArrays(greyValsBrightened));
+    IImage greyDark = new Image(50, 45, pixelArrayFromChannelArrays(greyValsDarkened));
 
     assertEquals(grey.brighten(26), greyBright);
     assertEquals(grey.brighten(-26), greyDark);
@@ -231,8 +231,8 @@ public class ImageTest {
     IImage oneBy11ColorFlipped = new Image(1, 11,
         new IPixel[][]{{new Pixel(1, 185, 173), new Pixel(167, 33, 139), new Pixel(68, 87, 25),
             new Pixel(30, 92, 142), new Pixel(15, 138, 58), new Pixel(119, 98, 137),
-            new Pixel(42, 133, 119), new Pixel(79, 29, 224), new Pixel(194, 177, 201),
-            new Pixel(145, 244, 88), new Pixel(205, 184, 207)}});
+            new Pixel(42, 133, 119), new Pixel(79, 29, 224), new Pixel(205, 184, 207),
+            new Pixel(194, 177, 201), new Pixel(145, 244, 88)}});
 
     assertEquals(oneBy11Grey.horizontalFlip(), oneBy11GreyFlipped);
     assertEquals(oneBy11Color.horizontalFlip(), oneBy11ColorFlipped);
@@ -253,9 +253,9 @@ public class ImageTest {
             new Pixel(212)}});
     IImage oneBy10ColorFlipped = new Image(1, 10,
         new IPixel[][]{{new Pixel(1, 185, 173), new Pixel(167, 33, 139), new Pixel(68, 87, 25),
-            new Pixel(30, 92, 142), new Pixel(15, 138, 58), new Pixel(42, 133, 119),
-            new Pixel(79, 29, 224), new Pixel(194, 177, 201), new Pixel(145, 244, 88),
-            new Pixel(205, 184, 207)}});
+            new Pixel(30, 92, 142), new Pixel(119, 98, 137), new Pixel(42, 133, 119),
+            new Pixel(79, 29, 224), new Pixel(205, 184, 207), new Pixel(194, 177, 201),
+            new Pixel(145, 244, 88)}});
 
     assertEquals(oneBy10Grey.horizontalFlip(), oneBy10GreyFlipped);
     assertEquals(oneBy10Color.horizontalFlip(), oneBy10ColorFlipped);
@@ -295,7 +295,7 @@ public class ImageTest {
     Image mirrorColorOdd = new Image(1, 5, new IPixel[][]{{new Pixel(221, 145, 0), new Pixel(165,
         47, 28), new Pixel(78, 212, 189), new Pixel(165, 47, 28), new Pixel(221, 145, 0)
     }});
-    Image mirrorColorEven = new Image(1, 5, new IPixel[][]{{new Pixel(221, 145, 0), new Pixel(165,
+    Image mirrorColorEven = new Image(1, 4, new IPixel[][]{{new Pixel(221, 145, 0), new Pixel(165,
         47, 28), new Pixel(165, 47, 28), new Pixel(221, 145, 0)
     }});
 
@@ -313,7 +313,8 @@ public class ImageTest {
     // test flip on odd width
     IImage elevenBy1Grey = new Image(11, 1,
         new IPixel[][]{{new Pixel(212)}, {new Pixel(52)}, {new Pixel(23)}, {new Pixel(44)},
-            {new Pixel(123)}, {new Pixel(243)}, {new Pixel(143)}, {new Pixel(99)}, {new Pixel(35)},
+            {new Pixel(123)}, {new Pixel(243)}, {new Pixel(143)}, {new Pixel(99)},
+            {new Pixel(35)},
             {new Pixel(198)}, {new Pixel(67)}});
     IImage elevenBy1Color = new Image(11, 1,
         new IPixel[][]{{new Pixel(145, 244, 88)}, {new Pixel(194, 177, 201)},
@@ -326,20 +327,22 @@ public class ImageTest {
         {new Pixel(243)}, {new Pixel(123)}, {new Pixel(44)}, {new Pixel(23)}, {new Pixel(52)},
         {new Pixel(212)}});
     IImage elevenBy1ColorFlipped = new Image(11, 1,
-        new IPixel[][]{{new Pixel(1, 185, 173)}, {new Pixel(167, 33, 139)}, {new Pixel(68, 87, 25)},
+        new IPixel[][]{{new Pixel(1, 185, 173)}, {new Pixel(167, 33, 139)},
+            {new Pixel(68, 87, 25)},
             {new Pixel(30, 92, 142)}, {new Pixel(15, 138, 58)}, {new Pixel(119, 98, 137)},
-            {new Pixel(42, 133, 119)}, {new Pixel(79, 29, 224)}, {new Pixel(194, 177, 201)},
-            {new Pixel(145, 244, 88)}, {new Pixel(205, 184, 207)}});
+            {new Pixel(42, 133, 119)}, {new Pixel(79, 29, 224)}, {new Pixel(205, 184, 207)},
+            {new Pixel(194, 177, 201)}, {new Pixel(145, 244, 88)}});
 
     assertEquals(elevenBy1Grey.verticalFlip(), elevenBy1GreyFlipped);
     assertEquals(elevenBy1Color.verticalFlip(), elevenBy1ColorFlipped);
 
     // test flip on even width
-    IImage tenBy1Grey = new Image(1, 10,
+    IImage tenBy1Grey = new Image(10, 1,
         new IPixel[][]{{new Pixel(212)}, {new Pixel(52)}, {new Pixel(23)}, {new Pixel(44)},
-            {new Pixel(123)}, {new Pixel(143)}, {new Pixel(99)}, {new Pixel(35)}, {new Pixel(198)},
+            {new Pixel(123)}, {new Pixel(143)}, {new Pixel(99)}, {new Pixel(35)},
+            {new Pixel(198)},
             {new Pixel(67)}});
-    IImage tenBy1Color = new Image(1, 10,
+    IImage tenBy1Color = new Image(10, 1,
         new IPixel[][]{{new Pixel(145, 244, 88)}, {new Pixel(194, 177, 201)},
             {new Pixel(205, 184, 207)}, {new Pixel(79, 29, 224)}, {new Pixel(42, 133, 119)},
             {new Pixel(15, 138, 58)}, {new Pixel(30, 92, 142)}, {new Pixel(68, 87, 25)},
@@ -350,32 +353,36 @@ public class ImageTest {
             {new Pixel(143)}, {new Pixel(123)}, {new Pixel(44)}, {new Pixel(23)}, {new Pixel(52)},
             {new Pixel(212)}});
     IImage tenBy1ColorFlipped = new Image(10, 1,
-        new IPixel[][]{{new Pixel(1, 185, 173)}, {new Pixel(167, 33, 139)}, {new Pixel(68, 87, 25)},
+        new IPixel[][]{{new Pixel(1, 185, 173)}, {new Pixel(167, 33, 139)},
+            {new Pixel(68, 87, 25)},
             {new Pixel(30, 92, 142)}, {new Pixel(15, 138, 58)}, {new Pixel(42, 133, 119)},
-            {new Pixel(79, 29, 224)}, {new Pixel(194, 177, 201)}, {new Pixel(145, 244, 88)},
-            {new Pixel(205, 184, 207)}});
+            {new Pixel(79, 29, 224)}, {new Pixel(205, 184, 207)}, {new Pixel(194, 177, 201)},
+            {new Pixel(145, 244, 88)}});
 
     assertEquals(tenBy1Grey.verticalFlip(), tenBy1GreyFlipped);
     assertEquals(tenBy1Color.verticalFlip(), tenBy1ColorFlipped);
 
     // test flip on 1XN image returns same image, even and odd
-    IImage oneBy11Grey = new Image(11, 11, new IPixel[][]{{new Pixel(212), new Pixel(52),
-        new Pixel(23), new Pixel(44), new Pixel(123), new Pixel(243), new Pixel(143), new Pixel(99),
+    IImage oneBy11Grey = new Image(1, 11, new IPixel[][]{{new Pixel(212), new Pixel(52),
+        new Pixel(23), new Pixel(44), new Pixel(123), new Pixel(243), new Pixel(143),
+        new Pixel(99),
         new Pixel(35), new Pixel(198), new Pixel(67)}});
     IImage oneBy11Color = new Image(1, 11,
-        new IPixel[][]{{new Pixel(145, 244, 88), new Pixel(194, 177, 201), new Pixel(205, 184, 207),
-            new Pixel(79, 29, 224), new Pixel(42, 133, 119), new Pixel(119, 98, 137),
-            new Pixel(15, 138, 58), new Pixel(30, 92, 142), new Pixel(68, 87, 25),
-            new Pixel(167, 33, 139), new Pixel(1, 185, 173)}});
+        new IPixel[][]{
+            {new Pixel(145, 244, 88), new Pixel(194, 177, 201), new Pixel(205, 184, 207),
+                new Pixel(79, 29, 224), new Pixel(42, 133, 119), new Pixel(119, 98, 137),
+                new Pixel(15, 138, 58), new Pixel(30, 92, 142), new Pixel(68, 87, 25),
+                new Pixel(167, 33, 139), new Pixel(1, 185, 173)}});
 
     IImage oneBy10Grey = new Image(1, 10, new IPixel[][]{{new Pixel(212), new Pixel(52),
         new Pixel(23), new Pixel(44), new Pixel(123), new Pixel(143), new Pixel(99),
         new Pixel(35), new Pixel(198), new Pixel(67)}});
     IImage oneBy10Color = new Image(1, 10,
-        new IPixel[][]{{new Pixel(145, 244, 88), new Pixel(194, 177, 201), new Pixel(205, 184, 207),
-            new Pixel(79, 29, 224), new Pixel(42, 133, 119), new Pixel(119, 98, 137),
-            new Pixel(30, 92, 142), new Pixel(68, 87, 25),
-            new Pixel(167, 33, 139), new Pixel(1, 185, 173)}});
+        new IPixel[][]{
+            {new Pixel(145, 244, 88), new Pixel(194, 177, 201), new Pixel(205, 184, 207),
+                new Pixel(79, 29, 224), new Pixel(42, 133, 119), new Pixel(119, 98, 137),
+                new Pixel(30, 92, 142), new Pixel(68, 87, 25),
+                new Pixel(167, 33, 139), new Pixel(1, 185, 173)}});
 
     assertEquals(oneBy11Grey.verticalFlip(), oneBy11Grey);
     assertEquals(oneBy11Color.verticalFlip(), oneBy11Color);
@@ -388,12 +395,14 @@ public class ImageTest {
     Image mirrorGreyEven = new Image(4, 1, new IPixel[][]{{new Pixel(123)}, {new Pixel(245)},
         {new Pixel(245)}, {new Pixel(123)}});
 
-    Image mirrorColorOdd = new Image(5, 1, new IPixel[][]{{new Pixel(221, 145, 0)}, {new Pixel(165,
-        47, 28)}, {new Pixel(78, 212, 189)}, {new Pixel(165, 47, 28)}, {new Pixel(221, 145, 0)
-    }});
-    Image mirrorColorEven = new Image(4, 1, new IPixel[][]{{new Pixel(221, 145, 0)}, {new Pixel(165,
-        47, 28)}, {new Pixel(165, 47, 28)}, {new Pixel(221, 145, 0)
-    }});
+    Image mirrorColorOdd = new Image(5, 1,
+        new IPixel[][]{{new Pixel(221, 145, 0)}, {new Pixel(165,
+            47, 28)}, {new Pixel(78, 212, 189)}, {new Pixel(165, 47, 28)}, {new Pixel(221, 145, 0)
+        }});
+    Image mirrorColorEven = new Image(4, 1,
+        new IPixel[][]{{new Pixel(221, 145, 0)}, {new Pixel(165,
+            47, 28)}, {new Pixel(165, 47, 28)}, {new Pixel(221, 145, 0)
+        }});
 
     assertEquals(mirrorGreyOdd.verticalFlip(), mirrorGreyOdd);
     assertEquals(mirrorGreyEven.verticalFlip(), mirrorGreyEven);
@@ -418,8 +427,9 @@ public class ImageTest {
   public void testConstructor() {
     IImage greyScale = new Image(2, 2, new IPixel[][]{{new Pixel(233), new Pixel(125)},
         {new Pixel(123), new Pixel(187)}});
-    IImage color = new Image(2, 2, new IPixel[][]{{new Pixel(12, 44, 198), new Pixel(244, 109, 77)},
-        {new Pixel(87, 65, 176), new Pixel(98, 2, 199)}});
+    IImage color = new Image(2, 2,
+        new IPixel[][]{{new Pixel(12, 44, 198), new Pixel(244, 109, 77)},
+            {new Pixel(87, 65, 176), new Pixel(98, 2, 199)}});
 
     assertEquals(greyScale.toString(), "Pixel at (0, 0): (233, 233, 233) with 8 bits\nPixel at "
         + "(0, 1): (125, 125, 125) with 8 bits\nPixel at (1, 0): (123, 123, 123) with 8 "

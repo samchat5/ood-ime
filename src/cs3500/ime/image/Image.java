@@ -1,11 +1,9 @@
 package cs3500.ime.image;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import cs3500.ime.GreyscaleComponent;
 import cs3500.ime.pixel.IPixel;
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Concrete class representing an image. Has an array of pixels, a width, and a height. An image can
@@ -50,9 +48,9 @@ public class Image implements IImage {
 
   @Override
   public IImage brighten(int value) {
-    IPixel[][] newPixelArray = new IPixel[width][height];
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
+    IPixel[][] newPixelArray = new IPixel[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         IPixel foo = pixelArray[i][j];
         newPixelArray[i][j] = foo.brighten(value);
       }
@@ -61,9 +59,9 @@ public class Image implements IImage {
   }
 
   @Override
-  public IImage verticalFlip() {
-    IPixel[][] newPixelArray = new IPixel[width][height];
-    for (int i = 0; i < width; i++) {
+  public IImage horizontalFlip() {
+    IPixel[][] newPixelArray = new IPixel[height][width];
+    for (int i = 0; i < height; i++) {
       IPixel[] verticalLine = pixelArray[i].clone();
       Collections.reverse(Arrays.asList(verticalLine));
       newPixelArray[i] = verticalLine;
@@ -72,7 +70,7 @@ public class Image implements IImage {
   }
 
   @Override
-  public IImage horizontalFlip() {
+  public IImage verticalFlip() {
     IPixel[][] newPixelArray = pixelArray.clone();
     Collections.reverse(Arrays.asList(newPixelArray));
     return new Image(this.height, this.width, newPixelArray);
@@ -81,8 +79,8 @@ public class Image implements IImage {
   @Override
   public String toString() {
     StringBuilder output = new StringBuilder();
-    for (int i = 0; i < width; i++) {
-      for (int j = 0; j < height; j++) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         IPixel foo = pixelArray[i][j];
         output.append("Pixel at (").append(i).append(", ").append(j).append("): ");
         output.append(foo.toString());
