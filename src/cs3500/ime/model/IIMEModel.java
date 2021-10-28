@@ -1,6 +1,7 @@
 package cs3500.ime.model;
 
 import cs3500.ime.GreyscaleComponent;
+import java.io.FileNotFoundException;
 
 /**
  * Model for this IME program. Concrete implementations contain a mapping of image names to the
@@ -13,8 +14,17 @@ public interface IIMEModel {
    *
    * @param filePath filepath to load from
    * @param name     name to give image
+   * @throws FileNotFoundException if the given file is not found
    */
-  void load(String filePath, String name);
+  void load(String filePath, String name) throws FileNotFoundException;
+
+  /**
+   * Return if the image of the given name is loaded.
+   *
+   * @param name name of image
+   * @return if loaded
+   */
+  boolean isLoaded(String name);
 
   /**
    * Brightens/darkens the given image and creates a new one.
@@ -31,24 +41,28 @@ public interface IIMEModel {
    *
    * @param imageName     image to flip
    * @param destImageName new name to give the image
+   * @throws IllegalArgumentException if the image is not loaded
    */
-  void horizontalFlip(String imageName, String destImageName);
+  void horizontalFlip(String imageName, String destImageName) throws IllegalArgumentException;
 
   /**
    * Flips the image vertically.
    *
    * @param imageName     image to flip
    * @param destImageName new name to give the image
+   * @throws IllegalArgumentException if the image is not loaded
    */
-  void verticalFlip(String imageName, String destImageName);
+  void verticalFlip(String imageName, String destImageName) throws IllegalArgumentException;
 
   /**
    * Saves the image to the given filepath.
    *
    * @param imagePath filepath to save to
    * @param imageName image to save
+   * @throws FileNotFoundException    if the given path DNE
+   * @throws IllegalArgumentException if the given image is not loaded
    */
-  void save(String imagePath, String imageName);
+  void save(String imagePath, String imageName) throws FileNotFoundException;
 
   /**
    * Creates a new image from a given one's greyscale component (given a certain component type).
@@ -57,6 +71,8 @@ public interface IIMEModel {
    * @param destImageName new name to give to image
    * @param component     component type the user wants (e.g. the red channel or the image or the
    *                      brightness)
+   * @throws IllegalArgumentException if the file is not loaded
    */
-  void greyScale(String imageName, String destImageName, GreyscaleComponent component);
+  void greyScale(String imageName, String destImageName, GreyscaleComponent component)
+      throws IllegalArgumentException;
 }

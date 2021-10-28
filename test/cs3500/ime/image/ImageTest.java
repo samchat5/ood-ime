@@ -405,6 +405,16 @@ public class ImageTest {
   }
 
   @Test
+  public void testHorizontalVerticalFlip() {
+    // flipping horizontal + vertical = vertical + horizontal
+    IImage image = generateRandomColorImage(50, 50);
+    assertEquals(image.horizontalFlip().verticalFlip(), image.verticalFlip().horizontalFlip());
+
+    // flipping h + v + h + v = original
+    assertEquals(image.horizontalFlip().verticalFlip().horizontalFlip().verticalFlip(), image);
+  }
+
+  @Test
   public void testConstructor() {
     IImage greyScale = new Image(2, 2, new IPixel[][]{{new Pixel(233), new Pixel(125)},
         {new Pixel(123), new Pixel(187)}});

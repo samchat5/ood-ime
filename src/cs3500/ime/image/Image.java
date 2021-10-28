@@ -2,6 +2,7 @@ package cs3500.ime.image;
 
 import cs3500.ime.GreyscaleComponent;
 import cs3500.ime.pixel.IPixel;
+import java.util.Arrays;
 
 /**
  * Concrete class representing an image. Has an array of pixels, a width, and a height. An image can
@@ -27,6 +28,16 @@ public class Image implements IImage {
       return pixelArray.length == 0 ? width == 0 : pixelArray[0].length == width;
     }
     return false;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof IImage)) {
+      return false;
+    }
+    Image that = (Image) o;
+    return width == that.width && height == that.height && Arrays.deepEquals(pixelArray,
+        that.pixelArray);
   }
 
   @Override

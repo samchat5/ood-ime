@@ -1,9 +1,10 @@
 package cs3500.ime.model;
 
-import java.util.Map;
-
 import cs3500.ime.GreyscaleComponent;
 import cs3500.ime.image.IImage;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Concrete class representing a model for this IME program, mapping image names to the images
@@ -11,17 +12,33 @@ import cs3500.ime.image.IImage;
  */
 public class IMEModel implements IIMEModel {
 
-  private Map<String, IImage> imageMap;
+  private final Map<String, IImage> imageMap;
+
+  public IMEModel() {
+    this.imageMap = new HashMap<>();
+  }
 
   /**
    * Load an image to the image mapping.
    *
    * @param filePath filepath to load from
    * @param name     name to give image
+   * @throws FileNotFoundException if the given file is not found
    */
   @Override
-  public void load(String filePath, String name) {
+  public void load(String filePath, String name) throws FileNotFoundException {
 
+  }
+
+  /**
+   * Return if the image of the given name is loaded.
+   *
+   * @param name name of image
+   * @return if loaded
+   */
+  @Override
+  public boolean isLoaded(String name) {
+    return false;
   }
 
   /**
@@ -30,7 +47,8 @@ public class IMEModel implements IIMEModel {
    * @param imageName    image to brighten
    * @param value        value to brighten/darken by
    * @param newImageName new name to give the image
-   * @throws IllegalArgumentException iff brightness value is outside of range [-255, 255]
+   * @throws IllegalArgumentException iff brightness value is outside of range [-255, 255] or the
+   *                                  image is not loaded
    */
   @Override
   public void brighten(String imageName, int value, String newImageName)
@@ -43,9 +61,11 @@ public class IMEModel implements IIMEModel {
    *
    * @param imageName     image to flip
    * @param destImageName new name to give the image
+   * @throws IllegalArgumentException if the image is not loaded
    */
   @Override
-  public void horizontalFlip(String imageName, String destImageName) {
+  public void horizontalFlip(String imageName, String destImageName)
+      throws IllegalArgumentException {
 
   }
 
@@ -54,9 +74,10 @@ public class IMEModel implements IIMEModel {
    *
    * @param imageName     image to flip
    * @param destImageName new name to give the image
+   * @throws IllegalArgumentException if the image is not loaded
    */
   @Override
-  public void verticalFlip(String imageName, String destImageName) {
+  public void verticalFlip(String imageName, String destImageName) throws IllegalArgumentException {
 
   }
 
@@ -65,10 +86,12 @@ public class IMEModel implements IIMEModel {
    *
    * @param imagePath filepath to save to
    * @param imageName image to save
+   * @throws FileNotFoundException    if the given path DNE
+   * @throws IllegalArgumentException if the given image is not loaded
    */
   @Override
-  public void save(String imagePath, String imageName) {
-
+  public void save(String imagePath, String imageName)
+      throws FileNotFoundException, IllegalArgumentException {
   }
 
   /**
@@ -77,9 +100,11 @@ public class IMEModel implements IIMEModel {
    * @param imageName     image to greyscale
    * @param destImageName new name to give to image
    * @param component     component type the user wants (e.g. the red channel or the image or the
+   * @throws IllegalArgumentException if the image is not loaded
    */
   @Override
-  public void greyScale(String imageName, String destImageName, GreyscaleComponent component) {
+  public void greyScale(String imageName, String destImageName, GreyscaleComponent component)
+      throws IllegalArgumentException {
 
   }
 }
