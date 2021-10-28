@@ -1,5 +1,8 @@
 package cs3500.ime.image;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import cs3500.ime.GreyscaleComponent;
 import cs3500.ime.pixel.IPixel;
 import java.util.Arrays;
@@ -47,17 +50,32 @@ public class Image implements IImage {
 
   @Override
   public IImage brighten(int value) {
-    return null;
-  }
-
-  @Override
-  public IImage horizontalFlip() {
-    return null;
+    IPixel[][] newPixelArray = new IPixel[width][height];
+    for (int i = 0; i < width; i++) {
+      for (int j = 0; j < height; j++) {
+        IPixel foo = pixelArray[i][j];
+        newPixelArray[i][j] = foo.brighten(value);
+      }
+    }
+    return new Image(this.height, this.width, newPixelArray);
   }
 
   @Override
   public IImage verticalFlip() {
-    return null;
+    IPixel[][] newPixelArray = new IPixel[width][height];
+    for (int i = 0; i < width; i++) {
+      IPixel[] verticalLine = pixelArray[i].clone();
+      Collections.reverse(Arrays.asList(verticalLine));
+      newPixelArray[i] = verticalLine;
+    }
+    return new Image(this.height, this.width, newPixelArray);
+  }
+
+  @Override
+  public IImage horizontalFlip() {
+    IPixel[][] newPixelArray = pixelArray.clone();
+    Collections.reverse(Arrays.asList(newPixelArray));
+    return new Image(this.height, this.width, newPixelArray);
   }
 
   @Override
