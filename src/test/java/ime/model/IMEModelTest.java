@@ -1,4 +1,4 @@
-package cs3500.ime.model;
+package ime.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -7,6 +7,9 @@ import static org.junit.Assert.fail;
 
 import cs3500.ime.GreyscaleComponent;
 import cs3500.ime.image.ImageUtil;
+import cs3500.ime.model.IIMEModel;
+import cs3500.ime.model.IMEModel;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import org.junit.Test;
