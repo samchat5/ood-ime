@@ -8,7 +8,7 @@ public class Brighten implements IIMECommand {
   private final int value;
   private final String imageName;
 
-  public Brighten(String imageName, int value, String newImageName) {
+  public Brighten(int value, String imageName, String newImageName) {
     this.imageName = imageName;
     this.value = value;
     this.newImageName = newImageName;

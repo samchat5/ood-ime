@@ -1,7 +1,7 @@
 package cs3500.ime.model;
 
 import cs3500.ime.GreyscaleComponent;
-import java.io.FileNotFoundException;
+import cs3500.ime.image.IImage;
 
 /**
  * Model for this IME program. Concrete implementations contain a mapping of image names to the
@@ -12,11 +12,10 @@ public interface IIMEModel {
   /**
    * Load an image to the image mapping.
    *
-   * @param filePath filepath to load from
-   * @param name     name to give image
-   * @throws FileNotFoundException if the given file is not found
+   * @param image image to load
+   * @param name  name to give image
    */
-  void load(String filePath, String name) throws FileNotFoundException;
+  void load(IImage image, String name);
 
   /**
    * Return if the image of the given name is loaded.
@@ -55,14 +54,13 @@ public interface IIMEModel {
   void verticalFlip(String imageName, String destImageName) throws IllegalArgumentException;
 
   /**
-   * Saves the image to the given filepath.
+   * Saves the image with the given name.
    *
-   * @param imagePath filepath to save to
    * @param imageName image to save
-   * @throws FileNotFoundException    if the given path DNE
+   * @return the Image object, sent to the controller to handle file IO
    * @throws IllegalArgumentException if the given image is not loaded
    */
-  void save(String imagePath, String imageName) throws FileNotFoundException;
+  IImage save(String imageName);
 
   /**
    * Creates a new image from a given one's greyscale component (given a certain component type).

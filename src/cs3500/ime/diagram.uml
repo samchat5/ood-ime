@@ -1,36 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Diagram>
   <ID>JAVA</ID>
-  <OriginalElement>cs3500.ime</OriginalElement>
+  <OriginalElement>D:/CS3500/HW4/src</OriginalElement>
   <nodes>
-    <node x="0.0" y="0.0">cs3500.ime.IIMEModel</node>
-    <node x="0.0" y="216.0">cs3500.ime.IMEModel</node>
-    <node x="0.0" y="473.0">cs3500.ime.IPixel</node>
-    <node x="0.0" y="601.0">cs3500.ime.Pixel</node>
-    <node x="328.0" y="473.0">cs3500.ime.GreyscaleComponent</node>
-    <node x="366.0" y="0.0">cs3500.ime.IImage</node>
-    <node x="366.0" y="172.0">cs3500.ime.Image</node>
-    <node x="620.0" y="473.0">cs3500.ime.ImageUtil</node>
+    <node x="702.0" y="128.0">cs3500.ime.pixel.Pixel</node>
+    <node x="819.0" y="623.0">cs3500.ime.controller.commands.GreyScale</node>
+    <node x="463.0" y="814.0">cs3500.ime.GreyscaleComponent</node>
+    <node x="0.0" y="920.0">cs3500.ime.controller.IMEController</node>
+    <node x="541.0" y="517.0">cs3500.ime.controller.commands.IIMECommand</node>
+    <node x="135.5" y="814.0">cs3500.ime.controller.IIMEController</node>
+    <node x="0.0" y="0.0">cs3500.ime.model.IIMEModel</node>
+    <node x="366.0" y="172.0">cs3500.ime.image.Image</node>
+    <node x="755.0" y="814.0">cs3500.ime.image.ImageUtil</node>
+    <node x="0.0" y="238.0">cs3500.ime.model.IMEModel</node>
+    <node x="205.99999999999994" y="623.0">cs3500.ime.controller.commands.Brighten</node>
+    <node x="641.0" y="634.0">cs3500.ime.controller.commands.Save</node>
+    <node x="418.99999999999994" y="634.0">cs3500.ime.controller.commands.HorizontalFlip</node>
+    <node x="702.0" y="0.0">cs3500.ime.pixel.IPixel</node>
+    <node x="366.0" y="0.0">cs3500.ime.image.IImage</node>
+    <node x="1138.0" y="634.0">cs3500.ime.controller.commands.Load</node>
+    <node x="0.0" y="634.0">cs3500.ime.controller.commands.VerticalFlip</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="cs3500.ime.Pixel" target="cs3500.ime.IPixel" relationship="REALIZATION">
-      <point x="0.0" y="-84.0" />
+    <edge source="cs3500.ime.pixel.Pixel" target="cs3500.ime.pixel.IPixel" relationship="REALIZATION">
+      <point x="0.0" y="-161.0" />
       <point x="0.0" y="39.0" />
     </edge>
-    <edge source="cs3500.ime.IMEModel" target="cs3500.ime.IIMEModel" relationship="REALIZATION">
-      <point x="0.0" y="-106.0" />
-      <point x="0.0" y="83.0" />
+    <edge source="cs3500.ime.controller.commands.HorizontalFlip" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
+      <point x="0.0" y="-62.0" />
+      <point x="520.0" y="598.0" />
+      <point x="620.0" y="598.0" />
+      <point x="0.0" y="28.0" />
     </edge>
-    <edge source="cs3500.ime.Image" target="cs3500.ime.IImage" relationship="REALIZATION">
-      <point x="0.0" y="-106.0" />
+    <edge source="cs3500.ime.controller.commands.GreyScale" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
+      <point x="0.0" y="-73.0" />
+      <point x="968.5" y="598.0" />
+      <point x="620.0" y="598.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.IMEController" target="cs3500.ime.controller.IIMEController" relationship="REALIZATION">
+      <point x="0.0" y="-73.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.Load" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
+      <point x="0.0" y="-62.0" />
+      <point x="1217.0" y="598.0" />
+      <point x="620.0" y="598.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.image.Image" target="cs3500.ime.image.IImage" relationship="REALIZATION">
+      <point x="0.0" y="-139.0" />
       <point x="0.0" y="61.0" />
     </edge>
+    <edge source="cs3500.ime.controller.commands.VerticalFlip" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
+      <point x="0.0" y="-62.0" />
+      <point x="93.0" y="598.0" />
+      <point x="620.0" y="598.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.model.IMEModel" target="cs3500.ime.model.IIMEModel" relationship="REALIZATION">
+      <point x="0.0" y="-117.0" />
+      <point x="0.0" y="94.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.Brighten" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
+      <point x="0.0" y="-73.0" />
+      <point x="302.49999999999994" y="598.0" />
+      <point x="620.0" y="598.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.Save" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
+      <point x="0.0" y="-62.0" />
+      <point x="720.0" y="598.0" />
+      <point x="620.0" y="598.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="391.0" y="384.5" />
-  <SelectedNodes>
-    <node>cs3500.ime.Image</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="648.0" y="533.0" />
+  <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>
     <Category>Fields</Category>

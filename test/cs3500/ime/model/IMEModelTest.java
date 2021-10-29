@@ -8,7 +8,6 @@ import static org.junit.Assert.fail;
 import cs3500.ime.GreyscaleComponent;
 import cs3500.ime.image.ImageUtil;
 import java.io.File;
-import java.io.FileNotFoundException;
 import org.junit.Test;
 
 public class IMEModelTest {
@@ -17,55 +16,34 @@ public class IMEModelTest {
 
   @Test
   public void testLoad() {
-    try {
-      // test with known file name
-      IIMEModel model = new IMEModel();
-      model.load(relPathToRes + "PPMImages/Koala.ppm", "koala");
-      model.load(relPathToRes + "PPMImages/testOG.ppm", "mytest");
-      assertTrue(model.isLoaded("koala"));
-      assertTrue(model.isLoaded("mytest"));
-      assertFalse(model.isLoaded("random"));
-
-      // overload images "realiases" the image
-      model.load(relPathToRes + "PPMImages/Koala.ppm", "newKoala");
-      assertFalse(model.isLoaded("koala"));
-      assertFalse(model.isLoaded("newKoala"));
-
-    } catch (Exception e) {
-      fail();
-    }
-  }
-
-  @Test(expected = FileNotFoundException.class)
-  public void testLoadUnknownFile() throws FileNotFoundException {
+    // test with known file name
     IIMEModel model = new IMEModel();
-    model.load("this/doesnt/exist.ppm", "random");
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm"), "koala");
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm"), "mytest");
+    assertTrue(model.isLoaded("koala"));
+    assertTrue(model.isLoaded("mytest"));
+    assertFalse(model.isLoaded("random"));
+
+    // overload images "realiases" the image
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm"), "newKoala");
+    assertFalse(model.isLoaded("koala"));
+    assertFalse(model.isLoaded("newKoala"));
   }
 
   @Test
   public void testBrighten() {
-    try {
-      IIMEModel model = new IMEModel();
-      model.load(relPathToRes + "PPMImages/Koala.ppm", "koala");
-      model.brighten("koala", 50, "koalaBright");
+    IIMEModel model = new IMEModel();
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm"), "koala");
+    model.brighten("koala", 50, "koalaBright");
 
-      model.load(relPathToRes + "PPMImages/testOG.ppm", "mytest");
-      model.brighten("mytest", 50, "mytestBright");
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm"), "mytest");
+    model.brighten("mytest", 50, "mytestBright");
 
-      model.save("koalaBright.ppm", "koalaBright");
-      assertEquals(ImageUtil.readPPM("koalaBright.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-brighter-by-50.ppm"));
+    assertEquals(model.save("koalaBright"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-brighter-by-50.ppm"));
 
-      model.save("mytestBright.ppm", "mytestBright");
-      assertEquals(ImageUtil.readPPM("mytestBright.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testBrightenBy50.ppm"));
-
-      if (!new File("koalaBright.ppm").delete() || !new File("mytestBright.ppm").delete()) {
-        fail("File not deleted");
-      }
-    } catch (Exception e) {
-      fail();
-    }
+    assertEquals(model.save("mytestBright"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testBrightenBy50.ppm"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -76,50 +54,32 @@ public class IMEModelTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testBrightenBelowNeg255() {
-    try {
-      IIMEModel model = new IMEModel();
-      model.load(relPathToRes + "PPMImage/Koala.ppm", "koala");
-      model.brighten("koala", -300, "newKoala");
-    } catch (FileNotFoundException e) {
-      fail();
-    }
+    IIMEModel model = new IMEModel();
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImage/Koala.ppm"), "koala");
+    model.brighten("koala", -300, "newKoala");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testBrightenAbovePos255() {
-    try {
-      IIMEModel model = new IMEModel();
-      model.load(relPathToRes + "PPMImage/Koala.ppm", "koala");
-      model.brighten("koala", 300, "newKoala");
-    } catch (FileNotFoundException e) {
-      fail();
-    }
+    IIMEModel model = new IMEModel();
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImage/Koala.ppm"), "koala");
+    model.brighten("koala", 300, "newKoala");
   }
 
   @Test
   public void testHorizontalFlip() {
-    try {
-      IIMEModel model = new IMEModel();
-      model.load(relPathToRes + "PPMImages/Koala.ppm", "koala");
-      model.horizontalFlip("koala", "koalaFlip");
+    IIMEModel model = new IMEModel();
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm"), "koala");
+    model.horizontalFlip("koala", "koalaFlip");
 
-      model.load(relPathToRes + "PPMImages/testOG.ppm", "mytest");
-      model.horizontalFlip("mytest", "mytestFlip");
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm"), "mytest");
+    model.horizontalFlip("mytest", "mytestFlip");
 
-      model.save("koalaFlip.ppm", "koalaFlip");
-      assertEquals(ImageUtil.readPPM("koalaFlip.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-horizontal.ppm"));
+    assertEquals(model.save("koalaFlip"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-horizontal.ppm"));
 
-      model.save("mytestFlip.ppm", "mytestFlip");
-      assertEquals(ImageUtil.readPPM("mytestFlip.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testHorizontal.ppm"));
-
-      if (!new File("koalaFlip.ppm").delete() || !new File("mytestFlip.ppm").delete()) {
-        fail("File not deleted");
-      }
-    } catch (Exception e) {
-      fail();
-    }
+    assertEquals(model.save("mytestFlip"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testHorizontal.ppm"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -129,27 +89,21 @@ public class IMEModelTest {
 
   @Test
   public void testVerticalFlip() {
-    try {
-      IIMEModel model = new IMEModel();
-      model.load(relPathToRes + "PPMImages/Koala.ppm", "koala");
-      model.verticalFlip("koala", "koalaFlip");
+    IIMEModel model = new IMEModel();
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm"), "koala");
+    model.verticalFlip("koala", "koalaFlip");
 
-      model.load(relPathToRes + "PPMImages/testOG.ppm", "mytest");
-      model.verticalFlip("mytest", "mytestFlip");
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm"), "mytest");
+    model.verticalFlip("mytest", "mytestFlip");
 
-      model.save("koalaFlip.ppm", "koalaFlip");
-      assertEquals(ImageUtil.readPPM("koalaFlip.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-vertical.ppm"));
+    assertEquals(model.save("koalaFlip"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-vertical.ppm"));
 
-      model.save("mytestFlip.ppm", "mytestFlip");
-      assertEquals(ImageUtil.readPPM("mytestFlip.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testVertical.ppm"));
+    assertEquals(model.save("mytestFlip"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testVertical.ppm"));
 
-      if (!new File("koalaFlip.ppm").delete() || !new File("mytestFlip.ppm").delete()) {
-        fail("File not deleted");
-      }
-    } catch (Exception e) {
-      fail();
+    if (!new File("koalaFlip.ppm").delete() || !new File("mytestFlip.ppm").delete()) {
+      fail("File not deleted");
     }
   }
 
@@ -161,116 +115,80 @@ public class IMEModelTest {
 
   @Test
   public void testHorizontalAndVerticalFlip() {
-    try {
-      IIMEModel model = new IMEModel();
-      model.load(relPathToRes + "PPMImages/Koala.ppm", "koala");
-      model.horizontalFlip("koala", "koalaFlip");
-      model.verticalFlip("koalaFlip", "koalaFlip");
-
-      model.load(relPathToRes + "PPMImages/testOG.ppm", "mytest");
-      model.horizontalFlip("mytest", "mytestFlip");
-      model.verticalFlip("mytestFlip", "mytestFlip");
-
-      model.save("koalaFlip.ppm", "koalaFlip");
-      assertEquals(ImageUtil.readPPM("koalaFlip.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-vertical-horizontal.ppm"));
-      assertEquals(ImageUtil.readPPM("koalaFlip.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-horizontal-vertical.ppm"));
-
-      model.save("mytestFlip.ppm", "mytestFlip");
-      assertEquals(ImageUtil.readPPM("mytestFlip.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testHorizontalVertical.ppm"));
-      assertEquals(ImageUtil.readPPM("mytestFlip.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testVerticalHorizontal.ppm"));
-
-      if (!new File("koalaFlip.ppm").delete() || !new File("mytestFlip.ppm").delete()) {
-        fail("File not deleted");
-      }
-    } catch (Exception e) {
-      fail();
-    }
-  }
-
-  @Test(expected = FileNotFoundException.class)
-  public void testSaveFileNotFound() throws FileNotFoundException {
     IIMEModel model = new IMEModel();
-    model.load(relPathToRes + "PPMImages/Koala.ppm", "koala");
-    model.save("unknown/path.ppm", "koala");
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm"), "koala");
+    model.horizontalFlip("koala", "koalaFlip");
+    model.verticalFlip("koalaFlip", "koalaFlip");
+
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm"), "mytest");
+    model.horizontalFlip("mytest", "mytestFlip");
+    model.verticalFlip("mytestFlip", "mytestFlip");
+
+    assertEquals(model.save("koalaFlip"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-vertical-horizontal.ppm"));
+    assertEquals(ImageUtil.readPPM("koalaFlip.ppm"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-horizontal-vertical.ppm"));
+
+    assertEquals(model.save("mytestFlip"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testHorizontalVertical.ppm"));
+    assertEquals(model.save("mytestFlip"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testVerticalHorizontal.ppm"));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testSaveUnloadedImage() {
-    try {
-      IIMEModel model = new IMEModel();
-      model.save("test.ppm", "koala");
-    } catch (FileNotFoundException e) {
-      fail();
-    }
+    IIMEModel model = new IMEModel();
+    model.save("koala");
   }
 
   @Test
   public void testGreyScale() {
-    try {
-      IIMEModel model = new IMEModel();
-      model.load(relPathToRes + "PPMImages/Koala.ppm", "koala");
-      model.load(relPathToRes + "PPMImages/testOG.ppm", "mytest");
+    IIMEModel model = new IMEModel();
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm"), "koala");
+    model.load(ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm"), "mytest");
 
-      model.greyScale("koala", "koalaGrey", GreyscaleComponent.RED);
-      model.greyScale("mytest", "mytestGrey", GreyscaleComponent.RED);
-      model.save("koalaGrey.ppm", "koalaGrey");
-      model.save("mytestGrey.ppm", "mytestGrey");
-      assertEquals(ImageUtil.readPPM("koalaGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-red-greyscale.ppm"));
-      assertEquals(ImageUtil.readPPM("mytestGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testRed.ppm"));
+    model.greyScale("koala", "koalaGrey", GreyscaleComponent.RED);
+    model.greyScale("mytest", "mytestGrey", GreyscaleComponent.RED);
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-red-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testRed.ppm"));
 
-      model.greyScale("koala", "koalaGrey", GreyscaleComponent.BLUE);
-      model.greyScale("mytest", "mytestGrey", GreyscaleComponent.BLUE);
-      model.save("koalaGrey.ppm", "koalaGrey");
-      model.save("mytestGrey.ppm", "mytestGrey");
-      assertEquals(ImageUtil.readPPM("koalaGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-blue-greyscale.ppm"));
-      assertEquals(ImageUtil.readPPM("mytestGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testBlue.ppm"));
+    model.greyScale("koala", "koalaGrey", GreyscaleComponent.BLUE);
+    model.greyScale("mytest", "mytestGrey", GreyscaleComponent.BLUE);
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-blue-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testBlue.ppm"));
 
-      model.greyScale("koala", "koalaGrey", GreyscaleComponent.GREEN);
-      model.greyScale("mytest", "mytestGrey", GreyscaleComponent.GREEN);
-      model.save("koalaGrey.ppm", "koalaGrey");
-      model.save("mytestGrey.ppm", "mytestGrey");
-      assertEquals(ImageUtil.readPPM("koalaGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-green-greyscale.ppm"));
-      assertEquals(ImageUtil.readPPM("mytestGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testGreen.ppm"));
+    model.greyScale("koala", "koalaGrey", GreyscaleComponent.GREEN);
+    model.greyScale("mytest", "mytestGrey", GreyscaleComponent.GREEN);
 
-      model.greyScale("koala", "koalaGrey", GreyscaleComponent.LUMA);
-      model.greyScale("mytest", "mytestGrey", GreyscaleComponent.LUMA);
-      model.save("koalaGrey.ppm", "koalaGrey");
-      model.save("mytestGrey.ppm", "mytestGrey");
-      assertEquals(ImageUtil.readPPM("koalaGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-luma-greyscale.ppm"));
-      assertEquals(ImageUtil.readPPM("mytestGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testLuma.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-green-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testGreen.ppm"));
 
-      model.greyScale("koala", "koalaGrey", GreyscaleComponent.VALUE);
-      model.greyScale("mytest", "mytestGrey", GreyscaleComponent.VALUE);
-      model.save("koalaGrey.ppm", "koalaGrey");
-      model.save("mytestGrey.ppm", "mytestGrey");
-      assertEquals(ImageUtil.readPPM("koalaGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-value-greyscale.ppm"));
-      assertEquals(ImageUtil.readPPM("mytestGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testValue.ppm"));
+    model.greyScale("koala", "koalaGrey", GreyscaleComponent.LUMA);
+    model.greyScale("mytest", "mytestGrey", GreyscaleComponent.LUMA);
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-luma-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testLuma.ppm"));
 
-      model.greyScale("koala", "koalaGrey", GreyscaleComponent.INTENSITY);
-      model.greyScale("mytest", "mytestGrey", GreyscaleComponent.INTENSITY);
-      model.save("koalaGrey.ppm", "koalaGrey");
-      model.save("mytestGrey.ppm", "mytestGrey");
-      assertEquals(ImageUtil.readPPM("koalaGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/koala-intensity-greyscale.ppm"));
-      assertEquals(ImageUtil.readPPM("mytestGrey.ppm"), ImageUtil.readPPM(relPathToRes +
-          "PPMImages/testIntensity.ppm"));
-    } catch (Exception e) {
-      fail();
-    }
+    model.greyScale("koala", "koalaGrey", GreyscaleComponent.VALUE);
+    model.greyScale("mytest", "mytestGrey", GreyscaleComponent.VALUE);
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-value-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testValue.ppm"));
+
+    model.greyScale("koala", "koalaGrey", GreyscaleComponent.INTENSITY);
+    model.greyScale("mytest", "mytestGrey", GreyscaleComponent.INTENSITY);
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-intensity-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testIntensity.ppm"));
   }
 
   @Test(expected = IllegalArgumentException.class)

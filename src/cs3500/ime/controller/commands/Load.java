@@ -1,7 +1,6 @@
 package cs3500.ime.controller.commands;
 
 import cs3500.ime.model.IIMEModel;
-import java.io.FileNotFoundException;
 
 public class Load implements IIMECommand {
 
@@ -22,8 +21,8 @@ public class Load implements IIMECommand {
   @Override
   public void run(IIMEModel model) throws IllegalStateException {
     try {
-      model.load(imageName, filePath);
-    } catch (FileNotFoundException e) {
+      // TODO: implement
+    } catch (Exception e) {
       throw new IllegalStateException(e.getMessage());
     }
   }

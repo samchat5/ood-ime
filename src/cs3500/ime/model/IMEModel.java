@@ -2,7 +2,6 @@ package cs3500.ime.model;
 
 import cs3500.ime.GreyscaleComponent;
 import cs3500.ime.image.IImage;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,13 +20,11 @@ public class IMEModel implements IIMEModel {
   /**
    * Load an image to the image mapping.
    *
-   * @param filePath filepath to load from
-   * @param name     name to give image
-   * @throws FileNotFoundException if the given file is not found
+   * @param image image object to load into map
+   * @param name  name to give image
    */
   @Override
-  public void load(String filePath, String name) throws FileNotFoundException {
-
+  public void load(IImage image, String name) {
   }
 
   /**
@@ -82,16 +79,15 @@ public class IMEModel implements IIMEModel {
   }
 
   /**
-   * Saves the image to the given filepath.
+   * Saves the image with the given name.
    *
-   * @param imagePath filepath to save to
    * @param imageName image to save
-   * @throws FileNotFoundException    if the given path DNE
+   * @return the Image object, sent to the controller to handle file IO
    * @throws IllegalArgumentException if the given image is not loaded
    */
   @Override
-  public void save(String imagePath, String imageName)
-      throws FileNotFoundException, IllegalArgumentException {
+  public IImage save(String imageName) {
+    return null;
   }
 
   /**
