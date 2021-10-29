@@ -43,6 +43,10 @@ public class Image implements IImage {
 
   @Override
   public IImage getComponent(GreyscaleComponent component) {
+//    switch (component) {
+//      case RED:
+//        return new
+//    }
     return null;
   }
 

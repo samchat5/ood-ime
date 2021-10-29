@@ -25,6 +25,7 @@ public class IMEModel implements IIMEModel {
    */
   @Override
   public void load(IImage image, String name) {
+    imageMap.put(name, image);
   }
 
   /**
@@ -35,7 +36,7 @@ public class IMEModel implements IIMEModel {
    */
   @Override
   public boolean isLoaded(String name) {
-    return false;
+    return imageMap.containsKey(name);
   }
 
   /**
