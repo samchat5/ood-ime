@@ -91,6 +91,15 @@ public class Pixel implements IPixel {
         return new Pixel(blue);
       case GREEN:
         return new Pixel(green);
+      case VALUE:
+        int maxValue = Math.max(Math.max(this.red, this.green), this.blue);
+        return new Pixel(maxValue);
+      case INTENSITY:
+        int average = (this.red + this.green + this.green) / 3;
+        return new Pixel(average);
+      case LUMA:
+        int lumaValue = (int) (0.2126 * this.red + 0.7152 * this.green + 0.0722 * this.blue);
+        return new Pixel(lumaValue);
       default:
         return null;
     }

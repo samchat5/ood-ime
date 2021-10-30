@@ -43,11 +43,15 @@ public class Image implements IImage {
 
   @Override
   public IImage getComponent(GreyscaleComponent component) {
-//    switch (component) {
-//      case RED:
-//        return new
-//    }
-    return null;
+    IPixel[][] newPixelArray = new IPixel[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        IPixel foo = pixelArray[i][j];
+        newPixelArray[i][j] = foo.getComponent(component);
+      }
+    }
+    return new Image(this.height, this.width, newPixelArray);
+
   }
 
   @Override

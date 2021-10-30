@@ -49,8 +49,18 @@ public class IMEModel implements IIMEModel {
    *                                  image is not loaded
    */
   @Override
-  public void brighten(String imageName, int value, String newImageName)
-      throws IllegalArgumentException {
+  public void brighten(String imageName, int value, String newImageName) throws IllegalArgumentException{
+    if (!imageMap.containsKey(imageName)) {
+      throw new IllegalArgumentException("Specified image is not loaded");
+    }
+    if (value > 255 || value < -255) {
+      throw new IllegalArgumentException("Given value is invalid");
+      //TODO: I think this may be a design mistake as the min and max value may be bigger
+      // depending on bitValue
+    }
+    IImage brightenedImage = imageMap.get(imageName).brighten(value);
+    imageMap.put(newImageName, brightenedImage);
+
 
   }
 
@@ -62,8 +72,12 @@ public class IMEModel implements IIMEModel {
    * @throws IllegalArgumentException if the image is not loaded
    */
   @Override
-  public void horizontalFlip(String imageName, String destImageName)
-      throws IllegalArgumentException {
+  public void horizontalFlip(String imageName, String destImageName) throws IllegalArgumentException{
+    if (!imageMap.containsKey(imageName)) {
+      throw new IllegalArgumentException("Specified image is not loaded");
+    }
+    IImage flippedImage = imageMap.get(imageName).horizontalFlip();
+    imageMap.put(destImageName, flippedImage);
 
   }
 
@@ -76,6 +90,12 @@ public class IMEModel implements IIMEModel {
    */
   @Override
   public void verticalFlip(String imageName, String destImageName) throws IllegalArgumentException {
+    if (!imageMap.containsKey(imageName)) {
+      throw new IllegalArgumentException("Specified image is not loaded");
+    }
+    IImage flippedImage = imageMap.get(imageName).verticalFlip();
+    imageMap.put(destImageName, flippedImage);
+    //TODO: Potential code duplication from horizontalFlip and other methods
 
   }
 
@@ -102,6 +122,11 @@ public class IMEModel implements IIMEModel {
   @Override
   public void greyScale(String imageName, String destImageName, GreyscaleComponent component)
       throws IllegalArgumentException {
+    if (!imageMap.containsKey(imageName)) {
+      throw new IllegalArgumentException("Specified image is not loaded");
+    }
+    IImage greyScaledImage = imageMap.get(imageName).getComponent(component);
+    imageMap.put(destImageName, greyScaledImage);
 
   }
 }
