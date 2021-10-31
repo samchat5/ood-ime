@@ -70,6 +70,20 @@ public class IMEController implements IIMEController {
    */
   @Override
   public void run() throws IllegalStateException {
-
+    Scanner scan = new Scanner(this.readable);
+    while (scan.hasNext()) {
+      IIMECommand c;
+      String in = scan.next();
+      if (in.equalsIgnoreCase("q") || in.equalsIgnoreCase("quit"))
+        return;
+      Function<Scanner, IIMECommand> cmd = knownCommands.getOrDefault(in, null);
+      if (cmd == null) {
+        throw new IllegalArgumentException();
+      } else {
+        c = cmd.apply(scan);
+        commands.add(c);
+        c.run(model);
+      }
+    }
   }
 }
