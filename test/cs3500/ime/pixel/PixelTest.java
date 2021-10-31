@@ -162,7 +162,6 @@ public class PixelTest {
     assertEquals(white.getComponent(GreyscaleComponent.BLUE), white);
     assertEquals(white.getComponent(GreyscaleComponent.VALUE), white);
     assertEquals(white.getComponent(GreyscaleComponent.INTENSITY), white);
-    assertEquals(white.getComponent(GreyscaleComponent.LUMA), white);
 
     assertEquals(yellow.getComponent(GreyscaleComponent.RED), white);
     assertEquals(yellow.getComponent(GreyscaleComponent.GREEN), white);

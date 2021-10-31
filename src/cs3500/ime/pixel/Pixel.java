@@ -62,7 +62,7 @@ public class Pixel implements IPixel {
   @Override
   public IPixel brighten(int value) {
     return new Pixel(brightenHelper(this.red, value), brightenHelper(this.green, value),
-                    brightenHelper(this.blue, value));
+        brightenHelper(this.blue, value));
   }
 
   private int brightenHelper(int originalColor, int value) {
@@ -70,8 +70,7 @@ public class Pixel implements IPixel {
     int newColorVal = originalColor + value;
     if (newColorVal < 0) {
       return 0;
-    }
-    else  {
+    } else {
       return Math.min(newColorVal, maxValue);
     }
   }
@@ -95,13 +94,9 @@ public class Pixel implements IPixel {
         int maxValue = Math.max(Math.max(this.red, this.green), this.blue);
         return new Pixel(maxValue);
       case INTENSITY:
-        double average = (this.red + this.green + this.blue) / 3.0;
-        int roundedAverage = (int) Math.round(average);
-        return new Pixel(roundedAverage);
+        return new Pixel((this.red + this.green + this.blue) / 3);
       case LUMA:
-        double lumaValue = (0.2126 * this.red + 0.7152 * this.green + 0.0722 * this.blue);
-        int roundedLuma = (int) Math.round(lumaValue);
-        return new Pixel(roundedLuma);
+        return new Pixel((int) (0.2126 * this.red + 0.7152 * this.green + 0.0722 * this.blue));
       default:
         return null;
     }

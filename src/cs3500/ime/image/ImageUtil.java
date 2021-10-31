@@ -50,8 +50,9 @@ public class ImageUtil {
     // System.out.println("Width of image: " + width);
     int height = sc.nextInt();
     // System.out.println("Height of image: " + height);
+    sc.nextInt();
 
-    IPixel[][] image = new IPixel[width][height];
+    IPixel[][] image = new IPixel[height][width];
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -60,7 +61,7 @@ public class ImageUtil {
         int b = sc.nextInt();
 
         IPixel foo = new Pixel(r, g, b);
-        image[j][i] = foo;
+        image[i][j] = foo;
 
         // System.out.println("Color of pixel (" + j + "," + i + "): " + r + "," + g + "," + b);
       }

@@ -49,7 +49,8 @@ public class IMEModel implements IIMEModel {
    *                                  image is not loaded
    */
   @Override
-  public void brighten(String imageName, int value, String newImageName) throws IllegalArgumentException{
+  public void brighten(String imageName, int value, String newImageName)
+      throws IllegalArgumentException {
     if (!imageMap.containsKey(imageName)) {
       throw new IllegalArgumentException("Specified image is not loaded");
     }
@@ -72,7 +73,8 @@ public class IMEModel implements IIMEModel {
    * @throws IllegalArgumentException if the image is not loaded
    */
   @Override
-  public void horizontalFlip(String imageName, String destImageName) throws IllegalArgumentException{
+  public void horizontalFlip(String imageName, String destImageName)
+      throws IllegalArgumentException {
     if (!imageMap.containsKey(imageName)) {
       throw new IllegalArgumentException("Specified image is not loaded");
     }
@@ -108,7 +110,11 @@ public class IMEModel implements IIMEModel {
    */
   @Override
   public IImage save(String imageName) {
-    return null;
+    if (imageMap.containsKey(imageName)) {
+      return this.imageMap.get(imageName);
+    } else {
+      throw new IllegalArgumentException("Unloaded image.");
+    }
   }
 
   /**
