@@ -433,12 +433,10 @@ public class ImageTest {
         new IPixel[][]{{new Pixel(12, 44, 198), new Pixel(244, 109, 77)},
             {new Pixel(87, 65, 176), new Pixel(98, 2, 199)}});
 
-    assertEquals(greyScale.toString(), "Pixel at (0, 0): (233, 233, 233) with 8 bits\nPixel at "
-        + "(0, 1): (125, 125, 125) with 8 bits\nPixel at (1, 0): (123, 123, 123) with 8 "
-        + "bits\nPixel at (1, 1): (187, 187, 187) with 8 bits\n");
-    assertEquals(color.toString(), "Pixel at (0, 0): (12, 44, 198) with 8 bits\nPixel at "
-        + "(0, 1): (244, 109, 77) with 8 bits\nPixel at (1, 0): (87, 65, 176) with 8 "
-        + "bits\nPixel at (1, 1): (98, 2, 199) with 8 bits\n");
+    assertEquals(greyScale.toString(),
+        "2 2\n255\n233\n233\n233\n125\n125\n125\n123\n123\n123\n187\n187\n187\n");
+    assertEquals(color.toString(), "2 2\n255\n12\n44\n198\n244\n109\n77\n87\n65\n176\n98\n2\n199"
+        + "\n");
   }
 
   @Test(expected = IllegalArgumentException.class)

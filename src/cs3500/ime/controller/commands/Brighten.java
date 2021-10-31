@@ -25,7 +25,7 @@ public class Brighten implements IIMECommand {
     try {
       model.brighten(imageName, value, newImageName);
     } catch (Exception e) {
-      throw new IllegalStateException(e.getMessage());
+      throw new IllegalStateException("Invalid brightening command.");
     }
   }
 }

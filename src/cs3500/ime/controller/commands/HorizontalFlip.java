@@ -23,7 +23,7 @@ public class HorizontalFlip implements IIMECommand {
     try {
       model.horizontalFlip(imageName, destImageName);
     } catch (Exception e) {
-      throw new IllegalStateException(e.getMessage());
+      throw new IllegalStateException("Invalid horizontal flip command.");
     }
   }
 }

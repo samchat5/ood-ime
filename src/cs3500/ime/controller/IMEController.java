@@ -12,6 +12,7 @@ import cs3500.ime.model.IIMEModel;
 import cs3500.ime.view.IIMEView;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Stack;
 import java.util.function.Function;
@@ -66,24 +67,39 @@ public class IMEController implements IIMEController {
    * Runs the controller and starts up the main IME program.
    *
    * @throws IllegalStateException iff the controller is unable to successfully read input or
-   *                               transmit output
+   *                               transmit output, or it runs out of inputs
    */
   @Override
   public void run() throws IllegalStateException {
-    Scanner scan = new Scanner(this.readable);
-    while (scan.hasNext()) {
-      IIMECommand c;
-      String in = scan.next();
-      if (in.equalsIgnoreCase("q") || in.equalsIgnoreCase("quit"))
-        return;
-      Function<Scanner, IIMECommand> cmd = knownCommands.getOrDefault(in, null);
-      if (cmd == null) {
-        throw new IllegalArgumentException();
-      } else {
-        c = cmd.apply(scan);
-        commands.add(c);
-        c.run(model);
+    try {
+      Scanner scan = new Scanner(this.readable);
+      while (scan.hasNext()) {
+        IIMECommand c;
+        String in = scan.next();
+        if (in.equalsIgnoreCase("quit")) {
+          return;
+        }
+        Function<Scanner, IIMECommand> cmd = knownCommands.get(in);
+        if (cmd == null) {
+          this.view.displayMessage("Unknown command.\n");
+          scan.nextLine();
+        } else {
+          try {
+            c = cmd.apply(scan);
+            commands.add(c);
+            c.run(model);
+          } catch (NoSuchElementException e) {
+            this.view.displayMessage("Invalid command usage.\n");
+            scan.nextLine();
+          } catch (Exception e) {
+            this.view.displayMessage(e.getMessage() + "\n");
+          }
+        }
       }
+      // ran out of inputs
+      throw new IllegalStateException();
+    } catch (Exception e) {
+      throw new IllegalStateException();
     }
   }
 }

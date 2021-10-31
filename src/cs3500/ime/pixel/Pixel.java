@@ -46,7 +46,7 @@ public class Pixel implements IPixel {
 
   @Override
   public String toString() {
-    return "(" + red + ", " + green + ", " + blue + ") with " + bits + " bits";
+    return String.format("%d\n%d\n%d\n", red, green, blue);
   }
 
   private boolean outOfRange(int... vals) {

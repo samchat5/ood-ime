@@ -1,5 +1,7 @@
 package cs3500.ime.controller.commands;
 
+import cs3500.ime.image.IImage;
+import cs3500.ime.image.ImageUtil;
 import cs3500.ime.model.IIMEModel;
 
 public class Save implements IIMECommand {
@@ -21,9 +23,10 @@ public class Save implements IIMECommand {
   @Override
   public void run(IIMEModel model) throws IllegalStateException {
     try {
-      // TODO: implement file IO
+      IImage image = model.save(imageName);
+      ImageUtil.writePPM(filePath, image);
     } catch (Exception e) {
-      throw new IllegalStateException(e.getMessage());
+      throw new IllegalStateException("Save file not found.");
     }
   }
 }

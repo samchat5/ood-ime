@@ -24,14 +24,14 @@ public class PixelTest {
 
   @Test
   public void testToString() {
-    assertEquals(white.toString(), "(255, 255, 255) with 8 bits");
-    assertEquals(yellow.toString(), "(255, 255, 0) with 8 bits");
-    assertEquals(magenta.toString(), "(255, 0, 255) with 8 bits");
-    assertEquals(cyan.toString(), "(0, 255, 255) with 8 bits");
-    assertEquals(red.toString(), "(255, 0, 0) with 8 bits");
-    assertEquals(green.toString(), "(0, 255, 0) with 8 bits");
-    assertEquals(blue.toString(), "(0, 0, 255) with 8 bits");
-    assertEquals(black.toString(), "(0, 0, 0) with 8 bits");
+    assertEquals(white.toString(), "255\n255\n255\n");
+    assertEquals(yellow.toString(), "255\n255\n0\n");
+    assertEquals(magenta.toString(), "255\n0\n255\n");
+    assertEquals(cyan.toString(), "0\n255\n255\n");
+    assertEquals(red.toString(), "255\n0\n0\n");
+    assertEquals(green.toString(), "0\n255\n0\n");
+    assertEquals(blue.toString(), "0\n0\n255\n");
+    assertEquals(black.toString(), "0\n0\n0\n");
   }
 
   @Test

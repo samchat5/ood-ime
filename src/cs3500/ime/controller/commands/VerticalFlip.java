@@ -23,7 +23,7 @@ public class VerticalFlip implements IIMECommand {
     try {
       model.verticalFlip(imageName, destImageName);
     } catch (Exception e) {
-      throw new IllegalStateException(e.getMessage());
+      throw new IllegalStateException("Invalid vertical flip command.");
     }
   }
 }

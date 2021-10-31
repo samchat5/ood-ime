@@ -87,12 +87,11 @@ public class Image implements IImage {
   @Override
   public String toString() {
     StringBuilder output = new StringBuilder();
+    output.append(String.format("%d %d\n255\n", width, height));
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         IPixel foo = pixelArray[i][j];
-        output.append("Pixel at (").append(i).append(", ").append(j).append("): ");
         output.append(foo.toString());
-        output.append("\n");
       }
     }
     return output.toString();

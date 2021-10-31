@@ -48,7 +48,7 @@ public class IMEControllerTest {
         ImageUtil.readPPM("res/PPMImages/Koala.ppm"));
     assertEquals(ImageUtil.readPPM("test/mytest.ppm"),
         ImageUtil.readPPM("res/PPMImages/testOG.ppm"));
-    if (!new File("test/koalaTest.ppm").delete()) {
+    if (!new File("test/koalaTest.ppm").delete() || !new File("test/mytest.ppm").delete()) {
       fail();
     }
   }
@@ -78,7 +78,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Save file not found.");
+    assertEquals(app.toString(), "Save file not found.\n");
   }
 
   @Test
@@ -88,7 +88,18 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Unknown command.");
+    assertEquals(app.toString(), "Unknown command.\n");
+  }
+
+
+  @Test
+  public void testUnknownCommandMultipleArgs() {
+    StringBuilder app = new StringBuilder();
+    String in = "some-command ei a q whe a a qwke e  a ksk  dad  \nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Unknown command.\n");
   }
 
   @Test
@@ -98,7 +109,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Load file not found.");
+    assertEquals(app.toString(), "Load file not found.\n");
   }
 
   @Test
@@ -108,7 +119,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid red component command.");
+    assertEquals(app.toString(), "Invalid RED component command.\n");
   }
 
   @Test
@@ -118,7 +129,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid blue component command.");
+    assertEquals(app.toString(), "Invalid BLUE component command.\n");
   }
 
   @Test
@@ -128,7 +139,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid green component command.");
+    assertEquals(app.toString(), "Invalid GREEN component command.\n");
   }
 
   @Test
@@ -138,7 +149,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid luma component command.");
+    assertEquals(app.toString(), "Invalid LUMA component command.\n");
   }
 
   @Test
@@ -148,7 +159,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid intensity component command.");
+    assertEquals(app.toString(), "Invalid INTENSITY component command.\n");
   }
 
   @Test
@@ -158,14 +169,14 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid value component command.");
+    assertEquals(app.toString(), "Invalid VALUE component command.\n");
   }
 
   @Test
   public void testRedComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n"
-        + "load PPMImages/testOG.ppm mytest\n"
+    String in = "load res/PPMImages/Koala.ppm koala\n"
+        + "load res/PPMImages/testOG.ppm mytest\n"
         + "red-component koala koalaGrey\n"
         + "red-component mytest mytestGrey\n"
         + "save test/mytestGrey.ppm mytestGrey\n"
@@ -177,7 +188,7 @@ public class IMEControllerTest {
         "res/PPMImages/koala-red-greyscale.ppm"));
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testRed.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/koalaGrey.ppm").delete()) {
+    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -185,8 +196,8 @@ public class IMEControllerTest {
   @Test
   public void testBlueComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n"
-        + "load PPMImages/testOG.ppm mytest\n"
+    String in = "load res/PPMImages/Koala.ppm koala\n"
+        + "load res/PPMImages/testOG.ppm mytest\n"
         + "blue-component koala koalaGrey\n"
         + "blue-component mytest mytestGrey\n"
         + "save test/mytestGrey.ppm mytestGrey\n"
@@ -198,7 +209,7 @@ public class IMEControllerTest {
         "res/PPMImages/koala-blue-greyscale.ppm"));
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testBlue.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/koalaGrey.ppm").delete()) {
+    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -206,8 +217,8 @@ public class IMEControllerTest {
   @Test
   public void testGreenComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n"
-        + "load PPMImages/testOG.ppm mytest\n"
+    String in = "load res/PPMImages/Koala.ppm koala\n"
+        + "load res/PPMImages/testOG.ppm mytest\n"
         + "green-component koala koalaGrey\n"
         + "green-component mytest mytestGrey\n"
         + "save test/mytestGrey.ppm mytestGrey\n"
@@ -219,7 +230,7 @@ public class IMEControllerTest {
         "res/PPMImages/koala-green-greyscale.ppm"));
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testGreen.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/koalaGrey.ppm").delete()) {
+    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -227,8 +238,8 @@ public class IMEControllerTest {
   @Test
   public void testLumaComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n"
-        + "load PPMImages/testOG.ppm mytest\n"
+    String in = "load res/PPMImages/Koala.ppm koala\n"
+        + "load res/PPMImages/testOG.ppm mytest\n"
         + "luma-component koala koalaGrey\n"
         + "luma-component mytest mytestGrey\n"
         + "save test/mytestGrey.ppm mytestGrey\n"
@@ -240,7 +251,7 @@ public class IMEControllerTest {
         "res/PPMImages/koala-luma-greyscale.ppm"));
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testLuma.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/koalaGrey.ppm").delete()) {
+    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -248,8 +259,8 @@ public class IMEControllerTest {
   @Test
   public void testValueComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n"
-        + "load PPMImages/testOG.ppm mytest\n"
+    String in = "load res/PPMImages/Koala.ppm koala\n"
+        + "load res/PPMImages/testOG.ppm mytest\n"
         + "value-component koala koalaGrey\n"
         + "value-component mytest mytestGrey\n"
         + "save test/mytestGrey.ppm mytestGrey\n"
@@ -269,8 +280,8 @@ public class IMEControllerTest {
   @Test
   public void testIntensityComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n"
-        + "load PPMImages/testOG.ppm mytest\n"
+    String in = "load res/PPMImages/Koala.ppm koala\n"
+        + "load res/PPMImages/testOG.ppm mytest\n"
         + "intensity-component koala koalaGrey\n"
         + "intensity-component mytest mytestGrey\n"
         + "save test/mytestGrey.ppm mytestGrey\n"
@@ -290,8 +301,8 @@ public class IMEControllerTest {
   @Test
   public void testBrighten() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n"
-        + "load PPMImages/testOG.ppm mytest\n"
+    String in = "load res/PPMImages/Koala.ppm koala\n"
+        + "load res/PPMImages/testOG.ppm mytest\n"
         + "brighten 50 koala koalaBright\n"
         + "brighten 50 mytest mytestBright\n"
         + "save test/mytestBright.ppm mytestBright\n"
@@ -317,45 +328,50 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid brightening command.");
+    assertEquals(app.toString(), "Invalid brightening command.\n");
   }
 
   @Test
   public void testBrightenAboveRange() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n" +
+    String in = "load res/PPMImages/Koala.ppm koala\n" +
         " brighten 300 koala koalaBright\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid brightening command.");
+    assertEquals(app.toString(), "Invalid brightening command.\n");
   }
 
   @Test
   public void testBrightenBelowRange() {
     StringBuilder app = new StringBuilder();
-    String in = "load PPMImages/Koala.ppm koala\n" +
+    String in = "load res/PPMImages/Koala.ppm koala\n" +
         " brighten -300 koala koalaBright\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid brightening command.");
+    assertEquals(app.toString(), "Invalid brightening command.\n");
   }
 
   @Test
   public void testHorizontalFlip() {
     StringBuilder app = new StringBuilder();
     String in = "load res/PPMImages/Koala.ppm koala\n" +
-        "load res/PPMImages/mytest.ppm mytest\n" +
+        "load res/PPMImages/testOG.ppm mytest\n" +
         "horizontal-flip koala koalaFlip\n" +
-        "horizontal-flip mytest mytestFlip\nquit\n";
+        "horizontal-flip mytest mytestFlip\n" +
+        "save test/koalaFlip.ppm koalaFlip\n" +
+        "save test/mytestFlip.ppm mytestFlip\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaFlip"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("test/koalaFlip.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-horizontal.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestFlip"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("test/mytestFlip.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testHorizontal.ppm"));
+    if (!new File("test/koalaFlip.ppm").delete() || !new File("test/mytestFlip.ppm").delete()) {
+      fail();
+    }
   }
 
   @Test
@@ -365,23 +381,38 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid horizontal flip command.");
+    assertEquals(app.toString(), "Invalid horizontal flip command.\n");
   }
 
   @Test
   public void testVerticalFlip() {
     StringBuilder app = new StringBuilder();
     String in = "load res/PPMImages/Koala.ppm koala\n" +
-        "load res/PPMImages/mytest.ppm mytest\n" +
+        "load res/PPMImages/testOG.ppm mytest\n" +
         "vertical-flip koala koalaFlip\n" +
-        "vertical-flip mytest mytestFlip\nquit\n";
+        "vertical-flip mytest mytestFlip\n" +
+        "save test/koalaFlip.ppm koalaFlip\n" +
+        "save test/mytestFlip.ppm mytestFlip\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaFlip"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("test/koalaFlip.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-vertical.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestFlip"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("test/mytestFlip.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testVertical.ppm"));
+    if (!new File("test/koalaFlip.ppm").delete() || !new File("test/mytestFlip.ppm").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testInvalidCommandUsage() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PPMImages/Koala.ppm koala\n" + "brighten koala 255 koalaBright\nquit";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Invalid command usage.\n");
   }
 
   @Test
@@ -391,6 +422,6 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid vertical flip command.");
+    assertEquals(app.toString(), "Invalid vertical flip command.\n");
   }
 }
