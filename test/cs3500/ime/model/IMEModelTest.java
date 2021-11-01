@@ -4,9 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import cs3500.ime.GreyscaleComponent;
-import cs3500.ime.image.IImage;
-import cs3500.ime.image.ImageUtil;
+import cs3500.ime.model.image.IImage;
+import cs3500.ime.model.image.ImageUtil;
 import org.junit.Test;
 
 /**

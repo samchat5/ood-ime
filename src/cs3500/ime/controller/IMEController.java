@@ -1,6 +1,5 @@
 package cs3500.ime.controller;
 
-import cs3500.ime.GreyscaleComponent;
 import cs3500.ime.controller.commands.Brighten;
 import cs3500.ime.controller.commands.GreyScale;
 import cs3500.ime.controller.commands.HorizontalFlip;
@@ -8,6 +7,7 @@ import cs3500.ime.controller.commands.IIMECommand;
 import cs3500.ime.controller.commands.Load;
 import cs3500.ime.controller.commands.Save;
 import cs3500.ime.controller.commands.VerticalFlip;
+import cs3500.ime.model.GreyscaleComponent;
 import cs3500.ime.model.IIMEModel;
 import cs3500.ime.view.IIMEView;
 import java.util.HashMap;

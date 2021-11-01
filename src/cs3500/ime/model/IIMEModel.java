@@ -1,7 +1,6 @@
 package cs3500.ime.model;
 
-import cs3500.ime.GreyscaleComponent;
-import cs3500.ime.image.IImage;
+import cs3500.ime.model.image.IImage;
 
 /**
  * Model for this IME program. Concrete implementations contain a mapping of image names to the

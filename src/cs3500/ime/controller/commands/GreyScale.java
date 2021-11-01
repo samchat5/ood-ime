@@ -1,6 +1,6 @@
 package cs3500.ime.controller.commands;
 
-import cs3500.ime.GreyscaleComponent;
+import cs3500.ime.model.GreyscaleComponent;
 import cs3500.ime.model.IIMEModel;
 
 /**

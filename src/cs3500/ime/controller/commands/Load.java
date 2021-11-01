@@ -1,7 +1,7 @@
 package cs3500.ime.controller.commands;
 
-import cs3500.ime.image.ImageUtil;
 import cs3500.ime.model.IIMEModel;
+import cs3500.ime.model.image.ImageUtil;
 
 /**
  * Represents the "load" command, which loads the image at the file path to the model and assigns it

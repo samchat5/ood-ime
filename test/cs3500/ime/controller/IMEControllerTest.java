@@ -3,7 +3,7 @@ package cs3500.ime.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import cs3500.ime.image.ImageUtil;
+import cs3500.ime.model.image.ImageUtil;
 import cs3500.ime.model.IMEModel;
 import cs3500.ime.view.IMETextView;
 import java.io.File;
