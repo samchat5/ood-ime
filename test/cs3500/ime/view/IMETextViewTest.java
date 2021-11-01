@@ -7,6 +7,9 @@ import cs3500.ime.controller.MockAppendable;
 import java.io.IOException;
 import org.junit.Test;
 
+/**
+ * Tests for IMETextView.
+ */
 public class IMETextViewTest {
 
   @Test

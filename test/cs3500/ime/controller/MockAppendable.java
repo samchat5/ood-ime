@@ -3,14 +3,16 @@ package cs3500.ime.controller;
 import java.io.IOException;
 import java.nio.CharBuffer;
 
+/**
+ * MockAppendable used for testing.
+ */
 public class MockAppendable implements Appendable {
 
   /**
-   * Appends the specified character sequence to this {@code Appendable}.
-   *
-   * <p> Depending on which class implements the character sequence
-   * {@code csq}, the entire sequence may not be appended.  For instance, if {@code csq} is a {@link
-   * CharBuffer} then the subsequence to append is defined by the buffer's position and limit.
+   * Appends the specified character sequence to this {@code Appendable}. Depending on which class
+   * implements the character sequence {@code csq}, the entire sequence may not be appended.  For
+   * instance, if {@code csq} is a {@link CharBuffer} then the subsequence to append is defined by
+   * the buffer's position and limit.
    *
    * @param csq The character sequence to append.  If {@code csq} is {@code null}, then the four
    *            characters {@code "null"} are appended to this Appendable.
@@ -23,13 +25,10 @@ public class MockAppendable implements Appendable {
   }
 
   /**
-   * Appends a subsequence of the specified character sequence to this {@code Appendable}.
-   *
-   * <p> An invocation of this method of the form {@code out.append(csq, start, end)}
-   * when {@code csq} is not {@code null}, behaves in exactly the same way as the invocation
-   *
-   * <pre>
-   *     out.append(csq.subSequence(start, end)) </pre>
+   * Appends a subsequence of the specified character sequence to this {@code Appendable}. An
+   * invocation of this method of the form {@code out.append(csq, start, end)} when {@code csq} is
+   * not {@code null}, behaves in exactly the same way as the invocation
+   * out.append(csq.subSequence(start, end))
    *
    * @param csq   The character sequence from which a subsequence will be appended.  If {@code csq}
    *              is {@code null}, then characters will be appended as if {@code csq} contained the

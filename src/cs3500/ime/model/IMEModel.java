@@ -56,13 +56,9 @@ public class IMEModel implements IIMEModel {
     }
     if (value > 255 || value < -255) {
       throw new IllegalArgumentException("Given value is invalid");
-      //TODO: I think this may be a design mistake as the min and max value may be bigger
-      // depending on bitValue
     }
     IImage brightenedImage = imageMap.get(imageName).brighten(value);
     imageMap.put(newImageName, brightenedImage);
-
-
   }
 
   /**
@@ -97,8 +93,6 @@ public class IMEModel implements IIMEModel {
     }
     IImage flippedImage = imageMap.get(imageName).verticalFlip();
     imageMap.put(destImageName, flippedImage);
-    //TODO: Potential code duplication from horizontalFlip and other methods
-
   }
 
   /**
@@ -133,6 +127,5 @@ public class IMEModel implements IIMEModel {
     }
     IImage greyScaledImage = imageMap.get(imageName).getComponent(component);
     imageMap.put(destImageName, greyScaledImage);
-
   }
 }

@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.StringReader;
 import org.junit.Test;
 
+/**
+ * Tests for IMEController.
+ */
 public class IMEControllerTest {
 
   @Test(expected = IllegalArgumentException.class)
@@ -74,11 +77,21 @@ public class IMEControllerTest {
   @Test
   public void testSaveFileNotFound() {
     StringBuilder app = new StringBuilder();
-    String in = "save unknown/path.ppm koala\nquit\n";
+    String in = "load res/PPMImages/Koala.ppm koala\nsave unknown/path.ppm koala\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Save file not found.\n");
+    assertEquals(app.toString(), "Save file/image not found.\n");
+  }
+
+  @Test
+  public void testSaveFileWithoutLoading() {
+    StringBuilder app = new StringBuilder();
+    String in = "save res/PPMImages/koala2.ppm koala\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Save file/image not found.\n");
   }
 
   @Test

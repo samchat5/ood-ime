@@ -2,12 +2,22 @@ package cs3500.ime.controller.commands;
 
 import cs3500.ime.model.IIMEModel;
 
+/**
+ * Represents the "brighten" command, with the given arguments passed to the constructor.
+ */
 public class Brighten implements IIMECommand {
 
   private final String newImageName;
   private final int value;
   private final String imageName;
 
+  /**
+   * Constructor for this class.
+   *
+   * @param value        value to brighten image by
+   * @param imageName    name of image to brighten
+   * @param newImageName image name to save new image to
+   */
   public Brighten(int value, String imageName, String newImageName) {
     this.imageName = imageName;
     this.value = value;
