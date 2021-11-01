@@ -44,11 +44,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaTest.ppm"),
+    assertEquals(ImageUtil.readPPM("/koalaTest.ppm"),
         ImageUtil.readPPM("res/PPMImages/Koala.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytest.ppm"),
+    assertEquals(ImageUtil.readPPM("/mytest.ppm"),
         ImageUtil.readPPM("res/PPMImages/testOG.ppm"));
-    if (!new File("test/koalaTest.ppm").delete() || !new File("test/mytest.ppm").delete()) {
+    if (!new File("/koalaTest.ppm").delete() || !new File("/mytest.ppm").delete()) {
       fail();
     }
   }
@@ -184,11 +184,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-red-greyscale.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testRed.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+    if (!new File("/koalaGrey.ppm").delete() || !new File("/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -205,11 +205,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-blue-greyscale.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testBlue.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+    if (!new File("/koalaGrey.ppm").delete() || !new File("/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -226,11 +226,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-green-greyscale.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testGreen.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+    if (!new File("/koalaGrey.ppm").delete() || !new File("/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -247,11 +247,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-luma-greyscale.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testLuma.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+    if (!new File("/koalaGrey.ppm").delete() || !new File("/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -268,11 +268,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-value-greyscale.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testValue.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+    if (!new File("/koalaGrey.ppm").delete() || !new File("/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -289,11 +289,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-intensity-greyscale.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestGrey.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testIntensity.ppm"));
-    if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+    if (!new File("/koalaGrey.ppm").delete() || !new File("/mytestGrey.ppm").delete()) {
       fail();
     }
   }
@@ -311,12 +311,12 @@ public class IMEControllerTest {
         new StringReader(in));
     cont.run();
 
-    assertEquals(ImageUtil.readPPM("test/koalaBright.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaBright.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-brighter-by-50.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestBright.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestBright.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testBrightenBy50.ppm"));
 
-    if (!new File("test/koalaBright.ppm").delete() || !new File("test/mytestBright.ppm").delete()) {
+    if (!new File("/koalaBright.ppm").delete() || !new File("/mytestBright.ppm").delete()) {
       fail();
     }
   }
@@ -365,11 +365,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaFlip.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaFlip.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-horizontal.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestFlip.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestFlip.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testHorizontal.ppm"));
-    if (!new File("test/koalaFlip.ppm").delete() || !new File("test/mytestFlip.ppm").delete()) {
+    if (!new File("/koalaFlip.ppm").delete() || !new File("/mytestFlip.ppm").delete()) {
       fail();
     }
   }
@@ -396,11 +396,11 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaFlip.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/koalaFlip.ppm"), ImageUtil.readPPM(
         "res/PPMImages/koala-vertical.ppm"));
-    assertEquals(ImageUtil.readPPM("test/mytestFlip.ppm"), ImageUtil.readPPM(
+    assertEquals(ImageUtil.readPPM("/mytestFlip.ppm"), ImageUtil.readPPM(
         "res/PPMImages/testVertical.ppm"));
-    if (!new File("test/koalaFlip.ppm").delete() || !new File("test/mytestFlip.ppm").delete()) {
+    if (!new File("/koalaFlip.ppm").delete() || !new File("/mytestFlip.ppm").delete()) {
       fail();
     }
   }

@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'groovy'
+}
+
+group 'org.IkeSam'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+    test {
+        java {
+            srcDirs = ['test']
+        }
+    }
+}
+dependencies {
+    testImplementation('junit:junit:4.13.2')
+    testCompileClasspath('junit:junit:4.13.2')
+}
+
+test {
+    useJUnit()
+
+    maxHeapSize = '1G'
+}

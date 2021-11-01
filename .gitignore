@@ -9,3 +9,6 @@
 /.idea/*
 
 /out/*
+/.gradle/
+/build/
+/gradle/
