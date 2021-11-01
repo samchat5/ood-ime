@@ -2,11 +2,20 @@ package cs3500.ime.controller.commands;
 
 import cs3500.ime.model.IIMEModel;
 
+/**
+ * Represents the "horizontal-flip" command, with the given arguments passed to the constructor.
+ */
 public class HorizontalFlip implements IIMECommand {
 
   private final String destImageName;
   private final String imageName;
 
+  /**
+   * Constructor for this class.
+   *
+   * @param imageName     image to flip
+   * @param destImageName name to give to flipped image
+   */
   public HorizontalFlip(String imageName, String destImageName) {
     this.imageName = imageName;
     this.destImageName = destImageName;

@@ -10,26 +10,45 @@ import java.util.Objects;
  */
 public class Pixel implements IPixel {
 
+  // INVARIANT: all these fields are clamped to 0 <= red, green, blue <= 255.
   private final int red;
   private final int blue;
   private final int green;
-  private final int bits;
 
+  /**
+   * Constructor for a grey pixel, taking in only one value for all RGB fields.
+   *
+   * @param val grey scale value
+   * @throws IllegalArgumentException iff the value is invalid (i.e. out of range)
+   */
   public Pixel(int val) throws IllegalArgumentException {
     this(val, val, val);
   }
 
+  /**
+   * Constructor for a color pixel, taking in a value for the red, green, and blue component.
+   *
+   * @param red   red value
+   * @param green green value
+   * @param blue  blue value
+   * @throws IllegalArgumentException iff any of the values are invalid (i.e. out of range)
+   */
   public Pixel(int red, int green, int blue) throws IllegalArgumentException {
-    this.bits = 8;
     if (outOfRange(red, green, blue)) {
       throw new IllegalArgumentException("Invalid values for red, green, and/or blue.");
     }
     this.red = red;
     this.green = green;
     this.blue = blue;
-
   }
 
+  /**
+   * Returns true if {@code this} is equal to the given object. For a pixel, this means the RGB
+   * components are all the same
+   *
+   * @param o other object.
+   * @return if the objects match
+   */
   @Override
   public boolean equals(Object o) {
     if (!(o instanceof IPixel)) {
@@ -39,18 +58,28 @@ public class Pixel implements IPixel {
     return this.red == that.red && this.green == that.green && this.blue == that.blue;
   }
 
+  /**
+   * Returns the hashcode for this object, as an int, based on its RGB values.
+   *
+   * @return hashcode
+   */
   @Override
   public int hashCode() {
-    return Objects.hash(this.red, this.green, this.blue, this.bits);
+    return Objects.hash(this.red, this.green, this.blue);
   }
 
+  /**
+   * Returns a string representation of this pixel, which is the RGB components on separate lines.
+   *
+   * @return string representation
+   */
   @Override
   public String toString() {
     return String.format("%d\n%d\n%d\n", red, green, blue);
   }
 
   private boolean outOfRange(int... vals) {
-    return Arrays.stream(vals).anyMatch((val) -> (val < 0) || (val > Math.pow(2, bits) - 1));
+    return Arrays.stream(vals).anyMatch((val) -> (val < 0) || (val > 255));
   }
 
   /**
@@ -66,12 +95,11 @@ public class Pixel implements IPixel {
   }
 
   private int brightenHelper(int originalColor, int value) {
-    int maxValue = (int) (Math.pow(2, bits) - 1);
     int newColorVal = originalColor + value;
     if (newColorVal < 0) {
       return 0;
     } else {
-      return Math.min(newColorVal, maxValue);
+      return Math.min(newColorVal, 255);
     }
   }
 
@@ -91,8 +119,7 @@ public class Pixel implements IPixel {
       case GREEN:
         return new Pixel(green);
       case VALUE:
-        int maxValue = Math.max(Math.max(this.red, this.green), this.blue);
-        return new Pixel(maxValue);
+        return new Pixel(Math.max(Math.max(this.red, this.green), this.blue));
       case INTENSITY:
         return new Pixel((this.red + this.green + this.blue) / 3);
       case LUMA:

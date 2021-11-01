@@ -2,7 +2,6 @@ package cs3500.ime.image;
 
 import cs3500.ime.pixel.IPixel;
 import cs3500.ime.pixel.Pixel;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -64,7 +63,7 @@ public class ImageUtil {
         image[i][j] = foo;
       }
     }
-    return new Image(height, width, image);
+    return new PPMImage(height, width, image);
   }
 
   /**
@@ -86,21 +85,6 @@ public class ImageUtil {
     } catch (Exception e) {
       throw new IllegalArgumentException("Invalid file found and/or IO Exception occurred.");
     }
-  }
-
-  // demo main
-  public static void main(String[] args) {
-    String filename;
-
-    if (args.length > 0) {
-      filename = args[0];
-    } else {
-      filename =
-          new File(System.getProperty("user.dir") + "/../../../../images/PPMImages/koala-green"
-              + "-greyscale.ppm").getAbsolutePath();
-    }
-    IImage foo = ImageUtil.readPPM(filename);
-    System.out.print(foo);
   }
 }
 

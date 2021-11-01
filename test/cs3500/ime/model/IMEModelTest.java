@@ -9,6 +9,9 @@ import cs3500.ime.image.IImage;
 import cs3500.ime.image.ImageUtil;
 import org.junit.Test;
 
+/**
+ * Tests for IMEModel.
+ */
 public class IMEModelTest {
 
   private final String relPathToRes = "res/";

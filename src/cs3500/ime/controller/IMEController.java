@@ -17,6 +17,11 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.function.Function;
 
+/**
+ * Concrete implementation of {@code IIMEController}. Uses the command design pattern, with a map of
+ * known commands initialized on construction, and a stack to be used for undoing operations in the
+ * future/maintaining history.
+ */
 public class IMEController implements IIMEController {
 
   private final IIMEModel model;
