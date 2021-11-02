@@ -11,7 +11,7 @@ import java.util.Random;
 import org.junit.Test;
 
 /**
- * Tests for PPMImage
+ * Tests for PPMImage.
  */
 public class PPMImageTest {
 
@@ -303,12 +303,10 @@ public class PPMImageTest {
 
     PPMImage mirrorColorOdd = new PPMImage(1, 5,
         new IPixel[][]{{new Pixel(221, 145, 0), new Pixel(165,
-            47, 28), new Pixel(78, 212, 189), new Pixel(165, 47, 28), new Pixel(221, 145, 0)
-        }});
+            47, 28), new Pixel(78, 212, 189), new Pixel(165, 47, 28), new Pixel(221, 145, 0)}});
     PPMImage mirrorColorEven = new PPMImage(1, 4,
         new IPixel[][]{{new Pixel(221, 145, 0), new Pixel(165,
-            47, 28), new Pixel(165, 47, 28), new Pixel(221, 145, 0)
-        }});
+            47, 28), new Pixel(165, 47, 28), new Pixel(221, 145, 0)}});
 
     assertEquals(mirrorGreyOdd.horizontalFlip(), mirrorGreyOdd);
     assertEquals(mirrorGreyEven.horizontalFlip(), mirrorGreyEven);
@@ -408,12 +406,11 @@ public class PPMImageTest {
 
     PPMImage mirrorColorOdd = new PPMImage(5, 1,
         new IPixel[][]{{new Pixel(221, 145, 0)}, {new Pixel(165,
-            47, 28)}, {new Pixel(78, 212, 189)}, {new Pixel(165, 47, 28)}, {new Pixel(221, 145, 0)
-        }});
+            47, 28)}, {new Pixel(78, 212, 189)}, {new Pixel(165, 47, 28)},
+            {new Pixel(221, 145, 0)}});
     PPMImage mirrorColorEven = new PPMImage(4, 1,
         new IPixel[][]{{new Pixel(221, 145, 0)}, {new Pixel(165,
-            47, 28)}, {new Pixel(165, 47, 28)}, {new Pixel(221, 145, 0)
-        }});
+            47, 28)}, {new Pixel(165, 47, 28)}, {new Pixel(221, 145, 0)}});
 
     assertEquals(mirrorGreyOdd.verticalFlip(), mirrorGreyOdd);
     assertEquals(mirrorGreyEven.verticalFlip(), mirrorGreyEven);

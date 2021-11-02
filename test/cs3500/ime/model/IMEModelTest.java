@@ -18,7 +18,7 @@ public class IMEModelTest {
   private final IImage testOG;
 
   /**
-   * Constructor that initializes image objects to speed up tests
+   * Constructor that initializes image objects to speed up tests.
    */
   public IMEModelTest() {
     this.koala = ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm");

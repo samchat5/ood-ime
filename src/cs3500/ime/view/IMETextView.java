@@ -2,6 +2,9 @@ package cs3500.ime.view;
 
 import java.io.IOException;
 
+/**
+ * Simple text-based view for this IME program.
+ */
 public class IMETextView implements IIMEView {
 
   private final Appendable app;
