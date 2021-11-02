@@ -4,6 +4,9 @@ import cs3500.ime.controller.IIMEController;
 import cs3500.ime.controller.IMEController;
 import cs3500.ime.model.IMEModel;
 import cs3500.ime.view.IMETextView;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -12,13 +15,14 @@ import java.io.InputStreamReader;
 public class IME {
 
   /**
-   * Instantiates the program using stdio.
+   * Instantiates the program using Commands.txt as an input file.
    *
    * @param args unused
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
+    FileInputStream commands = new FileInputStream("src/cs3500/ime/Commands.txt");
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(System.out),
-        new InputStreamReader(System.in));
+        new InputStreamReader(commands));
     cont.run();
   }
 }
