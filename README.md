@@ -97,7 +97,8 @@ You can find the class diagram at [`/src/diagram.uml`](./src/cs3500/ime/diagram.
 
 ### Commands to load example image, modify it and save the output
 
-Run IME main method
+Run `IME.java` main method using IntelliJ. If not already there, make sure the directory `res/Test`
+exists.
 
 ````
 load res/PPMImages/testOG.ppm OG
