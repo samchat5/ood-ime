@@ -5,7 +5,7 @@ import cs3500.ime.model.image.ImageUtil;
 
 /**
  * Represents the "load" command, which loads the image at the file path to the model and assigns it
- * a name.
+ * a name. IO is done by calling methods in {@code ImageUtil}.
  */
 public class Load implements IIMECommand {
 

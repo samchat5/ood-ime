@@ -3,7 +3,8 @@ package cs3500.ime.controller.commands;
 import cs3500.ime.model.IIMEModel;
 
 /**
- * Represents the "brighten" command, with the given arguments passed to the constructor.
+ * Represents the "brighten" command, with the given value, image name, and destination image name
+ * arguments passed to the constructor.
  */
 public class Brighten implements IIMECommand {
 

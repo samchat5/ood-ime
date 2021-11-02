@@ -1,11 +1,12 @@
 package cs3500.ime.controller.commands;
 
+import cs3500.ime.model.IIMEModel;
 import cs3500.ime.model.image.IImage;
 import cs3500.ime.model.image.ImageUtil;
-import cs3500.ime.model.IIMEModel;
 
 /**
- * Represents the "save" command, which saves the given image to the given filepath.
+ * Represents the "save" command, which saves the given image to the given filepath. Handles file IO
+ * when calling {@code ImageUtil} methods.
  */
 public class Save implements IIMECommand {
 

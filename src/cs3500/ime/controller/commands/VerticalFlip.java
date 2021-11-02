@@ -3,7 +3,8 @@ package cs3500.ime.controller.commands;
 import cs3500.ime.model.IIMEModel;
 
 /**
- * Represents the "vertical-flip" command, with the given arguments passed to the constructor.
+ * Represents the "vertical-flip" command, with the given arguments image name and destination image
+ * name passed to the constructor.
  */
 public class VerticalFlip implements IIMECommand {
 

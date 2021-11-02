@@ -3,7 +3,8 @@ package cs3500.ime.view;
 import java.io.IOException;
 
 /**
- * Simple text-based view for this IME program.
+ * Simple text-based view for this IME program. Takes in an appendable object to which to write any
+ * messages.
  */
 public class IMETextView implements IIMEView {
 
