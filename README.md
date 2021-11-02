@@ -91,7 +91,10 @@ a good test for the program :)
 
 ## Class Diagram
 
-You can find the class diagram at [`/src/diagram.uml`](./src/cs3500/ime/diagram.uml).
+You can find the class diagram below, or
+at [`/src/cs3500/ime/diagram.jpg`](./src/cs3500/ime/diagram.jpg).
+
+![diagram](/src/cs3500/ime/diagram.jpg)
 
 ## Test Script
 
