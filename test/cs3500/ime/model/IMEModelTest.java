@@ -26,6 +26,22 @@ public class IMEModelTest {
   }
 
   @Test
+  public void testIsLoaded() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.load(this.testOG, "mytest");
+    assertTrue(model.isLoaded("koala"));
+    assertTrue(model.isLoaded("mytest"));
+    assertFalse(model.isLoaded("random"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testIsLoadedNull() {
+    IIMEModel model = new IMEModel();
+    model.isLoaded(null);
+  }
+
+  @Test
   public void testLoad() {
     // test with known file name
     IIMEModel model = new IMEModel();
@@ -38,6 +54,18 @@ public class IMEModelTest {
     // overload images
     model.load(this.testOG, "koala");
     assertEquals(model.save("koala"), model.save("mytest"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testLoadNullName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testLoadNullImage() {
+    IIMEModel model = new IMEModel();
+    model.load(null, "koala");
   }
 
   @Test
@@ -54,6 +82,21 @@ public class IMEModelTest {
 
     assertEquals(model.save("mytestBright"), ImageUtil.readPPM(relPathToRes +
         "PPMImages/testBrightenBy50.ppm"));
+  }
+
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testBrightenNullImageName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.brighten(null, 50, "koalaBright");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testBrightenNullNewImageName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.brighten("koala", 50, null);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -97,6 +140,20 @@ public class IMEModelTest {
     new IMEModel().horizontalFlip("koala", "koalaFlip");
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testHorizontalFlipNullName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.horizontalFlip(null, "koalaFlip");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testHorizontalFlipNullNewName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.horizontalFlip("koala", null);
+  }
+
   @Test
   public void testVerticalFlip() {
     IIMEModel model = new IMEModel();
@@ -116,6 +173,21 @@ public class IMEModelTest {
   @Test(expected = IllegalArgumentException.class)
   public void testVerticalFlipUnloaded() {
     new IMEModel().verticalFlip("koala", "koalaFlip");
+  }
+
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testVerticalFlipNullName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.verticalFlip(null, "koalaFlip");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testVerticalFlipNullNewName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.verticalFlip("koala", null);
   }
 
   @Test
@@ -144,6 +216,14 @@ public class IMEModelTest {
   public void testSaveUnloadedImage() {
     IIMEModel model = new IMEModel();
     model.save("koala");
+  }
+
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSaveNullImage() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.save(null);
   }
 
   @Test
@@ -199,5 +279,29 @@ public class IMEModelTest {
   @Test(expected = IllegalArgumentException.class)
   public void testGreyscaleUnloadedImage() {
     new IMEModel().greyScale("koala", "koalaGrey", GreyscaleComponent.RED);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreyScaleNullImageName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.load(this.testOG, "mytest");
+    model.greyScale(null, "koalaGrey", GreyscaleComponent.GREEN);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreyScaleNullNewImageName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.load(this.testOG, "mytest");
+    model.greyScale("koala", null, GreyscaleComponent.GREEN);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreyScaleNullComponent() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.load(this.testOG, "mytest");
+    model.greyScale("koala", "koalaGrey", null);
   }
 }

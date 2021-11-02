@@ -21,9 +21,13 @@ public class IMEModel implements IIMEModel {
    *
    * @param image image object to load into map
    * @param name  name to give image
+   * @throws IllegalArgumentException iff the image name is null
    */
   @Override
   public void load(IImage image, String name) {
+    if (image == null || name == null) {
+      throw new IllegalArgumentException("Null name");
+    }
     imageMap.put(name, image);
   }
 
@@ -32,9 +36,13 @@ public class IMEModel implements IIMEModel {
    *
    * @param name name of image
    * @return if loaded
+   * @throws IllegalArgumentException iff the name is null
    */
   @Override
   public boolean isLoaded(String name) {
+    if (name == null) {
+      throw new IllegalArgumentException("Null name");
+    }
     return imageMap.containsKey(name);
   }
 
@@ -45,11 +53,14 @@ public class IMEModel implements IIMEModel {
    * @param value        value to brighten/darken by
    * @param newImageName new name to give the image
    * @throws IllegalArgumentException iff brightness value is outside of range [-255, 255] or the
-   *                                  image is not loaded
+   *                                  image is not loaded, or the parameters are null
    */
   @Override
   public void brighten(String imageName, int value, String newImageName)
       throws IllegalArgumentException {
+    if (imageName == null || newImageName == null) {
+      throw new IllegalArgumentException("Null parameters");
+    }
     if (!imageMap.containsKey(imageName)) {
       throw new IllegalArgumentException("Specified image is not loaded");
     }
@@ -65,11 +76,14 @@ public class IMEModel implements IIMEModel {
    *
    * @param imageName     image to flip
    * @param destImageName new name to give the image
-   * @throws IllegalArgumentException if the image is not loaded
+   * @throws IllegalArgumentException if the image is not loaded or parameters are null
    */
   @Override
   public void horizontalFlip(String imageName, String destImageName)
       throws IllegalArgumentException {
+    if (imageName == null || destImageName == null) {
+      throw new IllegalArgumentException("Null parameters");
+    }
     if (!imageMap.containsKey(imageName)) {
       throw new IllegalArgumentException("Specified image is not loaded");
     }
@@ -83,10 +97,13 @@ public class IMEModel implements IIMEModel {
    *
    * @param imageName     image to flip
    * @param destImageName new name to give the image
-   * @throws IllegalArgumentException if the image is not loaded
+   * @throws IllegalArgumentException if the image is not loaded or parameters are null
    */
   @Override
   public void verticalFlip(String imageName, String destImageName) throws IllegalArgumentException {
+    if (imageName == null || destImageName == null) {
+      throw new IllegalArgumentException("Null parameters");
+    }
     if (!imageMap.containsKey(imageName)) {
       throw new IllegalArgumentException("Specified image is not loaded");
     }
@@ -116,11 +133,14 @@ public class IMEModel implements IIMEModel {
    * @param imageName     image to greyscale
    * @param destImageName new name to give to image
    * @param component     component type the user wants (e.g. the red channel or the image or the
-   * @throws IllegalArgumentException if the image is not loaded
+   * @throws IllegalArgumentException if the image is not loaded or the parameters are null
    */
   @Override
   public void greyScale(String imageName, String destImageName, GreyscaleComponent component)
       throws IllegalArgumentException {
+    if (imageName == null || destImageName == null || component == null) {
+      throw new IllegalArgumentException("Null parameters");
+    }
     if (!imageMap.containsKey(imageName)) {
       throw new IllegalArgumentException("Specified image is not loaded");
     }

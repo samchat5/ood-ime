@@ -37,7 +37,10 @@ public class GreyScale implements IIMECommand {
     try {
       model.greyScale(imageName, destImageName, component);
     } catch (Exception e) {
-      throw new IllegalStateException("Invalid " + component.toString() + " component command.");
+      if (component == null) {
+        throw new IllegalStateException("Null component command.");
+      }
+      throw new IllegalStateException("Invalid " + component + " component command.");
     }
   }
 }
