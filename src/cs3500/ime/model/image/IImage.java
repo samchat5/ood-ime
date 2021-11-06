@@ -37,4 +37,11 @@ public interface IImage {
    * @return this {@code IImage} flipped vertically.
    */
   IImage verticalFlip();
+
+  /**
+   * Applies filterKernel to this IImage to create a new filtered IImage
+   * @param filterKernel filter scaling
+   * @return a new filtered image
+   */
+  IImage applyFilter(double[][] filterKernel);
 }
