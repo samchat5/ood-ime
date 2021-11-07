@@ -138,4 +138,17 @@ public class Pixel implements IPixel {
   public int[] getValues() {
     return new int[]{this.red, this.green, this.blue};
   }
+
+  @Override
+  public IPixel applyColorTransform(double[][] kernel) {
+    int red = (int) (kernel[0][0] * this.red + kernel[0][1] * this.green
+        + kernel[0][2] * this.blue);
+    int green = (int) (kernel[1][0] * this.red + kernel[1][1] * this.green
+        + kernel[1][2] * this.blue);
+    int blue = (int) (kernel[2][0] * this.red + kernel[2][1] * this.green
+        + kernel[2][2] * this.blue);
+
+    return new Pixel(Math.max(Math.min(red, 255), 0), Math.max(Math.min(green, 255), 0),
+        Math.max(Math.min(blue, 255), 0));
+  }
 }

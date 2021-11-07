@@ -181,7 +181,13 @@ public class Image implements IImage {
    */
   @Override
   public IImage applyTransform(double[][] transformKernel) {
-    return null;
+    IPixel[][] newPixelArray = this.pixelArray.clone();
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        newPixelArray[i][j] = this.pixelArray[i][j].applyColorTransform(transformKernel);
+      }
+    }
+    return new Image(height, width, newPixelArray);
   }
 
   /**

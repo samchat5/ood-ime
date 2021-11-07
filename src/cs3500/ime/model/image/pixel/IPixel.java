@@ -30,4 +30,6 @@ public interface IPixel {
    * @return values of this pixel as an int array
    */
   int[] getValues();
+  
+  IPixel applyColorTransform(double[][] kernel);
 }
