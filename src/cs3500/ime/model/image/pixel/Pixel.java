@@ -128,4 +128,14 @@ public class Pixel implements IPixel {
         return null;
     }
   }
+
+  /**
+   * Returns the RGB values of this pixel.
+   *
+   * @return values of the form [red, green, blue]
+   */
+  @Override
+  public int[] getValues() {
+    return new int[]{this.red, this.green, this.blue};
+  }
 }

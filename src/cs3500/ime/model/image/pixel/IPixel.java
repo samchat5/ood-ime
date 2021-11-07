@@ -23,4 +23,11 @@ public interface IPixel {
    * @return new pixel
    */
   IPixel getComponent(GreyscaleComponent component);
+
+  /**
+   * Get the RGB values of this pixel, represented as an int array.
+   *
+   * @return values of this pixel as an int array
+   */
+  int[] getValues();
 }

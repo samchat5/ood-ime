@@ -2,7 +2,6 @@ package cs3500.ime.model.image;
 
 import cs3500.ime.model.image.pixel.IPixel;
 import cs3500.ime.model.image.pixel.Pixel;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
 import javax.imageio.ImageIO;
 
 
@@ -24,49 +22,50 @@ public class ImageUtil {
 
   /**
    * Creates an 8 bit IImage based off the file provided.
+   *
    * @param filename String reference to the image file
-   * @return Java's ImageIO's attempt to read the immage
+   * @return Java's ImageIO's attempt to read the image
    * @throws IllegalArgumentException if filename is null or if the referenced file cannot be found
    */
   public static IImage readImageIO(String filename) throws IllegalArgumentException {
-      if (filename == null) {
-        throw new IllegalArgumentException();
-      }
-      File fis;
-      BufferedImage img;
-      try {
-        fis = new File(filename);
-        img = ImageIO.read(fis);
-      } catch (IOException e) {
-        throw new IllegalArgumentException("File " + filename + " not found!");
-      }
-      //get image width and height
-      int width = img.getWidth();
-      int height = img.getHeight();
+    if (filename == null) {
+      throw new IllegalArgumentException();
+    }
+    File fis;
+    BufferedImage img;
+    try {
+      fis = new File(filename);
+      img = ImageIO.read(fis);
+    } catch (IOException e) {
+      throw new IllegalArgumentException("File " + filename + " not found!");
+    }
+    //get image width and height
+    int width = img.getWidth();
+    int height = img.getHeight();
 
-      IPixel[][] pixelArray = new IPixel[height][width];
+    IPixel[][] pixelArray = new IPixel[height][width];
 
-      for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
           /* get pixel value (the arguments in the getRGB method
          denotes the  coordinates of the image from which the
          pixel values need to be extracted) */
-          int p = img.getRGB(j, i);
+        int p = img.getRGB(j, i);
 
-          // get red
-          int r = (p>>16) & 0xff;
+        // get red
+        int r = (p >> 16) & 0xff;
 
-          // get green
-          int g = (p>>8) & 0xff;
+        // get green
+        int g = (p >> 8) & 0xff;
 
-          // get blue
-          int b = p & 0xff;
+        // get blue
+        int b = p & 0xff;
 
-          Pixel foo = new Pixel(r,g,b);
-          pixelArray[i][j] = foo;
-        }
+        Pixel foo = new Pixel(r, g, b);
+        pixelArray[i][j] = foo;
       }
-      return new PPMImage(height, width, pixelArray);
+    }
+    return new Image(height, width, pixelArray);
 
   }
 
@@ -129,7 +128,7 @@ public class ImageUtil {
           }
         }
         fis.close();
-        return new PPMImage(height, width, image);
+        return new Image(height, width, image);
       } catch (NoSuchElementException e) {
         fis.close();
         throw new IllegalArgumentException("Invalid file");

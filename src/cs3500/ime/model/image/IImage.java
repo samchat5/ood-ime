@@ -40,8 +40,17 @@ public interface IImage {
 
   /**
    * Applies filterKernel to this IImage to create a new filtered IImage
+   *
    * @param filterKernel filter scaling
    * @return a new filtered image
    */
   IImage applyFilter(double[][] filterKernel);
+
+  /**
+   * Applies filterKernel to this IIMage to create a new color-transformed IIMage
+   *
+   * @param transformKernel kernel to use in color transformation
+   * @return a new filtered image
+   */
+  IImage applyTransform(double[][] transformKernel);
 }

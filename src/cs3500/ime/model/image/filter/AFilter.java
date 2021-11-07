@@ -1,13 +1,15 @@
-package cs3500.ime.model.image;
+package cs3500.ime.model.image.filter;
+
+import cs3500.ime.model.image.IImage;
 
 public abstract class AFilter implements IFilter {
 
   private final double[][] filterKernel;
 
   public AFilter(double[][] filterKernel) throws IllegalArgumentException {
-    int xDimension = filterKernel.length;
-    int yDimension = filterKernel[0].length;
-    if (xDimension != yDimension && (xDimension % 2) != 1) {
+    int yDimension = filterKernel.length;
+    int xDimension = filterKernel[0].length;
+    if (yDimension != xDimension && (yDimension % 2) != 1) {
       throw new IllegalArgumentException("Provided kernel is invalid");
     }
     this.filterKernel = filterKernel;

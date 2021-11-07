@@ -13,8 +13,8 @@ import cs3500.ime.model.GreyscaleComponent;
 import cs3500.ime.model.IIMEModel;
 import cs3500.ime.model.IMEModel;
 import cs3500.ime.model.image.IImage;
+import cs3500.ime.model.image.Image;
 import cs3500.ime.model.image.ImageUtil;
-import cs3500.ime.model.image.PPMImage;
 import cs3500.ime.model.image.pixel.IPixel;
 import java.io.File;
 import org.junit.Before;
@@ -25,7 +25,7 @@ import org.junit.Test;
  */
 public class CommandsTest {
 
-  private final IImage emptyImage = new PPMImage(0, 0, new IPixel[][]{});
+  private final IImage emptyImage = new Image(0, 0, new IPixel[][]{});
   private IIMEModel model;
 
   @Before

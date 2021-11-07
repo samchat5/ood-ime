@@ -2,15 +2,17 @@ package cs3500.ime.model.image;
 
 import cs3500.ime.model.GreyscaleComponent;
 import cs3500.ime.model.image.pixel.IPixel;
+import cs3500.ime.model.image.pixel.Pixel;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 
 /**
- * Concrete class representing a PPM image. Has an array of pixels, a width, and a height. An image
- * can have all its individual pixels brightened, darkened, or be flipped vertically/horizontally.
+ * Concrete class representing an image. Has an array of pixels, a width, and a height. An image can
+ * have all its individual pixels brightened, darkened, flipped vertically/horizontally, filtered
+ * (blurred/sharpened), or sepia-toned.
  */
-public class PPMImage implements IImage {
+public class Image implements IImage {
 
   private final int height;
   private final int width;
@@ -25,7 +27,7 @@ public class PPMImage implements IImage {
    * @param pixelArray pixel array
    * @throws IllegalArgumentException if the height and width given don't match that of the array
    */
-  public PPMImage(int height, int width, IPixel[][] pixelArray) throws IllegalArgumentException {
+  public Image(int height, int width, IPixel[][] pixelArray) throws IllegalArgumentException {
     this.height = height;
     this.width = width;
     if (!heightWidthMatch(height, width, pixelArray)) {
@@ -52,7 +54,7 @@ public class PPMImage implements IImage {
     if (!(o instanceof IImage)) {
       return false;
     }
-    PPMImage that = (PPMImage) o;
+    Image that = (Image) o;
     return width == that.width && height == that.height && Arrays.deepEquals(pixelArray,
         that.pixelArray);
   }
@@ -82,7 +84,7 @@ public class PPMImage implements IImage {
         newPixelArray[i][j] = foo.getComponent(component);
       }
     }
-    return new PPMImage(this.height, this.width, newPixelArray);
+    return new Image(this.height, this.width, newPixelArray);
 
   }
 
@@ -101,7 +103,7 @@ public class PPMImage implements IImage {
         newPixelArray[i][j] = foo.brighten(value);
       }
     }
-    return new PPMImage(this.height, this.width, newPixelArray);
+    return new Image(this.height, this.width, newPixelArray);
   }
 
   /**
@@ -117,7 +119,7 @@ public class PPMImage implements IImage {
       Collections.reverse(Arrays.asList(verticalLine));
       newPixelArray[i] = verticalLine;
     }
-    return new PPMImage(this.height, this.width, newPixelArray);
+    return new Image(this.height, this.width, newPixelArray);
   }
 
   /**
@@ -129,7 +131,57 @@ public class PPMImage implements IImage {
   public IImage verticalFlip() {
     IPixel[][] newPixelArray = pixelArray.clone();
     Collections.reverse(Arrays.asList(newPixelArray));
-    return new PPMImage(this.height, this.width, newPixelArray);
+    return new Image(this.height, this.width, newPixelArray);
+  }
+
+  /**
+   * Applies filterKernel to this IImage to create a new filtered IImage
+   *
+   * @param filterKernel filter scaling
+   * @return a new filtered image
+   */
+  @Override
+  public IImage applyFilter(double[][] filterKernel) {
+    int height = filterKernel.length;
+    int width = filterKernel[0].length;
+    int leftBound = -height / 2;
+    int rightBound = height / 2;
+    int topBound = -width / 2;
+    int bottomBound = width / 2;
+
+    IPixel[][] newPixelArray = new IPixel[this.height][this.width];
+
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        double[] sum = {0, 0, 0};
+        for (int k = topBound; k <= bottomBound; k++) {
+          for (int l = leftBound; l <= rightBound; l++) {
+            int pixelRow = k + i;
+            int pixelCol = l + j;
+            if (pixelRow > 0 && pixelRow < this.height && pixelCol > 0 && pixelCol < this.width) {
+              int[] rgb = pixelArray[pixelRow][pixelCol].getValues();
+              sum[0] += filterKernel[k + height / 2][l + width / 2] * rgb[0];
+              sum[1] += filterKernel[k + height / 2][l + width / 2] * rgb[1];
+              sum[2] += filterKernel[k + height / 2][l + width / 2] * rgb[2];
+            }
+          }
+        }
+        newPixelArray[i][j] = new Pixel(Math.max(Math.min((int) sum[0], 255), 0),
+            Math.max(Math.min((int) sum[1], 255), 0), Math.max(Math.min((int) sum[2], 255), 0));
+      }
+    }
+    return new Image(this.height, this.width, newPixelArray);
+  }
+
+  /**
+   * Applies filterKernel to this IIMage to create a new color-transformed IIMage
+   *
+   * @param transformKernel kernel to use in color transformation
+   * @return a new filtered image
+   */
+  @Override
+  public IImage applyTransform(double[][] transformKernel) {
+    return null;
   }
 
   /**
