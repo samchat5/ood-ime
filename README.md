@@ -114,3 +114,8 @@ save res/Test/OG-vertical.ppm OG-vertical
 save res/Test/OG-horizontal.ppm OG-horizontal
 save res/Test/OG-value.ppm OG-value
 quit
+````
+
+## Credits
+
+Used https://www.freeconvert.com/ppm-to-png/download to automate conversion of PPM to PNG images
