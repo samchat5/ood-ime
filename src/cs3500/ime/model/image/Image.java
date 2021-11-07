@@ -139,9 +139,13 @@ public class Image implements IImage {
    *
    * @param filterKernel filter scaling
    * @return a new filtered image
+   * @throws IllegalArgumentException if the kernel is null or invalid filter matrix
    */
   @Override
-  public IImage applyFilter(double[][] filterKernel) {
+  public IImage applyFilter(double[][] filterKernel) throws IllegalArgumentException {
+    if (filterKernel == null || filterKernel.length % 2 == 0 || filterKernel[0].length % 2 == 0) {
+      throw new IllegalArgumentException("Invalid kernel dimensions.");
+    }
     int height = filterKernel.length;
     int width = filterKernel[0].length;
     int leftBound = -height / 2;
@@ -158,7 +162,7 @@ public class Image implements IImage {
           for (int l = leftBound; l <= rightBound; l++) {
             int pixelRow = k + i;
             int pixelCol = l + j;
-            if (pixelRow > 0 && pixelRow < this.height && pixelCol > 0 && pixelCol < this.width) {
+            if (pixelRow >= 0 && pixelRow < this.height && pixelCol >= 0 && pixelCol < this.width) {
               int[] rgb = pixelArray[pixelRow][pixelCol].getValues();
               sum[0] += filterKernel[k + height / 2][l + width / 2] * rgb[0];
               sum[1] += filterKernel[k + height / 2][l + width / 2] * rgb[1];
@@ -178,10 +182,14 @@ public class Image implements IImage {
    *
    * @param transformKernel kernel to use in color transformation
    * @return a new filtered image
+   * @throws IllegalArgumentException if the kernel is null or not 3x3
    */
   @Override
-  public IImage applyTransform(double[][] transformKernel) {
-    IPixel[][] newPixelArray = this.pixelArray.clone();
+  public IImage applyTransform(double[][] transformKernel) throws IllegalArgumentException {
+    if (transformKernel == null || transformKernel.length != 3 || transformKernel[0].length != 3) {
+      throw new IllegalArgumentException("Invalid kernel dimensions.");
+    }
+    IPixel[][] newPixelArray = new Pixel[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         newPixelArray[i][j] = this.pixelArray[i][j].applyColorTransform(transformKernel);

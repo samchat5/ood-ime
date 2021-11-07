@@ -17,6 +17,12 @@ public class ImageTest {
 
   private final IImage randomGreyscaleImage;
   private final IImage emptyImage;
+  private final double[][] blurKernel = new double[][]{{1. / 16, 1. / 8, 1. / 16},
+      {1. / 8, 1. / 4, 1. / 8}, {1. / 16, 1. / 8, 1. / 16}};
+  private final double[][] sharpenKernel = new double[][]{
+      {-1. / 8, -1. / 8, -1. / 8, -1. / 8, -1. / 8}, {-1. / 8, 1. / 4, 1. / 4, 1. / 4, -1. / 8},
+      {-1. / 8, 1. / 4, 1, 1. / 4, -1. / 8}, {-1. / 8, 1. / 4, 1. / 4, 1. / 4, -1. / 8},
+      {-1. / 8, -1. / 8, -1. / 8, -1. / 8, -1. / 8}};
 
   /**
    * Constructor that initializes test images used by many tests.
@@ -25,6 +31,7 @@ public class ImageTest {
     randomGreyscaleImage = generateRandomGreyScaleImage(100, 100);
     emptyImage = new Image(0, 0, new Pixel[][]{});
   }
+
 
   private IImage generateRandomGreyScaleImage(int height, int width) {
     IPixel[][] pixelArray = new IPixel[height][width];
@@ -90,7 +97,6 @@ public class ImageTest {
     }
 
     // test on empty image
-    IImage emptyImage = new Image(0, 0, new Pixel[][]{});
     for (GreyscaleComponent c : GreyscaleComponent.values()) {
       assertEquals(emptyImage.getComponent(c), emptyImage);
     }
@@ -460,5 +466,74 @@ public class ImageTest {
   @Test(expected = IllegalArgumentException.class)
   public void testInvalidWidthZero() {
     new Image(0, 1, new IPixel[][]{});
+  }
+
+  @Test
+  public void testFilter() {
+    IPixel[][] testArr = {{new Pixel(174, 241, 145), new Pixel(4, 115, 243), new Pixel(134, 56,
+        208)}, {new Pixel(231, 6, 0), new Pixel(55, 163, 160), new Pixel(27, 155, 158)},
+        {new Pixel(119, 223, 123), new Pixel(114, 145, 13), new Pixel(39, 196, 228)}};
+    IPixel[][] blurred = pixelArrayFromChannelArrays(
+        new int[][]{{76, 62, 40}, {108, 89, 42}, {76, 71, 30}},
+        new int[][]{{85, 96, 57}, {96, 138, 106}, {84, 119, 96}},
+        new int[][]{{76, 134, 112}, {69, 135, 130}, {42, 77, 88}});
+    assertEquals(new Image(3, 3, testArr).applyFilter(blurKernel), new Image(3, 3, blurred));
+
+    IPixel[][] testArr2 = pixelArrayFromChannelArrays(
+        new int[][]{{106, 125, 199, 33, 60}, {12, 86, 99, 241, 90}, {231, 230, 61, 244, 210},
+            {241, 94, 103, 147, 3}, {125, 28, 24, 15, 11}},
+        new int[][]{{43, 140, 46, 237, 78}, {166, 75, 94, 198, 130}, {187, 190, 160, 124, 130},
+            {165, 48, 199, 111, 209}, {115, 175, 20, 114, 203}},
+        new int[][]{{164, 240, 53, 49, 79}, {96, 224, 77, 57, 236}, {207, 140, 120, 43, 110},
+            {136, 159, 59, 58, 47}, {89, 150, 216, 111, 231}});
+    IPixel[][] sharpen = pixelArrayFromChannelArrays(
+        new int[][]{{59, 120, 189, 85, 49}, {106, 213, 241, 255, 210}, {255, 255, 182, 255, 255},
+            {255, 249, 145, 206, 82}, {134, 58, 0, 0, 0}},
+        new int[][]{{53, 109, 81, 255, 150}, {235, 196, 203, 255, 219}, {224, 255, 150, 255, 179},
+            {254, 240, 225, 255, 255}, {117, 201, 0, 196, 232}},
+        new int[][]{{229, 255, 65, 64, 114}, {255, 255, 139, 132, 255}, {249, 255, 47, 27, 95},
+            {223, 255, 119, 161, 89}, {107, 229, 209, 173, 216}});
+    assertEquals(new Image(5, 5, testArr2).applyFilter(sharpenKernel), new Image(5, 5, sharpen));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testNullFilter() {
+    this.emptyImage.applyFilter(null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidFilterKernel() {
+    this.emptyImage.applyFilter(new double[][]{{0, 0}, {1, 1}, {2, 2}});
+  }
+
+  @Test
+  public void testColorTransform() {
+    IImage color = new Image(2, 2,
+        new IPixel[][]{{new Pixel(12, 44, 198), new Pixel(244, 109, 77)},
+            {new Pixel(87, 65, 176), new Pixel(98, 2, 199)}});
+    assertEquals(color.applyTransform(new double[][]{{1, 0, 0}, {1, 0, 0}, {1, 0, 0}}),
+        new Image(2, 2, pixelArrayFromChannelArrays(new int[][]{{12, 244}, {87, 98}})));
+    assertEquals(color.applyTransform(new double[][]{{0, 1, 0}, {0, 1, 0}, {0, 1, 0}}),
+        new Image(2, 2, pixelArrayFromChannelArrays(new int[][]{{44, 109}, {65, 2}})));
+    assertEquals(color.applyTransform(new double[][]{{0, 0, 1}, {0, 0, 1}, {0, 0, 1}}),
+        new Image(2, 2, pixelArrayFromChannelArrays(new int[][]{{198, 77}, {176, 199}})));
+    assertEquals(color.applyTransform(
+            new double[][]{{0.2126, 0.7152, 0.0722}, {0.2126, 0.7152, 0.0722},
+                {0.2126, 0.7152, 0.0722}}),
+        new Image(2, 2, pixelArrayFromChannelArrays(new int[][]{{48, 135}, {77, 36}})));
+    assertEquals(color.applyTransform(
+            new double[][]{{1. / 3, 1. / 3, 1. / 3}, {1. / 3, 1. / 3, 1. / 3},
+                {1. / 3, 1. / 3, 1. / 3}}),
+        new Image(2, 2, pixelArrayFromChannelArrays(new int[][]{{84, 143}, {109, 99}})));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testNullTransformKernel() {
+    this.emptyImage.applyTransform(null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testInvalidTransformKernel() {
+    this.emptyImage.applyTransform(new double[][]{{1}});
   }
 }

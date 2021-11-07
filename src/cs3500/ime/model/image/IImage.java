@@ -43,14 +43,16 @@ public interface IImage {
    *
    * @param filterKernel filter scaling
    * @return a new filtered image
+   * @throws IllegalArgumentException if the kernel is null or invalid filter matrix
    */
-  IImage applyFilter(double[][] filterKernel);
+  IImage applyFilter(double[][] filterKernel) throws IllegalArgumentException;
 
   /**
    * Applies filterKernel to this IIMage to create a new color-transformed IIMage
    *
    * @param transformKernel kernel to use in color transformation
    * @return a new filtered image
+   * @throws IllegalArgumentException if the kernel is null or not 3x3
    */
-  IImage applyTransform(double[][] transformKernel);
+  IImage applyTransform(double[][] transformKernel) throws IllegalArgumentException;
 }
