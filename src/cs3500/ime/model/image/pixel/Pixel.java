@@ -140,7 +140,11 @@ public class Pixel implements IPixel {
   }
 
   @Override
-  public IPixel applyColorTransform(double[][] kernel) {
+  public IPixel applyColorTransform(double[][] kernel) throws IllegalArgumentException {
+    if (kernel == null || (kernel.length != 3) || (kernel[0].length != 3)) {
+      throw new IllegalArgumentException("Invalid kernel dimensions.");
+    }
+
     int red = (int) (kernel[0][0] * this.red + kernel[0][1] * this.green
         + kernel[0][2] * this.blue);
     int green = (int) (kernel[1][0] * this.red + kernel[1][1] * this.green

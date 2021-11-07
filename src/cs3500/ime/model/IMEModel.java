@@ -1,6 +1,8 @@
 package cs3500.ime.model;
 
 import cs3500.ime.model.image.IImage;
+import cs3500.ime.model.image.color_transform.IColorTransform;
+import cs3500.ime.model.image.filter.IFilter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -146,5 +148,35 @@ public class IMEModel implements IIMEModel {
     }
     IImage greyScaledImage = imageMap.get(imageName).getComponent(component);
     imageMap.put(destImageName, greyScaledImage);
+  }
+
+  /**
+   * Applies the given color transform to the image, and creates a new transformed image object of
+   * the given name.
+   *
+   * @param imageName     image to transform
+   * @param destImageName new image name
+   * @param transform     transform to apply
+   * @throws IllegalArgumentException if the image is not loaded, or the arguments are null
+   */
+  @Override
+  public void colorTransform(String imageName, String destImageName, IColorTransform transform)
+      throws IllegalArgumentException {
+    
+  }
+
+  /**
+   * Applies the given filter to the image, and creates a new filtered image object of the given
+   * name.
+   *
+   * @param imageName     image to filter
+   * @param destImageName new image name
+   * @param filter        filter to apply
+   * @throws IllegalArgumentException if the image is not loaded, or the arguments are null
+   */
+  @Override
+  public void filter(String imageName, String destImageName, IFilter filter)
+      throws IllegalArgumentException {
+
   }
 }

@@ -1,5 +1,6 @@
 package cs3500.ime.model.image.pixel;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 import cs3500.ime.model.GreyscaleComponent;
@@ -21,6 +22,9 @@ public class PixelTest {
   private final IPixel green = new Pixel(0, 255, 0);
   private final IPixel blue = new Pixel(0, 0, 255);
   private final IPixel black = new Pixel(0);
+
+  private final double[][] sepiaKernel = new double[][]{{0.393, 0.769, 0.189},
+      {0.349, 0.686, 0.168}, {0.272, 0.534, 0.131}};
 
   @Test
   public void testToString() {
@@ -250,5 +254,39 @@ public class PixelTest {
       assertEquals(p.getComponent(GreyscaleComponent.LUMA),
           new Pixel((int) (lumaRed + lumaGreen + lumaBlue)));
     }
+  }
+
+  @Test
+  public void testGetValues() {
+    assertArrayEquals(white.getValues(), new int[]{255, 255, 255});
+    assertArrayEquals(yellow.getValues(), new int[]{255, 255, 0});
+    assertArrayEquals(magenta.getValues(), new int[]{255, 0, 255});
+    assertArrayEquals(cyan.getValues(), new int[]{0, 255, 255});
+    assertArrayEquals(red.getValues(), new int[]{255, 0, 0});
+    assertArrayEquals(green.getValues(), new int[]{0, 255, 0});
+    assertArrayEquals(blue.getValues(), new int[]{0, 0, 255});
+    assertArrayEquals(black.getValues(), new int[]{0, 0, 0});
+  }
+
+  @Test
+  public void testColorTransform() {
+    assertEquals(white.applyColorTransform(sepiaKernel), new Pixel(255, 255, 238));
+    assertEquals(yellow.applyColorTransform(sepiaKernel), new Pixel(255, 255, 205));
+    assertEquals(magenta.applyColorTransform(sepiaKernel), new Pixel(148, 131, 102));
+    assertEquals(cyan.applyColorTransform(sepiaKernel), new Pixel(244, 217, 169));
+    assertEquals(red.applyColorTransform(sepiaKernel), new Pixel(100, 88, 69));
+    assertEquals(green.applyColorTransform(sepiaKernel), new Pixel(196, 174, 136));
+    assertEquals(blue.applyColorTransform(sepiaKernel), new Pixel(48, 42, 33));
+    assertEquals(black.applyColorTransform(sepiaKernel), black);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testColorTransformNullKernel() {
+    white.applyColorTransform(null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testColorTransformInvalidKernel() {
+    white.applyColorTransform(new double[][]{{0, 1, 2}, {1, 2, 2}});
   }
 }
