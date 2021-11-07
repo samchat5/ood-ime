@@ -13,6 +13,7 @@ public interface IColorTransform {
    *
    * @param image image to apply transformation on
    * @return transformed image
+   * @throws IllegalArgumentException if image is null
    */
-  IImage applyTransform(IImage image);
+  IImage applyTransform(IImage image) throws IllegalArgumentException;
 }

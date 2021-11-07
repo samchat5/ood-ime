@@ -23,6 +23,8 @@ public class ImageTest {
       {-1. / 8, -1. / 8, -1. / 8, -1. / 8, -1. / 8}, {-1. / 8, 1. / 4, 1. / 4, 1. / 4, -1. / 8},
       {-1. / 8, 1. / 4, 1, 1. / 4, -1. / 8}, {-1. / 8, 1. / 4, 1. / 4, 1. / 4, -1. / 8},
       {-1. / 8, -1. / 8, -1. / 8, -1. / 8, -1. / 8}};
+  private final double[][] sepiaKernel = new double[][]{{0.393, 0.769, 0.189}, {0.349, 0.686,
+      0.168}, {0.272, 0.534, 0.131}};
 
   /**
    * Constructor that initializes test images used by many tests.
@@ -525,6 +527,9 @@ public class ImageTest {
             new double[][]{{1. / 3, 1. / 3, 1. / 3}, {1. / 3, 1. / 3, 1. / 3},
                 {1. / 3, 1. / 3, 1. / 3}}),
         new Image(2, 2, pixelArrayFromChannelArrays(new int[][]{{84, 143}, {109, 99}})));
+    assertEquals(color.applyTransform(sepiaKernel), new Image(2, 2,
+        new IPixel[][]{{new Pixel(75, 67, 52), new Pixel(194, 172, 134)},
+            {new Pixel(117, 104, 81), new Pixel(77, 69, 53)}}));
   }
 
   @Test(expected = IllegalArgumentException.class)
