@@ -541,4 +541,47 @@ public class ImageTest {
   public void testInvalidTransformKernel() {
     this.emptyImage.applyTransform(new double[][]{{1}});
   }
+
+  @Test
+  public void testGetHeight() {
+    assertEquals(this.emptyImage.getHeight(), 0);
+  }
+
+  @Test
+  public void testGetWidth() {
+    assertEquals(this.emptyImage.getWidth(), 0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testOutOfTopBoundsGetPixel() {
+    this.generateRandomColorImage(5, 5).getPixelAt(-1, 0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testOutOfBottomBoundsGetPixel() {
+    this.generateRandomColorImage(5, 5).getPixelAt(5, 0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testOutOfLeftBoundsGetPixel() {
+    this.generateRandomColorImage(5, 5).getPixelAt(0, -1);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testOutOfRightBoundsGetPixel() {
+    this.generateRandomColorImage(5, 5).getPixelAt(0, 5);
+  }
+
+  @Test
+  public void testGetPixel() {
+    int[][] red = this.generateRandomPixelValues(6, 6);
+    int[][] green = this.generateRandomPixelValues(6, 6);
+    int[][] blue = this.generateRandomPixelValues(6, 6);
+    IImage image = new Image(6, 6, pixelArrayFromChannelArrays(red, green, blue));
+    for (int i = 0; i < 6; i++) {
+      for (int j = 0; j < 6; j++) {
+        assertEquals(new Pixel(red[i][j], green[i][j], blue[i][j]), image.getPixelAt(i, j));
+      }
+    }
+  }
 }
