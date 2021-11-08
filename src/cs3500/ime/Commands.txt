@@ -1,10 +1,26 @@
 load res/PPMImages/testOG.ppm OG
+load res/PNGImages/testOG.png OG-png
 brighten 10 OG OG-brighter
 vertical-flip OG OG-vertical
 horizontal-flip OG OG-horizontal
 value-component OG OG-value
+blur OG OG-blurred
+sharpen OG OG-sharpened
+greyscale OG OG-greyscaled
+sepia OG OG-sepia
 save res/Test/OG-brighter.ppm OG-brighter
 save res/Test/OG-vertical.ppm OG-vertical
 save res/Test/OG-horizontal.ppm OG-horizontal
 save res/Test/OG-value.ppm OG-value
+save res/Test/OG-blurred.ppm OG-blurred
+save res/Test/OG-sharpened.ppm OG-sharpened
+save res/Test/OG-greyscaled.ppm OG-greyscaled
+save res/Test/OG-sepia.ppm OG-sepia
+save res/Test/OG-brighter.png OG-brighter
+save res/Test/OG-brighter.jpg OG-brighter
+save res/Test/OG-brighter.jpeg OG-brighter
+save res/Test/OG.jpg OG-png
+save res/Test/OG.jpeg OG-png
+save res/Test/OG.ppm OG-png
+save res/Test/OG.png OG-png
 quit
