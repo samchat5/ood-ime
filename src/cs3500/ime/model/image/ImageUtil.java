@@ -68,6 +68,64 @@ public class ImageUtil {
     return new Image(height, width, pixelArray);
   }
 
+
+  public static void writePNG(String filePath, IImage img) throws IllegalArgumentException {
+    if (filePath == null || img == null) {
+      throw new IllegalArgumentException("Null values");
+    }
+    if (new File(filePath).exists() && !new File(filePath).canWrite()) {
+      throw new IllegalArgumentException("Write protected file");
+    }
+    BufferedImage renderedImage = writeBufferedImage(img);
+
+    try {
+      ImageIO.write(renderedImage, "png", new File(filePath));
+    } catch (IOException e) {
+      throw new IllegalArgumentException("IO error occurred");
+    }
+  }
+
+  public static void writeJPG(String filePath, IImage img) throws IllegalArgumentException {
+    if (filePath == null || img == null) {
+      throw new IllegalArgumentException("Null values");
+    }
+    if (new File(filePath).exists() && !new File(filePath).canWrite()) {
+      throw new IllegalArgumentException("Write protected file");
+    }
+    BufferedImage renderedImage = writeBufferedImage(img);
+
+    try {
+      ImageIO.write(renderedImage, "jpg", new File(filePath));
+    } catch (IOException e) {
+      throw new IllegalArgumentException("IO error occurred");
+    }
+  }
+
+  /**
+   *
+   * @param img
+   * @return BufferedImage with opacity set to 1
+   */
+  public static BufferedImage writeBufferedImage(IImage img) {
+    // TODO: Should this method be private?
+    BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
+
+    for (int i = 0; i < img.getWidth(); i++) {
+      for (int j = 0; j < img.getHeight(); j++) {
+        int[] pixelVals = img.getPixelAt(i,j).getValues();
+        int alphaVal = 1;
+        int redVal = pixelVals[0];
+        int greenVal = pixelVals[1];
+        int blueVal = pixelVals[2];
+        int pixelVal = (alphaVal << 24) | (redVal << 16) | (greenVal << 8) | blueVal;
+        image.setRGB(i,j,pixelVal);
+      }
+    }
+
+    return image;
+
+  }
+
   /**
    * Read an image file in the PPM format and print the colors.
    *

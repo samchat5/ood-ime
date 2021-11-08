@@ -198,6 +198,29 @@ public class Image implements IImage {
     return new Image(height, width, newPixelArray);
   }
 
+  @Override
+  public int getWidth() {
+    return this.width;
+  }
+
+  @Override
+  public int getHeight() {
+    return this.height;
+  }
+
+  @Override
+  public IPixel getPixelAt(int row, int col) throws IllegalArgumentException {
+    if (row < 0 || row >= height) {
+      throw new IllegalArgumentException("Specified row is out of range");
+    }
+    if (col < 0 || col >= width) {
+      throw new IllegalArgumentException("Specified column is out of range");
+    }
+    IPixel target = pixelArray[row][col];
+    int[] targetValues = target.getValues();
+    return new Pixel(targetValues[0],targetValues[1],targetValues[2]);
+  }
+
   /**
    * Returns the string representing the encoding for this Image into a PPM file. For a PPM file,
    * this is the width, height, and max RGB value, followed by the RGB values of each pixel all on
