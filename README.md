@@ -118,4 +118,5 @@ quit
 
 ## Credits
 
-Used https://www.freeconvert.com/ppm-to-png/download to automate conversion of PPM to PNG images
+Used https://dyclassroom.com/image-processing-project/how-to-create-a-random-pixel-image-in-java 
+as a reference for manipulating bufferedImages. This use is permitted for non-commercial use.

@@ -1,6 +1,7 @@
 package cs3500.ime.model.image;
 
 import cs3500.ime.model.GreyscaleComponent;
+import cs3500.ime.model.image.pixel.IPixel;
 
 /**
  * Interface for an Image, which contains a 2D array of {@code IPixel}s, and each concrete class
@@ -55,4 +56,25 @@ public interface IImage {
    * @throws IllegalArgumentException if the kernel is null or not 3x3
    */
   IImage applyTransform(double[][] transformKernel) throws IllegalArgumentException;
+
+  /**
+   * Getter method for image width.
+   * @return this image's numeric width
+   */
+  int getWidth();
+
+  /**
+   * Getter method for image height.
+   * @return this image's numeric height
+   */
+  int getHeight();
+
+  /**
+   * Returns a pixel at a specified position in the image
+   * @param row 0 indexed vertical line position of the specified pixel
+   * @param col 0 indexed horizontal line position of the specified pixel
+   * @return a copy of the pixel at the given location of this image
+   * @throws IllegalArgumentException if row or col are out of the image's range
+   */
+  IPixel getPixelAt(int row, int col) throws IllegalArgumentException;
 }
