@@ -1,4 +1,5 @@
 load res/PPMImages/testOG.ppm OG
+load res/PNGImages/testOG.png OG-png
 brighten 10 OG OG-brighter
 vertical-flip OG OG-vertical
 horizontal-flip OG OG-horizontal
@@ -18,4 +19,8 @@ save res/Test/OG-sepia.ppm OG-sepia
 save res/Test/OG-brighter.png OG-brighter
 save res/Test/OG-brighter.jpg OG-brighter
 save res/Test/OG-brighter.jpeg OG-brighter
+save res/Test/OG.jpg OG-png
+save res/Test/OG.jpeg OG-png
+save res/Test/OG.ppm OG-png
+save res/Test/OG.png OG-png
 quit
