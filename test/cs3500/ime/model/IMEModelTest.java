@@ -6,6 +6,13 @@ import static org.junit.Assert.assertTrue;
 
 import cs3500.ime.model.image.IImage;
 import cs3500.ime.model.image.ImageUtil;
+import cs3500.ime.model.image.color_transform.BlueComponent;
+import cs3500.ime.model.image.color_transform.GreenComponent;
+import cs3500.ime.model.image.color_transform.Luma;
+import cs3500.ime.model.image.color_transform.RedComponent;
+import cs3500.ime.model.image.color_transform.Sepia;
+import cs3500.ime.model.image.filter.Blur;
+import cs3500.ime.model.image.filter.Sharpen;
 import org.junit.Test;
 
 /**
@@ -16,6 +23,8 @@ public class IMEModelTest {
   private final String relPathToRes = "res/";
   private final IImage koala;
   private final IImage testOG;
+  private final IImage koalaPng;
+  private final IImage testOGPng;
 
   /**
    * Constructor that initializes image objects to speed up tests.
@@ -23,6 +32,8 @@ public class IMEModelTest {
   public IMEModelTest() {
     this.koala = ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm");
     this.testOG = ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm");
+    this.koalaPng = ImageUtil.readImageIO(relPathToRes + "PNGImages/koala.png");
+    this.testOGPng = ImageUtil.readImageIO(relPathToRes + "PNGImages/testOG.png");
   }
 
   @Test
@@ -83,7 +94,6 @@ public class IMEModelTest {
     assertEquals(model.save("mytestBright"), ImageUtil.readPPM(relPathToRes +
         "PPMImages/testBrightenBy50.ppm"));
   }
-
 
   @Test(expected = IllegalArgumentException.class)
   public void testBrightenNullImageName() {
@@ -175,7 +185,6 @@ public class IMEModelTest {
     new IMEModel().verticalFlip("koala", "koalaFlip");
   }
 
-
   @Test(expected = IllegalArgumentException.class)
   public void testVerticalFlipNullName() {
     IIMEModel model = new IMEModel();
@@ -217,7 +226,6 @@ public class IMEModelTest {
     IIMEModel model = new IMEModel();
     model.save("koala");
   }
-
 
   @Test(expected = IllegalArgumentException.class)
   public void testSaveNullImage() {
@@ -304,4 +312,136 @@ public class IMEModelTest {
     model.load(this.testOG, "mytest");
     model.greyScale("koala", "koalaGrey", null);
   }
+
+  @Test
+  public void testBlurFilter() {
+    IIMEModel model = new IMEModel();
+    model.load(koalaPng, "koala");
+    model.load(testOGPng, "testOG");
+
+    model.filter("koala", "koalaBlur", new Blur());
+    model.filter("testOG", "testOGBlur", new Blur());
+    assertEquals(model.save("koalaBlur"), ImageUtil.readImageIO(relPathToRes + "PNGImages/koala"
+        + "-blurred.png"));
+    assertEquals(model.save("testOGBlur"),
+        ImageUtil.readImageIO(relPathToRes + "PNGImages/testBlurred.png"));
+  }
+
+  @Test
+  public void testSharpenFilter() {
+    IIMEModel model = new IMEModel();
+    model.load(koalaPng, "koala");
+    model.load(testOGPng, "testOG");
+
+    model.filter("koala", "koalaSharpen", new Sharpen());
+    model.filter("testOG", "testOGSharpen", new Sharpen());
+    assertEquals(model.save("koalaSharpen"), ImageUtil.readImageIO(relPathToRes + "PNGImages/koala"
+        + "-sharpened.png"));
+    assertEquals(model.save("testOGSharpen"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testSharpened.png"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterNullName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOGPng, "test");
+    model.filter(null, "testNew", new Blur());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterNullNewName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOGPng, "test");
+    model.filter("test", null, new Sharpen());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterNullFilter() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOGPng, "test");
+    model.filter("test", "testNew", null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterUnloaded() {
+    IIMEModel model = new IMEModel();
+    model.filter("test", "test", new Blur());
+  }
+
+  @Test
+  public void testSepia() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOGPng, "test");
+    model.load(this.koalaPng, "koala");
+
+    model.colorTransform("test", "testSepia", new Sepia());
+    model.colorTransform("koala", "koalaSepia", new Sepia());
+    assertEquals(model.save("testSepia"), ImageUtil.readImageIO(relPathToRes + "PNGImages"
+        + "/testSepia.png"));
+    assertEquals(model.save("koalaSepia"), ImageUtil.readImageIO(relPathToRes + "PNGImages"
+        + "/koala-sepia.png"));
+  }
+
+  @Test
+  public void testGreyScaleUsingTransform() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.load(this.testOG, "mytest");
+
+    model.colorTransform("koala", "koalaGrey", new RedComponent());
+    model.colorTransform("mytest", "mytestGrey", new RedComponent());
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-red-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testRed.ppm"));
+
+    model.colorTransform("koala", "koalaGrey", new BlueComponent());
+    model.colorTransform("mytest", "mytestGrey", new BlueComponent());
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-blue-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testBlue.ppm"));
+
+    model.colorTransform("koala", "koalaGrey", new GreenComponent());
+    model.colorTransform("mytest", "mytestGrey", new GreenComponent());
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-green-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testGreen.ppm"));
+
+    model.colorTransform("koala", "koalaGrey", new Luma());
+    model.colorTransform("mytest", "mytestGrey", new Luma());
+    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/koala-luma-greyscale.ppm"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
+        "PPMImages/testLuma.ppm"));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformNullName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOGPng, "test");
+    model.colorTransform(null, "testNew", new Sepia());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformNullNewName() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOGPng, "test");
+    model.colorTransform("test", null, new RedComponent());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformNullTransform() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOGPng, "test");
+    model.colorTransform("test", "testNew", null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformUnloaded() {
+    IIMEModel model = new IMEModel();
+    model.colorTransform("test", "test", new Luma());
+  }
+
 }

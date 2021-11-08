@@ -91,6 +91,10 @@ public class ImageUtilTest {
         new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}}));
   }
 
+  // TODO: test equality between file types
+  // TODO: null checks on readImageIO()
+  // TODO: test writeImageIO()
+
   @After
   public void tearDown() {
     File f = new File("test/out.ppm");

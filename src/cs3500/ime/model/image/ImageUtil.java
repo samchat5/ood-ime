@@ -61,12 +61,11 @@ public class ImageUtil {
         // get blue
         int b = p & 0xff;
 
-        Pixel foo = new Pixel(r, g, b);
+        IPixel foo = new Pixel(r, g, b);
         pixelArray[i][j] = foo;
       }
     }
     return new Image(height, width, pixelArray);
-
   }
 
   /**

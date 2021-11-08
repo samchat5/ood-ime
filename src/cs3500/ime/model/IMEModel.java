@@ -162,7 +162,13 @@ public class IMEModel implements IIMEModel {
   @Override
   public void colorTransform(String imageName, String destImageName, IColorTransform transform)
       throws IllegalArgumentException {
-    
+    if (imageName == null || destImageName == null || transform == null) {
+      throw new IllegalArgumentException("Invalid color transform.");
+    }
+    if (!this.imageMap.containsKey(imageName)) {
+      throw new IllegalArgumentException("Unloaded image.");
+    }
+    this.imageMap.put(destImageName, transform.applyTransform(imageMap.get(imageName)));
   }
 
   /**
@@ -177,6 +183,12 @@ public class IMEModel implements IIMEModel {
   @Override
   public void filter(String imageName, String destImageName, IFilter filter)
       throws IllegalArgumentException {
-
+    if (imageName == null || destImageName == null || filter == null) {
+      throw new IllegalArgumentException("Invalid filter.");
+    }
+    if (!this.imageMap.containsKey(imageName)) {
+      throw new IllegalArgumentException("Unloaded image.");
+    }
+    this.imageMap.put(destImageName, filter.applyFilter(imageMap.get(imageName)));
   }
 }

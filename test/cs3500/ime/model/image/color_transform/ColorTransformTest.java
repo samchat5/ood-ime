@@ -16,7 +16,6 @@ public class ColorTransformTest {
   private final IColorTransform red = new RedComponent();
   private final IColorTransform green = new GreenComponent();
   private final IColorTransform blue = new BlueComponent();
-  private final IColorTransform intensity = new Intensity();
   private final IColorTransform luma = new Luma();
   private final IColorTransform sepia = new Sepia();
 
@@ -59,10 +58,6 @@ public class ColorTransformTest {
     assertEquals(luma.applyTransform(color),
         new Image(2, 2, pixelArrayFromChannelArrays(new int[][]{{48, 135}, {77, 36}})));
 
-    // Intensity
-    assertEquals(intensity.applyTransform(color),
-        new Image(2, 2, pixelArrayFromChannelArrays(new int[][]{{84, 143}, {109, 99}})));
-
     // Sepia
     assertEquals(sepia.applyTransform(color), new Image(2, 2,
         new IPixel[][]{{new Pixel(75, 67, 52), new Pixel(194, 172, 134)},
@@ -87,11 +82,6 @@ public class ColorTransformTest {
   @Test(expected = IllegalArgumentException.class)
   public void testLumaNull() {
     luma.applyTransform(null);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void testIntensityNull() {
-    intensity.applyTransform(null);
   }
 
   @Test(expected = IllegalArgumentException.class)
