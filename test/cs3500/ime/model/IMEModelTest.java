@@ -88,11 +88,11 @@ public class IMEModelTest {
     model.load(this.testOG, "mytest");
     model.brighten("mytest", 50, "mytestBright");
 
-    assertEquals(model.save("koalaBright"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-brighter-by-50.ppm"));
+    assertEquals(model.save("koalaBright"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-brighter-by-50.png"));
 
-    assertEquals(model.save("mytestBright"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testBrightenBy50.ppm"));
+    assertEquals(model.save("mytestBright"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testBrightenBy50.png"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -138,11 +138,11 @@ public class IMEModelTest {
     model.load(this.testOG, "mytest");
     model.horizontalFlip("mytest", "mytestFlip");
 
-    assertEquals(model.save("koalaFlip"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-horizontal.ppm"));
+    assertEquals(model.save("koalaFlip"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-horizontal.png"));
 
-    assertEquals(model.save("mytestFlip"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testHorizontal.ppm"));
+    assertEquals(model.save("mytestFlip"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testHorizontal.png"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -173,11 +173,11 @@ public class IMEModelTest {
     model.load(this.testOG, "mytest");
     model.verticalFlip("mytest", "mytestFlip");
 
-    assertEquals(model.save("koalaFlip"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-vertical.ppm"));
+    assertEquals(model.save("koalaFlip"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-vertical.png"));
 
-    assertEquals(model.save("mytestFlip"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testVertical.ppm"));
+    assertEquals(model.save("mytestFlip"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testVertical.png"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -210,15 +210,15 @@ public class IMEModelTest {
     model.horizontalFlip("mytest", "mytestFlip");
     model.verticalFlip("mytestFlip", "mytestFlip");
 
-    assertEquals(model.save("koalaFlip"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-vertical-horizontal.ppm"));
-    assertEquals(model.save("koalaFlip"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-horizontal-vertical.ppm"));
+    assertEquals(model.save("koalaFlip"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-vertical-horizontal.png"));
+    assertEquals(model.save("koalaFlip"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-horizontal-vertical.png"));
 
-    assertEquals(model.save("mytestFlip"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testHorizontalVertical.ppm"));
-    assertEquals(model.save("mytestFlip"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testVerticalHorizontal.ppm"));
+    assertEquals(model.save("mytestFlip"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testHorizontalVertical.png"));
+    assertEquals(model.save("mytestFlip"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testVerticalHorizontal.png"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -242,46 +242,46 @@ public class IMEModelTest {
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.RED);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.RED);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-red-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testRed.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-red-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testRed.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.BLUE);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.BLUE);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-blue-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testBlue.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-blue-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testBlue.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.GREEN);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.GREEN);
 
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-green-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testGreen.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-green-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testGreen.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.LUMA);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.LUMA);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-luma-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testLuma.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-luma-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testLuma.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.VALUE);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.VALUE);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-value-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testValue.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-value-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testValue.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.INTENSITY);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.INTENSITY);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-intensity-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testIntensity.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-intensity-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testIntensity.png"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -390,31 +390,31 @@ public class IMEModelTest {
 
     model.colorTransform("koala", "koalaGrey", new RedComponent());
     model.colorTransform("mytest", "mytestGrey", new RedComponent());
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-red-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testRed.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-red-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testRed.png"));
 
     model.colorTransform("koala", "koalaGrey", new BlueComponent());
     model.colorTransform("mytest", "mytestGrey", new BlueComponent());
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-blue-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testBlue.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-blue-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testBlue.png"));
 
     model.colorTransform("koala", "koalaGrey", new GreenComponent());
     model.colorTransform("mytest", "mytestGrey", new GreenComponent());
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-green-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testGreen.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-green-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testGreen.png"));
 
     model.colorTransform("koala", "koalaGrey", new Luma());
     model.colorTransform("mytest", "mytestGrey", new Luma());
-    assertEquals(model.save("koalaGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/koala-luma-greyscale.ppm"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readPPM(relPathToRes +
-        "PPMImages/testLuma.ppm"));
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/koala-luma-greyscale.png"));
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+        "PNGImages/testLuma.png"));
   }
 
   @Test(expected = IllegalArgumentException.class)

@@ -265,7 +265,7 @@ public class CommandsTest {
 
   @Test(expected = IllegalStateException.class)
   public void testNullImageNameLoad() {
-    new Load("res/PPMImages/testOG.ppm", null).run(model);
+    new Load("res/PNGImages/testOG.png", null).run(model);
   }
 
   @Test(expected = IllegalStateException.class)
@@ -275,8 +275,8 @@ public class CommandsTest {
 
   @Test
   public void testNormalPPMLoad() {
-    new Load("res/PPMImages/testOG.ppm", "mytest").run(model);
-    assertEquals(ImageUtil.readPPM("res/PPMImages/testOG.ppm"), model.save("mytest"));
+    new Load("res/PNGImages/testOG.png", "mytest").run(model);
+    assertEquals(ImageUtil.readImageIO("res/PNGImages/testOG.png"), model.save("mytest"));
   }
 
   @Test
