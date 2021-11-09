@@ -19,8 +19,8 @@ public class IME {
    * @param args unused
    */
   public static void main(String[] args) throws IOException {
-    FileInputStream commands = args[0] == null ? new FileInputStream("src/cs3500/ime/Commands"
-        + ".txt") : new FileInputStream(args[0]);
+    FileInputStream commands = args.length > 0 ? new FileInputStream(args[0]) :
+        new FileInputStream("Commands.txt");
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(System.out),
         new InputStreamReader(commands));
     cont.run();

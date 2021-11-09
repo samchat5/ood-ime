@@ -23,6 +23,8 @@ mv jpg.zip ..
 rm -r *.zip
 
 cd ..
+zip -r IME.zip IME.jar
+zip -r Commands.zip Commands.txt
 zip -r res.zip *.zip
 mv res.zip ..
 rm -r *.zip

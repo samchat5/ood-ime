@@ -457,22 +457,17 @@ public class IMEControllerTest {
   @Test
   public void testBlur() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PNGImages/Koala.png koala\n"
-        + "load res/PNGImages/testOG.png mytest\n"
-        + "blur koala koalaBlur\n"
+    String in = "load res/PNGImages/testOG.png mytest\n"
         + "blur mytest mytestBlur\n"
-        + "save test/mytestBlur.png mytestBlur\n"
-        + "save test/koalaBlur.png koalaBlur\nquit\n";
+        + "save test/mytestBlur.png mytestBlur\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
 
-    assertEquals(ImageUtil.readImage("test/koalaBlur.png"), ImageUtil.readImage(
-        "res/PNGImages/koala-blurred.png"));
     assertEquals(ImageUtil.readImage("test/mytestBlur.png"), ImageUtil.readImage(
         "res/PNGImages/testBlurred.png"));
 
-    if (!new File("test/koalaBlur.png").delete() || !new File("test/mytestBlur.png").delete()) {
+    if (!new File("test/mytestBlur.png").delete()) {
       fail();
     }
   }
@@ -524,22 +519,17 @@ public class IMEControllerTest {
   @Test
   public void testSepiaTransform() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PNGImages/Koala.png koala\n"
-        + "load res/PNGImages/testOG.png mytest\n"
-        + "sepia koala koalaSepia\n"
+    String in = "load res/PNGImages/testOG.png mytest\n"
         + "sepia mytest mytestSepia\n"
-        + "save test/mytestSepia.png mytestSepia\n"
-        + "save test/koalaSepia.png koalaSepia\nquit\n";
+        + "save test/mytestSepia.png mytestSepia\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
 
-    assertEquals(ImageUtil.readImage("test/koalaSepia.png"), ImageUtil.readImage(
-        "res/PNGImages/koala-sepia.png"));
     assertEquals(ImageUtil.readImage("test/mytestSepia.png"), ImageUtil.readImage(
         "res/PNGImages/testSepia.png"));
 
-    if (!new File("test/koalaSepia.png").delete() || !new File("test/mytestSepia.png").delete()) {
+    if (!new File("test/mytestSepia.png").delete()) {
       fail();
     }
   }
@@ -557,23 +547,17 @@ public class IMEControllerTest {
   @Test
   public void testSharpen() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PNGImages/Koala.png koala\n"
-        + "load res/PNGImages/testOG.png mytest\n"
-        + "sharpen koala koalaSharpen\n"
+    String in = "load res/PNGImages/testOG.png mytest\n"
         + "sharpen mytest mytestSharpen\n"
-        + "save test/mytestSharpen.png mytestSharpen\n"
-        + "save test/koalaSharpen.png koalaSharpen\nquit\n";
+        + "save test/mytestSharpen.png mytestSharpen\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
 
-    assertEquals(ImageUtil.readImage("test/koalaSharpen.png"), ImageUtil.readImage(
-        "res/PNGImages/koala-sharpened.png"));
     assertEquals(ImageUtil.readImage("test/mytestSharpen.png"), ImageUtil.readImage(
         "res/PNGImages/testSharpened.png"));
 
-    if (!new File("test/koalaSharpen.png").delete() || !new File(
-        "test/mytestSharpen.png").delete()) {
+    if (!new File("test/mytestSharpen.png").delete()) {
       fail();
     }
   }

@@ -368,14 +368,9 @@ public class IMEModelTest {
   public void testSepia() {
     IIMEModel model = new IMEModel();
     model.load(this.testOG, "test");
-    model.load(this.koala, "koala");
-
     model.colorTransform("test", "testSepia", new Sepia());
-    model.colorTransform("koala", "koalaSepia", new Sepia());
     assertEquals(model.save("testSepia"), ImageUtil.readImage(relPathToRes + "PNGImages"
         + "/testSepia.png"));
-    assertEquals(model.save("koalaSepia"), ImageUtil.readImage(relPathToRes + "PNGImages"
-        + "/koala-sepia.png"));
   }
 
   @Test
