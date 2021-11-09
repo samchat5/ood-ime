@@ -93,8 +93,6 @@ public class ImageUtilTest {
 
   @Test
   public void testReadPNG() {
-    assertEquals(ImageUtil.readImage("res/PNGImages/Koala.png"), ImageUtil.readPPM("res"
-        + "/PPMImages/Koala.ppm"));
     assertEquals(ImageUtil.readImage("res/PNGImages/testOG.png"), ImageUtil.readPPM("res"
         + "/PPMImages/testOG.ppm"));
   }
@@ -103,13 +101,9 @@ public class ImageUtilTest {
   public void testReadJPG() {
     // Since JPGs are lossy, the images will be slightly off, but the height and width will
     // always be the same, we just want to test that no errors are thrown
-    IImage koalaJPG = ImageUtil.readImage("res/JPGImages/Koala.jpg");
-    IImage koalaPPM = ImageUtil.readPPM("res/PPMImages/Koala.ppm");
     IImage testJPG = ImageUtil.readImage("res/JPGImages/testOG.jpg");
-    IImage testPPM = ImageUtil.readPPM("res/PPMImages/testOG.ppm");
+    IImage testPPM = ImageUtil.readImage("res/PNGImages/testOG.png");
 
-    assertEquals(koalaJPG.getWidth(), koalaPPM.getWidth());
-    assertEquals(koalaJPG.getHeight(), koalaPPM.getHeight());
     assertEquals(testJPG.getWidth(), testPPM.getWidth());
     assertEquals(testJPG.getHeight(), testPPM.getHeight());
   }

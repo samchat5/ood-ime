@@ -23,17 +23,13 @@ public class IMEModelTest {
   private final String relPathToRes = "res/";
   private final IImage koala;
   private final IImage testOG;
-  private final IImage koalaPng;
-  private final IImage testOGPng;
 
   /**
    * Constructor that initializes image objects to speed up tests.
    */
   public IMEModelTest() {
-    this.koala = ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm");
-    this.testOG = ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm");
-    this.koalaPng = ImageUtil.readImage(relPathToRes + "PNGImages/koala.png");
-    this.testOGPng = ImageUtil.readImage(relPathToRes + "PNGImages/testOG.png");
+    this.koala = ImageUtil.readImage(relPathToRes + "PNGImages/koala.png");
+    this.testOG = ImageUtil.readImage(relPathToRes + "PNGImages/testOG.png");
   }
 
   @Test
@@ -316,8 +312,8 @@ public class IMEModelTest {
   @Test
   public void testBlurFilter() {
     IIMEModel model = new IMEModel();
-    model.load(koalaPng, "koala");
-    model.load(testOGPng, "testOG");
+    model.load(koala, "koala");
+    model.load(testOG, "testOG");
 
     model.filter("koala", "koalaBlur", new Blur());
     model.filter("testOG", "testOGBlur", new Blur());
@@ -330,8 +326,8 @@ public class IMEModelTest {
   @Test
   public void testSharpenFilter() {
     IIMEModel model = new IMEModel();
-    model.load(koalaPng, "koala");
-    model.load(testOGPng, "testOG");
+    model.load(koala, "koala");
+    model.load(testOG, "testOG");
 
     model.filter("koala", "koalaSharpen", new Sharpen());
     model.filter("testOG", "testOGSharpen", new Sharpen());
@@ -344,21 +340,21 @@ public class IMEModelTest {
   @Test(expected = IllegalArgumentException.class)
   public void testFilterNullName() {
     IIMEModel model = new IMEModel();
-    model.load(this.testOGPng, "test");
+    model.load(this.testOG, "test");
     model.filter(null, "testNew", new Blur());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testFilterNullNewName() {
     IIMEModel model = new IMEModel();
-    model.load(this.testOGPng, "test");
+    model.load(this.testOG, "test");
     model.filter("test", null, new Sharpen());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testFilterNullFilter() {
     IIMEModel model = new IMEModel();
-    model.load(this.testOGPng, "test");
+    model.load(this.testOG, "test");
     model.filter("test", "testNew", null);
   }
 
@@ -371,8 +367,8 @@ public class IMEModelTest {
   @Test
   public void testSepia() {
     IIMEModel model = new IMEModel();
-    model.load(this.testOGPng, "test");
-    model.load(this.koalaPng, "koala");
+    model.load(this.testOG, "test");
+    model.load(this.koala, "koala");
 
     model.colorTransform("test", "testSepia", new Sepia());
     model.colorTransform("koala", "koalaSepia", new Sepia());
@@ -420,21 +416,21 @@ public class IMEModelTest {
   @Test(expected = IllegalArgumentException.class)
   public void testTransformNullName() {
     IIMEModel model = new IMEModel();
-    model.load(this.testOGPng, "test");
+    model.load(this.testOG, "test");
     model.colorTransform(null, "testNew", new Sepia());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testTransformNullNewName() {
     IIMEModel model = new IMEModel();
-    model.load(this.testOGPng, "test");
+    model.load(this.testOG, "test");
     model.colorTransform("test", null, new RedComponent());
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testTransformNullTransform() {
     IIMEModel model = new IMEModel();
-    model.load(this.testOGPng, "test");
+    model.load(this.testOG, "test");
     model.colorTransform("test", "testNew", null);
   }
 

@@ -39,19 +39,15 @@ public class IMEControllerTest {
   @Test
   public void testLoadSave() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n"
-        + "load res/PPMImages/testOG.PPM mytest\n"
-        + "save test/koalaTest.ppm koala\n"
+    String in = "load res/PPMImages/testOG.PPM mytest\n"
         + "save test/mytest.ppm mytest\n"
         + "quit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(ImageUtil.readPPM("test/koalaTest.ppm"),
-        ImageUtil.readPPM("res/PPMImages/Koala.ppm"));
     assertEquals(ImageUtil.readPPM("test/mytest.ppm"),
         ImageUtil.readPPM("res/PPMImages/testOG.ppm"));
-    if (!new File("test/koalaTest.ppm").delete() || !new File("test/mytest.ppm").delete()) {
+    if (!new File("test/mytest.ppm").delete()) {
       fail();
     }
   }
@@ -97,7 +93,7 @@ public class IMEControllerTest {
   @Test
   public void testSaveFileNotFound() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\nsave unknown/path.ppm koala\nquit\n";
+    String in = "load res/PNGImages/Koala.png koala\nsave unknown/path.ppm koala\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
@@ -117,7 +113,7 @@ public class IMEControllerTest {
   @Test
   public void testUnknownCommand() {
     StringBuilder app = new StringBuilder();
-    String in = "some-command res/PPMImages/Koala.ppm\nquit\n";
+    String in = "some-command res/PNGImages/Koala.png\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
@@ -208,7 +204,7 @@ public class IMEControllerTest {
   @Test
   public void testRedComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n"
+    String in = "load res/PNGImages/Koala.png koala\n"
         + "load res/PPMImages/testOG.ppm mytest\n"
         + "red-component koala koalaGrey\n"
         + "red-component mytest mytestGrey\n"
@@ -229,7 +225,7 @@ public class IMEControllerTest {
   @Test
   public void testBlueComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n"
+    String in = "load res/PNGImages/Koala.png koala\n"
         + "load res/PPMImages/testOG.ppm mytest\n"
         + "blue-component koala koalaGrey\n"
         + "blue-component mytest mytestGrey\n"
@@ -250,7 +246,7 @@ public class IMEControllerTest {
   @Test
   public void testGreenComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n"
+    String in = "load res/PNGImages/Koala.png koala\n"
         + "load res/PPMImages/testOG.ppm mytest\n"
         + "green-component koala koalaGrey\n"
         + "green-component mytest mytestGrey\n"
@@ -271,7 +267,7 @@ public class IMEControllerTest {
   @Test
   public void testLumaComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n"
+    String in = "load res/PNGImages/Koala.png koala\n"
         + "load res/PPMImages/testOG.ppm mytest\n"
         + "luma-component koala koalaGrey\n"
         + "luma-component mytest mytestGrey\n"
@@ -292,7 +288,7 @@ public class IMEControllerTest {
   @Test
   public void testValueComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n"
+    String in = "load res/PNGImages/Koala.png koala\n"
         + "load res/PPMImages/testOG.ppm mytest\n"
         + "value-component koala koalaGrey\n"
         + "value-component mytest mytestGrey\n"
@@ -313,7 +309,7 @@ public class IMEControllerTest {
   @Test
   public void testIntensityComponent() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n"
+    String in = "load res/PNGImages/Koala.png koala\n"
         + "load res/PPMImages/testOG.ppm mytest\n"
         + "intensity-component koala koalaGrey\n"
         + "intensity-component mytest mytestGrey\n"
@@ -334,7 +330,7 @@ public class IMEControllerTest {
   @Test
   public void testBrighten() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n"
+    String in = "load res/PNGImages/Koala.png koala\n"
         + "load res/PPMImages/testOG.ppm mytest\n"
         + "brighten 50 koala koalaBright\n"
         + "brighten 50 mytest mytestBright\n"
@@ -367,7 +363,7 @@ public class IMEControllerTest {
   @Test
   public void testBrightenAboveRange() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n" +
+    String in = "load res/PNGImages/Koala.png koala\n" +
         " brighten 300 koala koalaBright\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
@@ -378,7 +374,7 @@ public class IMEControllerTest {
   @Test
   public void testBrightenBelowRange() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n" +
+    String in = "load res/PNGImages/Koala.png koala\n" +
         " brighten -300 koala koalaBright\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
@@ -389,7 +385,7 @@ public class IMEControllerTest {
   @Test
   public void testHorizontalFlip() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n" +
+    String in = "load res/PNGImages/Koala.png koala\n" +
         "load res/PPMImages/testOG.ppm mytest\n" +
         "horizontal-flip koala koalaFlip\n" +
         "horizontal-flip mytest mytestFlip\n" +
@@ -420,7 +416,7 @@ public class IMEControllerTest {
   @Test
   public void testVerticalFlip() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n" +
+    String in = "load res/PNGImages/Koala.png koala\n" +
         "load res/PPMImages/testOG.ppm mytest\n" +
         "vertical-flip koala koalaFlip\n" +
         "vertical-flip mytest mytestFlip\n" +
@@ -441,7 +437,7 @@ public class IMEControllerTest {
   @Test
   public void testInvalidCommandUsage() {
     StringBuilder app = new StringBuilder();
-    String in = "load res/PPMImages/Koala.ppm koala\n" + "brighten koala 255 koalaBright\nquit";
+    String in = "load res/PNGImages/Koala.png koala\n" + "brighten koala 255 koalaBright\nquit";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
