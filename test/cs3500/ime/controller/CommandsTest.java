@@ -165,9 +165,15 @@ public class CommandsTest {
   }
 
   @Test
-  public void testNormalUsageLoad() {
+  public void testNormalPPMLoad() {
     new Load("res/PPMImages/testOG.ppm", "mytest").run(model);
     assertEquals(ImageUtil.readPPM("res/PPMImages/testOG.ppm"), model.save("mytest"));
+  }
+
+  @Test
+  public void testNormalPNGLoad() {
+    new Load("res/PNGImages/testOG.png", "mytest").run(model);
+    assertEquals(ImageUtil.readImageIO("res/PNGImages/testOG.png"), model.save("mytest"));
   }
 
   // Save
@@ -191,11 +197,31 @@ public class CommandsTest {
   }
 
   @Test
-  public void testNormalUsageSav() {
+  public void testNormalPPMSave() {
     model.load(emptyImage, "mytest");
     new Save("test/test.ppm", "mytest").run(model);
     assertEquals(ImageUtil.readPPM("test/test.ppm"), emptyImage);
     if (!new File("test/test.ppm").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testNormalPNGSave() {
+    model.load(emptyImage, "mytest");
+    new Save("test/test.png", "mytest").run(model);
+    assertEquals(emptyImage, ImageUtil.readImageIO("test/test.png"));
+    if (!new File("test/test.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testNormalJPGSave() {
+    model.load(emptyImage, "mytest");
+    new Save("test/test.jpg", "mytest").run(model);
+    assertEquals(emptyImage, ImageUtil.readImageIO("test/test.jpg"));
+    if (!new File("test/test.jpg").delete()) {
       fail();
     }
   }
