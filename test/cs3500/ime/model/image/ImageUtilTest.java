@@ -158,12 +158,18 @@ public class ImageUtilTest {
     ImageUtil.writeImage("test/out.jpg", new Image(2, 2,
         new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}}));
     new File("test/out.jpg").setReadOnly();
-    ImageUtil.writeImage("test/out.jpg", new Image(0, 0, new IPixel[][]{}));
+    ImageUtil.writeImage("test/out.jpg", new Image(1, 1, new IPixel[][]{{new Pixel(255)}}));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testWriteUnknownFileOther() {
-    ImageUtil.writeImage("some/dir/that/dont/exist.png", new Image(0, 0, new IPixel[][]{}));
+    ImageUtil.writeImage("some/dir/that/dont/exist.png",
+        new Image(1, 1, new IPixel[][]{{new Pixel(255)}}));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testWriteEmptyOtherFile() {
+    ImageUtil.writeImage("test/out.jpg", new Image(0, 0, new IPixel[][]{}));
   }
 
   @After

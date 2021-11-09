@@ -73,6 +73,9 @@ public class ImageUtil {
     if (filePath == null || img == null) {
       throw new IllegalArgumentException("Null values");
     }
+    if (img.equals(new Image(0, 0, new IPixel[][]{}))) {
+      throw new IllegalArgumentException("Can't write null image");
+    }
     if (new File(filePath).exists() && !new File(filePath).canWrite()) {
       throw new IllegalArgumentException("Write protected file");
     }
@@ -81,7 +84,7 @@ public class ImageUtil {
     try {
       ImageIO.write(renderedImage, filePath.substring(filePath.lastIndexOf(".") + 1),
           new File(filePath));
-    } catch (IOException e) {
+    } catch (Exception e) {
       throw new IllegalArgumentException("IO error occurred");
     }
   }

@@ -3,11 +3,15 @@ package cs3500.ime.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import cs3500.ime.controller.commands.BlurCommand;
 import cs3500.ime.controller.commands.Brighten;
 import cs3500.ime.controller.commands.GreyScale;
 import cs3500.ime.controller.commands.HorizontalFlip;
 import cs3500.ime.controller.commands.Load;
+import cs3500.ime.controller.commands.LumaTransform;
 import cs3500.ime.controller.commands.Save;
+import cs3500.ime.controller.commands.SepiaCommand;
+import cs3500.ime.controller.commands.SharpenCommand;
 import cs3500.ime.controller.commands.VerticalFlip;
 import cs3500.ime.model.GreyscaleComponent;
 import cs3500.ime.model.IIMEModel;
@@ -16,6 +20,7 @@ import cs3500.ime.model.image.IImage;
 import cs3500.ime.model.image.Image;
 import cs3500.ime.model.image.ImageUtil;
 import cs3500.ime.model.image.pixel.IPixel;
+import cs3500.ime.model.image.pixel.Pixel;
 import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +36,110 @@ public class CommandsTest {
   @Before
   public void setUp() {
     model = new IMEModel();
+  }
+
+  // Blur
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameBlur() {
+    model.load(emptyImage, "mytest");
+    new BlurCommand("mytest", null).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameBlur() {
+    model.load(emptyImage, "mytest");
+    new BlurCommand(null, "mytest2").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidCommandBlur() {
+    new BlurCommand("mytest", "myTestNew").run(model);
+  }
+
+  @Test
+  public void testNormalUsageBlur() {
+    model.load(emptyImage, "mytest");
+    new BlurCommand("mytest", "mytest2").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+  // Luma Transform
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameLumaTransform() {
+    model.load(emptyImage, "mytest");
+    new LumaTransform("mytest", null).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameLumaTransform() {
+    model.load(emptyImage, "mytest");
+    new LumaTransform(null, "mytest2").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidCommandLumaTransform() {
+    new LumaTransform("mytest", "myTestNew").run(model);
+  }
+
+  @Test
+  public void testNormalUsageLumaTransform() {
+    model.load(emptyImage, "mytest");
+    new LumaTransform("mytest", "mytest2").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+  // Sepia
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameSepia() {
+    model.load(emptyImage, "mytest");
+    new SepiaCommand("mytest", null).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameSepia() {
+    model.load(emptyImage, "mytest");
+    new SepiaCommand(null, "mytest2").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidCommandSepia() {
+    new SepiaCommand("mytest", "myTestNew").run(model);
+  }
+
+  @Test
+  public void testNormalUsageSepia() {
+    model.load(emptyImage, "mytest");
+    new SepiaCommand("mytest", "mytest2").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+  // Sharpen
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameSharpen() {
+    model.load(emptyImage, "mytest");
+    new SharpenCommand("mytest", null).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameSharpen() {
+    model.load(emptyImage, "mytest");
+    new SharpenCommand(null, "mytest2").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidCommandSharpen() {
+    new SharpenCommand("mytest", "myTestNew").run(model);
+  }
+
+  @Test
+  public void testNormalUsageSharpen() {
+    model.load(emptyImage, "mytest");
+    new SharpenCommand("mytest", "mytest2").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
   }
 
   // Brighten
@@ -165,9 +274,15 @@ public class CommandsTest {
   }
 
   @Test
-  public void testNormalUsageLoad() {
+  public void testNormalPPMLoad() {
     new Load("res/PPMImages/testOG.ppm", "mytest").run(model);
     assertEquals(ImageUtil.readPPM("res/PPMImages/testOG.ppm"), model.save("mytest"));
+  }
+
+  @Test
+  public void testNormalPNGLoad() {
+    new Load("res/PNGImages/testOG.png", "mytest").run(model);
+    assertEquals(ImageUtil.readImageIO("res/PNGImages/testOG.png"), model.save("mytest"));
   }
 
   // Save
@@ -191,11 +306,33 @@ public class CommandsTest {
   }
 
   @Test
-  public void testNormalUsageSav() {
+  public void testNormalPPMSave() {
     model.load(emptyImage, "mytest");
     new Save("test/test.ppm", "mytest").run(model);
     assertEquals(ImageUtil.readPPM("test/test.ppm"), emptyImage);
     if (!new File("test/test.ppm").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testNormalPNGSave() {
+    IImage testImage = new Image(1, 1, new IPixel[][]{{new Pixel(255)}});
+    model.load(testImage, "mytest");
+    new Save("test/test.png", "mytest").run(model);
+    assertEquals(testImage, ImageUtil.readImageIO("test/test.png"));
+    if (!new File("test/test.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testNormalJPGSave() {
+    IImage testImage = new Image(1, 1, new IPixel[][]{{new Pixel(255)}});
+    model.load(testImage, "mytest");
+    new Save("test/test.jpg", "mytest").run(model);
+    assertEquals(testImage, ImageUtil.readImageIO("test/test.jpg"));
+    if (!new File("test/test.jpg").delete()) {
       fail();
     }
   }
