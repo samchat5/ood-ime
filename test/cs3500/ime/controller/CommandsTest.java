@@ -191,7 +191,7 @@ public class CommandsTest {
   }
 
   @Test
-  public void testNormalUsageSav() {
+  public void testNormalUsageSave() {
     model.load(emptyImage, "mytest");
     new Save("test/test.ppm", "mytest").run(model);
     assertEquals(ImageUtil.readPPM("test/test.ppm"), emptyImage);

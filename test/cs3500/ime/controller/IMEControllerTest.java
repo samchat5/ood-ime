@@ -3,8 +3,8 @@ package cs3500.ime.controller;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import cs3500.ime.model.image.ImageUtil;
 import cs3500.ime.model.IMEModel;
+import cs3500.ime.model.image.ImageUtil;
 import cs3500.ime.view.IMETextView;
 import java.io.File;
 import java.io.StringReader;
@@ -52,6 +52,26 @@ public class IMEControllerTest {
     assertEquals(ImageUtil.readPPM("test/mytest.ppm"),
         ImageUtil.readPPM("res/PPMImages/testOG.ppm"));
     if (!new File("test/koalaTest.ppm").delete() || !new File("test/mytest.ppm").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testLoadSavePNG() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/Koala.png koala\n"
+        + "load res/PNGImages/testOG.Png mytest\n"
+        + "save test/koalaTest.png koala\n"
+        + "save test/mytest.png mytest\n"
+        + "quit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImageIO("test/koalaTest.png"),
+        ImageUtil.readImageIO("res/PNGImages/Koala.png"));
+    assertEquals(ImageUtil.readImageIO("test/mytest.png"),
+        ImageUtil.readImageIO("res/PNGImages/testOG.png"));
+    if (!new File("test/koalaTest.png").delete() || !new File("test/mytest.png").delete()) {
       fail();
     }
   }
@@ -108,7 +128,7 @@ public class IMEControllerTest {
   @Test
   public void testUnknownCommandMultipleArgs() {
     StringBuilder app = new StringBuilder();
-    String in = "some-command ei a q whe a a qwke e  a ksk  dad  \nquit\n";
+    @SuppressWarnings("SpellCheckingInspection") String in = "some-command ei a q whe a a qwke e  a ksk  dad  \nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
@@ -436,5 +456,139 @@ public class IMEControllerTest {
         new StringReader(in));
     cont.run();
     assertEquals(app.toString(), "Invalid vertical flip command.\n");
+  }
+
+  @Test
+  public void testBlur() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/Koala.png koala\n"
+        + "load res/PNGImages/testOG.png mytest\n"
+        + "blur koala koalaBlur\n"
+        + "blur mytest mytestBlur\n"
+        + "save test/mytestBlur.png mytestBlur\n"
+        + "save test/koalaBlur.png koalaBlur\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+
+    assertEquals(ImageUtil.readImageIO("test/koalaBlur.png"), ImageUtil.readImageIO(
+        "res/PNGImages/koala-blurred.png"));
+    assertEquals(ImageUtil.readImageIO("test/mytestBlur.png"), ImageUtil.readImageIO(
+        "res/PNGImages/testBlurred.png"));
+
+    if (!new File("test/koalaBlur.png").delete() || !new File("test/mytestBlur.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testBlurUnloaded() {
+    StringBuilder app = new StringBuilder();
+    String in = " blur koala koalaBlur\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Illegal blur command.\n");
+  }
+
+  @Test
+  public void testLumaTransform() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/Koala.png koala\n"
+        + "load res/PNGImages/testOG.png mytest\n"
+        + "greyscale koala koalaLuma\n"
+        + "greyscale mytest mytestLuma\n"
+        + "save test/mytestLuma.png mytestLuma\n"
+        + "save test/koalaLuma.png koalaLuma\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+
+    assertEquals(ImageUtil.readImageIO("test/koalaLuma.png"), ImageUtil.readImageIO(
+        "res/PNGImages/koala-luma-greyscale.png"));
+    assertEquals(ImageUtil.readImageIO("test/mytestLuma.png"), ImageUtil.readImageIO(
+        "res/PNGImages/testLuma.png"));
+
+    if (!new File("test/koalaLuma.png").delete() || !new File("test/mytestLuma.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testLumaUnloaded() {
+    StringBuilder app = new StringBuilder();
+    String in = " greyscale koala koalaLuma\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Invalid greyscale command.\n");
+  }
+
+
+  @Test
+  public void testSepiaTransform() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/Koala.png koala\n"
+        + "load res/PNGImages/testOG.png mytest\n"
+        + "sepia koala koalaSepia\n"
+        + "sepia mytest mytestSepia\n"
+        + "save test/mytestSepia.png mytestSepia\n"
+        + "save test/koalaSepia.png koalaSepia\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+
+    assertEquals(ImageUtil.readImageIO("test/koalaSepia.png"), ImageUtil.readImageIO(
+        "res/PNGImages/koala-sepia.png"));
+    assertEquals(ImageUtil.readImageIO("test/mytestSepia.png"), ImageUtil.readImageIO(
+        "res/PNGImages/testSepia.png"));
+
+    if (!new File("test/koalaSepia.png").delete() || !new File("test/mytestSepia.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testSepiaUnloaded() {
+    StringBuilder app = new StringBuilder();
+    String in = "sepia koala koalaSepia\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Invalid Sepia command.\n");
+  }
+
+  @Test
+  public void testSharpen() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/Koala.png koala\n"
+        + "load res/PNGImages/testOG.png mytest\n"
+        + "sharpen koala koalaSharpen\n"
+        + "sharpen mytest mytestSharpen\n"
+        + "save test/mytestSharpen.png mytestSharpen\n"
+        + "save test/koalaSharpen.png koalaSharpen\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+
+    assertEquals(ImageUtil.readImageIO("test/koalaSharpen.png"), ImageUtil.readImageIO(
+        "res/PNGImages/koala-sharpened.png"));
+    assertEquals(ImageUtil.readImageIO("test/mytestSharpen.png"), ImageUtil.readImageIO(
+        "res/PNGImages/testSharpened.png"));
+
+    if (!new File("test/koalaSharpen.png").delete() || !new File(
+        "test/mytestSharpen.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testSharpenUnloaded() {
+    StringBuilder app = new StringBuilder();
+    String in = "sharpen koala koalaSepia\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Illegal Sharpen command.\n");
   }
 }

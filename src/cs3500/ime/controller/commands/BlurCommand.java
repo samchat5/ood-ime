@@ -24,7 +24,7 @@ public class BlurCommand implements IIMECommand {
     try {
       model.filter(imageName, destImageName, new Blur());
     } catch (Exception e) {
-      throw new IllegalStateException("Illegal BlurCommand command.");
+      throw new IllegalStateException("Illegal blur command.");
     }
   }
 }
