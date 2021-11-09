@@ -34,7 +34,7 @@ public class Load implements IIMECommand {
     try {
       String ext = filePath.substring(filePath.lastIndexOf(".") + 1);
       model.load(ext.equalsIgnoreCase("ppm") ? ImageUtil.readPPM(filePath)
-          : ImageUtil.readImageIO(filePath), imageName);
+          : ImageUtil.readImage(filePath), imageName);
     } catch (Exception e) {
       throw new IllegalStateException("Load file not found.");
     }

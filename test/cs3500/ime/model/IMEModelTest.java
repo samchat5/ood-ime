@@ -32,8 +32,8 @@ public class IMEModelTest {
   public IMEModelTest() {
     this.koala = ImageUtil.readPPM(relPathToRes + "PPMImages/Koala.ppm");
     this.testOG = ImageUtil.readPPM(relPathToRes + "PPMImages/testOG.ppm");
-    this.koalaPng = ImageUtil.readImageIO(relPathToRes + "PNGImages/koala.png");
-    this.testOGPng = ImageUtil.readImageIO(relPathToRes + "PNGImages/testOG.png");
+    this.koalaPng = ImageUtil.readImage(relPathToRes + "PNGImages/koala.png");
+    this.testOGPng = ImageUtil.readImage(relPathToRes + "PNGImages/testOG.png");
   }
 
   @Test
@@ -88,10 +88,10 @@ public class IMEModelTest {
     model.load(this.testOG, "mytest");
     model.brighten("mytest", 50, "mytestBright");
 
-    assertEquals(model.save("koalaBright"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaBright"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-brighter-by-50.png"));
 
-    assertEquals(model.save("mytestBright"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestBright"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testBrightenBy50.png"));
   }
 
@@ -138,10 +138,10 @@ public class IMEModelTest {
     model.load(this.testOG, "mytest");
     model.horizontalFlip("mytest", "mytestFlip");
 
-    assertEquals(model.save("koalaFlip"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaFlip"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-horizontal.png"));
 
-    assertEquals(model.save("mytestFlip"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestFlip"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testHorizontal.png"));
   }
 
@@ -173,10 +173,10 @@ public class IMEModelTest {
     model.load(this.testOG, "mytest");
     model.verticalFlip("mytest", "mytestFlip");
 
-    assertEquals(model.save("koalaFlip"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaFlip"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-vertical.png"));
 
-    assertEquals(model.save("mytestFlip"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestFlip"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testVertical.png"));
   }
 
@@ -210,14 +210,14 @@ public class IMEModelTest {
     model.horizontalFlip("mytest", "mytestFlip");
     model.verticalFlip("mytestFlip", "mytestFlip");
 
-    assertEquals(model.save("koalaFlip"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaFlip"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-vertical-horizontal.png"));
-    assertEquals(model.save("koalaFlip"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaFlip"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-horizontal-vertical.png"));
 
-    assertEquals(model.save("mytestFlip"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestFlip"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testHorizontalVertical.png"));
-    assertEquals(model.save("mytestFlip"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestFlip"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testVerticalHorizontal.png"));
   }
 
@@ -242,45 +242,45 @@ public class IMEModelTest {
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.RED);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.RED);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-red-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testRed.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.BLUE);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.BLUE);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-blue-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testBlue.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.GREEN);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.GREEN);
 
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-green-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testGreen.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.LUMA);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.LUMA);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-luma-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testLuma.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.VALUE);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.VALUE);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-value-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testValue.png"));
 
     model.greyScale("koala", "koalaGrey", GreyscaleComponent.INTENSITY);
     model.greyScale("mytest", "mytestGrey", GreyscaleComponent.INTENSITY);
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-intensity-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testIntensity.png"));
   }
 
@@ -321,10 +321,10 @@ public class IMEModelTest {
 
     model.filter("koala", "koalaBlur", new Blur());
     model.filter("testOG", "testOGBlur", new Blur());
-    assertEquals(model.save("koalaBlur"), ImageUtil.readImageIO(relPathToRes + "PNGImages/koala"
+    assertEquals(model.save("koalaBlur"), ImageUtil.readImage(relPathToRes + "PNGImages/koala"
         + "-blurred.png"));
     assertEquals(model.save("testOGBlur"),
-        ImageUtil.readImageIO(relPathToRes + "PNGImages/testBlurred.png"));
+        ImageUtil.readImage(relPathToRes + "PNGImages/testBlurred.png"));
   }
 
   @Test
@@ -335,9 +335,9 @@ public class IMEModelTest {
 
     model.filter("koala", "koalaSharpen", new Sharpen());
     model.filter("testOG", "testOGSharpen", new Sharpen());
-    assertEquals(model.save("koalaSharpen"), ImageUtil.readImageIO(relPathToRes + "PNGImages/koala"
+    assertEquals(model.save("koalaSharpen"), ImageUtil.readImage(relPathToRes + "PNGImages/koala"
         + "-sharpened.png"));
-    assertEquals(model.save("testOGSharpen"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("testOGSharpen"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testSharpened.png"));
   }
 
@@ -376,9 +376,9 @@ public class IMEModelTest {
 
     model.colorTransform("test", "testSepia", new Sepia());
     model.colorTransform("koala", "koalaSepia", new Sepia());
-    assertEquals(model.save("testSepia"), ImageUtil.readImageIO(relPathToRes + "PNGImages"
+    assertEquals(model.save("testSepia"), ImageUtil.readImage(relPathToRes + "PNGImages"
         + "/testSepia.png"));
-    assertEquals(model.save("koalaSepia"), ImageUtil.readImageIO(relPathToRes + "PNGImages"
+    assertEquals(model.save("koalaSepia"), ImageUtil.readImage(relPathToRes + "PNGImages"
         + "/koala-sepia.png"));
   }
 
@@ -390,30 +390,30 @@ public class IMEModelTest {
 
     model.colorTransform("koala", "koalaGrey", new RedComponent());
     model.colorTransform("mytest", "mytestGrey", new RedComponent());
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-red-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testRed.png"));
 
     model.colorTransform("koala", "koalaGrey", new BlueComponent());
     model.colorTransform("mytest", "mytestGrey", new BlueComponent());
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-blue-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testBlue.png"));
 
     model.colorTransform("koala", "koalaGrey", new GreenComponent());
     model.colorTransform("mytest", "mytestGrey", new GreenComponent());
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-green-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testGreen.png"));
 
     model.colorTransform("koala", "koalaGrey", new Luma());
     model.colorTransform("mytest", "mytestGrey", new Luma());
-    assertEquals(model.save("koalaGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("koalaGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/koala-luma-greyscale.png"));
-    assertEquals(model.save("mytestGrey"), ImageUtil.readImageIO(relPathToRes +
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testLuma.png"));
   }
 

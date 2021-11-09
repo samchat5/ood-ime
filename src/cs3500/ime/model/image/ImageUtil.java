@@ -27,7 +27,7 @@ public class ImageUtil {
    * @return Java's ImageIO's attempt to read the image
    * @throws IllegalArgumentException if filename is null or if the referenced file cannot be found
    */
-  public static IImage readImageIO(String filename) throws IllegalArgumentException {
+  public static IImage readImage(String filename) throws IllegalArgumentException {
     if (filename == null) {
       throw new IllegalArgumentException();
     }

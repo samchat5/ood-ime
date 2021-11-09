@@ -93,9 +93,9 @@ public class ImageUtilTest {
 
   @Test
   public void testReadPNG() {
-    assertEquals(ImageUtil.readImageIO("res/PNGImages/Koala.png"), ImageUtil.readPPM("res"
+    assertEquals(ImageUtil.readImage("res/PNGImages/Koala.png"), ImageUtil.readPPM("res"
         + "/PPMImages/Koala.ppm"));
-    assertEquals(ImageUtil.readImageIO("res/PNGImages/testOG.png"), ImageUtil.readPPM("res"
+    assertEquals(ImageUtil.readImage("res/PNGImages/testOG.png"), ImageUtil.readPPM("res"
         + "/PPMImages/testOG.ppm"));
   }
 
@@ -103,9 +103,9 @@ public class ImageUtilTest {
   public void testReadJPG() {
     // Since JPGs are lossy, the images will be slightly off, but the height and width will
     // always be the same, we just want to test that no errors are thrown
-    IImage koalaJPG = ImageUtil.readImageIO("res/JPGImages/Koala.jpg");
+    IImage koalaJPG = ImageUtil.readImage("res/JPGImages/Koala.jpg");
     IImage koalaPPM = ImageUtil.readPPM("res/PPMImages/Koala.ppm");
-    IImage testJPG = ImageUtil.readImageIO("res/JPGImages/testOG.jpg");
+    IImage testJPG = ImageUtil.readImage("res/JPGImages/testOG.jpg");
     IImage testPPM = ImageUtil.readPPM("res/PPMImages/testOG.ppm");
 
     assertEquals(koalaJPG.getWidth(), koalaPPM.getWidth());
@@ -116,12 +116,12 @@ public class ImageUtilTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testReadOtherUnknownFile() {
-    ImageUtil.readImageIO("nope.jpg");
+    ImageUtil.readImage("nope.jpg");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testReadOtherNullFile() {
-    ImageUtil.readImageIO(null);
+    ImageUtil.readImage(null);
   }
 
   @Test
@@ -129,7 +129,7 @@ public class ImageUtilTest {
     IImage source = new Image(2, 2,
         new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}});
     ImageUtil.writeImage("test/out.jpg", source);
-    IImage im = ImageUtil.readImageIO("test/out.jpg");
+    IImage im = ImageUtil.readImage("test/out.jpg");
     assertEquals(im.getHeight(), source.getHeight());
     assertEquals(im.getWidth(), source.getWidth());
   }
@@ -138,7 +138,7 @@ public class ImageUtilTest {
   public void testWritePng() {
     ImageUtil.writeImage("test/out.png", new Image(2, 2,
         new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}}));
-    IImage im = ImageUtil.readImageIO("test/out.png");
+    IImage im = ImageUtil.readImage("test/out.png");
     assertEquals(im, new Image(2, 2,
         new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}}));
   }

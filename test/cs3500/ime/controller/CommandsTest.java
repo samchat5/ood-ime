@@ -276,13 +276,13 @@ public class CommandsTest {
   @Test
   public void testNormalPPMLoad() {
     new Load("res/PNGImages/testOG.png", "mytest").run(model);
-    assertEquals(ImageUtil.readImageIO("res/PNGImages/testOG.png"), model.save("mytest"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/testOG.png"), model.save("mytest"));
   }
 
   @Test
   public void testNormalPNGLoad() {
     new Load("res/PNGImages/testOG.png", "mytest").run(model);
-    assertEquals(ImageUtil.readImageIO("res/PNGImages/testOG.png"), model.save("mytest"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/testOG.png"), model.save("mytest"));
   }
 
   // Save
@@ -320,7 +320,7 @@ public class CommandsTest {
     IImage testImage = new Image(1, 1, new IPixel[][]{{new Pixel(255)}});
     model.load(testImage, "mytest");
     new Save("test/test.png", "mytest").run(model);
-    assertEquals(testImage, ImageUtil.readImageIO("test/test.png"));
+    assertEquals(testImage, ImageUtil.readImage("test/test.png"));
     if (!new File("test/test.png").delete()) {
       fail();
     }
@@ -331,7 +331,7 @@ public class CommandsTest {
     IImage testImage = new Image(1, 1, new IPixel[][]{{new Pixel(255)}});
     model.load(testImage, "mytest");
     new Save("test/test.jpg", "mytest").run(model);
-    assertEquals(testImage, ImageUtil.readImageIO("test/test.jpg"));
+    assertEquals(testImage, ImageUtil.readImage("test/test.jpg"));
     if (!new File("test/test.jpg").delete()) {
       fail();
     }
