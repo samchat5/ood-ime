@@ -68,9 +68,9 @@ public class ImageUtil {
     return new Image(height, width, pixelArray);
   }
 
-  public static void writeImage(String filePath, IImage img, String format)
+  public static void writeImage(String filePath, IImage img)
       throws IllegalArgumentException {
-    if (filePath == null || img == null || format == null) {
+    if (filePath == null || img == null) {
       throw new IllegalArgumentException("Null values");
     }
     if (new File(filePath).exists() && !new File(filePath).canWrite()) {
@@ -79,7 +79,8 @@ public class ImageUtil {
     BufferedImage renderedImage = writeBufferedImage(img);
 
     try {
-      ImageIO.write(renderedImage, format, new File(filePath));
+      ImageIO.write(renderedImage, filePath.substring(filePath.lastIndexOf(".") + 1),
+          new File(filePath));
     } catch (IOException e) {
       throw new IllegalArgumentException("IO error occurred");
     }
@@ -87,17 +88,16 @@ public class ImageUtil {
 
   private static BufferedImage writeBufferedImage(IImage img) {
     BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(),
-        BufferedImage.TYPE_INT_ARGB);
+        BufferedImage.TYPE_INT_RGB);
 
-    for (int i = 0; i < img.getWidth(); i++) {
-      for (int j = 0; j < img.getHeight(); j++) {
+    for (int i = 0; i < img.getHeight(); i++) {
+      for (int j = 0; j < img.getWidth(); j++) {
         int[] pixelVals = img.getPixelAt(i, j).getValues();
-        int alphaVal = 1;
         int redVal = pixelVals[0];
         int greenVal = pixelVals[1];
         int blueVal = pixelVals[2];
-        int pixelVal = (alphaVal << 24) | (redVal << 16) | (greenVal << 8) | blueVal;
-        image.setRGB(i, j, pixelVal);
+        int pixelVal = (redVal << 16) | (greenVal << 8) | blueVal;
+        image.setRGB(j, i, pixelVal);
       }
     }
     return image;

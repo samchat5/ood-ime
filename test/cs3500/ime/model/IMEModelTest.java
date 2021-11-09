@@ -443,5 +443,4 @@ public class IMEModelTest {
     IIMEModel model = new IMEModel();
     model.colorTransform("test", "test", new Luma());
   }
-
 }

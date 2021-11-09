@@ -67,6 +67,4 @@ public class FilterTest {
   public void testNullSharpen() {
     sharpen.applyFilter(null);
   }
-
-  // TODO: test invalid constructors
 }

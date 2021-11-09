@@ -91,13 +91,92 @@ public class ImageUtilTest {
         new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}}));
   }
 
-  // TODO: test equality between file types
-  // TODO: null checks on readImageIO()
-  // TODO: test writeImageIO() with wrong extension, null parameters, write protected file
+  @Test
+  public void testReadPNG() {
+    assertEquals(ImageUtil.readImageIO("res/PNGImages/Koala.png"), ImageUtil.readPPM("res"
+        + "/PPMImages/Koala.ppm"));
+    assertEquals(ImageUtil.readImageIO("res/PNGImages/testOG.png"), ImageUtil.readPPM("res"
+        + "/PPMImages/testOG.ppm"));
+  }
+
+  @Test
+  public void testReadJPG() {
+    // Since JPGs are lossy, the images will be slightly off, but the height and width will
+    // always be the same, we just want to test that no errors are thrown
+    IImage koalaJPG = ImageUtil.readImageIO("res/JPGImages/Koala.jpg");
+    IImage koalaPPM = ImageUtil.readPPM("res/PPMImages/Koala.ppm");
+    IImage testJPG = ImageUtil.readImageIO("res/JPGImages/testOG.jpg");
+    IImage testPPM = ImageUtil.readPPM("res/PPMImages/testOG.ppm");
+
+    assertEquals(koalaJPG.getWidth(), koalaPPM.getWidth());
+    assertEquals(koalaJPG.getHeight(), koalaPPM.getHeight());
+    assertEquals(testJPG.getWidth(), testPPM.getWidth());
+    assertEquals(testJPG.getHeight(), testPPM.getHeight());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testReadOtherUnknownFile() {
+    ImageUtil.readImageIO("nope.jpg");
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testReadOtherNullFile() {
+    ImageUtil.readImageIO(null);
+  }
+
+  @Test
+  public void testWriteJpg() {
+    IImage source = new Image(2, 2,
+        new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}});
+    ImageUtil.writeImage("test/out.jpg", source);
+    IImage im = ImageUtil.readImageIO("test/out.jpg");
+    assertEquals(im.getHeight(), source.getHeight());
+    assertEquals(im.getWidth(), source.getWidth());
+  }
+
+  @Test
+  public void testWritePng() {
+    ImageUtil.writeImage("test/out.png", new Image(2, 2,
+        new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}}));
+    IImage im = ImageUtil.readImageIO("test/out.png");
+    assertEquals(im, new Image(2, 2,
+        new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}}));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testWriteNullPath() {
+    ImageUtil.writeImage(null, new Image(0, 0, new IPixel[][]{}));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testWriteNullImageOther() {
+    ImageUtil.writePPM("test/out.jpg", null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testWriteWriteProtectedFileOther() {
+    ImageUtil.writeImage("test/out.jpg", new Image(2, 2,
+        new Pixel[][]{{new Pixel(123), new Pixel(0)}, {new Pixel(4), new Pixel(97)}}));
+    new File("test/out.jpg").setReadOnly();
+    ImageUtil.writeImage("test/out.jpg", new Image(0, 0, new IPixel[][]{}));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testWriteUnknownFileOther() {
+    ImageUtil.writeImage("some/dir/that/dont/exist.png", new Image(0, 0, new IPixel[][]{}));
+  }
 
   @After
   public void tearDown() {
     File f = new File("test/out.ppm");
+    f.setWritable(true);
+    f.delete();
+
+    f = new File("test/out.jpg");
+    f.setWritable(true);
+    f.delete();
+
+    f = new File("test/out.png");
     f.setWritable(true);
     f.delete();
   }

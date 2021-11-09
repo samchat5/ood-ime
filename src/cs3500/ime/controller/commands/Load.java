@@ -32,7 +32,7 @@ public class Load implements IIMECommand {
   @Override
   public void run(IIMEModel model) throws IllegalStateException {
     try {
-      String ext = filePath.substring(filePath.lastIndexOf("."));
+      String ext = filePath.substring(filePath.lastIndexOf(".") + 1);
       model.load(ext.equalsIgnoreCase("ppm") ? ImageUtil.readPPM(filePath)
           : ImageUtil.readImageIO(filePath), imageName);
     } catch (Exception e) {
