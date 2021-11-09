@@ -6,7 +6,7 @@ public abstract class AFilter implements IFilter {
 
   private final double[][] filterKernel;
 
-  public AFilter(double[][] filterKernel) throws IllegalArgumentException {
+  protected AFilter(double[][] filterKernel) throws IllegalArgumentException {
     int yDimension = filterKernel.length;
     int xDimension = filterKernel[0].length;
     if (yDimension != xDimension && (yDimension % 2) != 1) {

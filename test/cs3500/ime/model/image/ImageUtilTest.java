@@ -93,7 +93,7 @@ public class ImageUtilTest {
 
   // TODO: test equality between file types
   // TODO: null checks on readImageIO()
-  // TODO: test writeImageIO()
+  // TODO: test writeImageIO() with wrong extension, null parameters, write protected file
 
   @After
   public void tearDown() {

@@ -6,7 +6,7 @@ public abstract class AColorTransform implements IColorTransform {
 
   private final double[][] kernel;
 
-  public AColorTransform(double[][] kernel) {
+  protected AColorTransform(double[][] kernel) {
     if (kernel.length != 3 && kernel[0].length != 3) {
       throw new IllegalArgumentException("Illegal kernel size.");
     }

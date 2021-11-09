@@ -33,8 +33,13 @@ public class Save implements IIMECommand {
   @Override
   public void run(IIMEModel model) throws IllegalStateException {
     try {
+      String ext = filePath.substring(filePath.lastIndexOf("."));
       IImage image = model.save(imageName);
-      ImageUtil.writePPM(filePath, image);
+      if (ext.equalsIgnoreCase("ppm")) {
+        ImageUtil.writePPM(filePath, image);
+      } else {
+        ImageUtil.writeImage(filePath, image, ext);
+      }
     } catch (Exception e) {
       throw new IllegalStateException("Save file/image not found.");
     }

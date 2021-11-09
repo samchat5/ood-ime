@@ -6,6 +6,7 @@ import cs3500.ime.controller.commands.GreyScale;
 import cs3500.ime.controller.commands.HorizontalFlip;
 import cs3500.ime.controller.commands.IIMECommand;
 import cs3500.ime.controller.commands.Load;
+import cs3500.ime.controller.commands.LumaTransform;
 import cs3500.ime.controller.commands.Save;
 import cs3500.ime.controller.commands.SepiaCommand;
 import cs3500.ime.controller.commands.SharpenCommand;
@@ -72,6 +73,7 @@ public class IMEController implements IIMEController {
     knownCommands.put("sepia", (Scanner s) -> new SepiaCommand(s.next(), s.next()));
     knownCommands.put("sharpen", (Scanner s) -> new SharpenCommand(s.next(), s.next()));
     knownCommands.put("blur", (Scanner s) -> new BlurCommand(s.next(), s.next()));
+    knownCommands.put("greyscale", (Scanner s) -> new LumaTransform(s.next(), s.next()));
   }
 
   /**
