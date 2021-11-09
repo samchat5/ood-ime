@@ -8,6 +8,11 @@ blur OG OG-blurred
 sharpen OG OG-sharpened
 greyscale OG OG-greyscaled
 sepia OG OG-sepia
+luma-component OG OG-luma
+intensity-component OG OG-intensity
+red-component OG OG-red
+blue-component OG OG-blue
+green-component OG OG-green
 save res/Test/OG-brighter.ppm OG-brighter
 save res/Test/OG-vertical.ppm OG-vertical
 save res/Test/OG-horizontal.ppm OG-horizontal
@@ -19,6 +24,11 @@ save res/Test/OG-sepia.ppm OG-sepia
 save res/Test/OG-brighter.png OG-brighter
 save res/Test/OG-brighter.jpg OG-brighter
 save res/Test/OG-brighter.jpeg OG-brighter
+save res/Test/OG-luma.png OG-luma
+save res/Test/OG-intensity.png OG-intensity
+save res/Test/OG-red.png OG-red
+save res/Test/OG-blue.png OG-blue
+save res/Test/OG-green.png OG-green
 save res/Test/OG.jpg OG-png
 save res/Test/OG.jpeg OG-png
 save res/Test/OG.ppm OG-png
