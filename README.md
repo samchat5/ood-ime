@@ -13,8 +13,9 @@ The reasoning for this was that our code is still very much in early development
 only introduced minor changes to our current design. So, we did not feel it necessary to needlessly
 overcomplicate the design of our program by adding, say, a `BetterPixel` class that extends `Pixel`
 with new methods for color transformation. Instead, we opted to add new methods to our `IPixel`
-and `IImage` interfaces that `Pixel` and `Image` would have to implement. Specifically, these
-methods were `applyColorTransform()` in `IPixel`, and `applyTransform()`
+and `IImage` interfaces that `Pixel` and `Image` (previously `PPMImage`, changed since this class
+now represents all Images) would have to implement. Specifically, these methods
+were `applyColorTransform()` in `IPixel`, and `applyTransform()`
 and `applyFilter()` in `IImage`. Since these methods purely add functionality to our program, they
 would not break any existing implementations. Furthermore, a new method `getValues()` was added
 to `IPixel` that returns an `int[]` representing the channel values of the pixel, which was useful
@@ -34,13 +35,7 @@ object and passes it the kernel used in the operation. These objects then "accep
 apply the transform/filter using the kernel. The only difference between each operation, really, is
 that they have different kernels, which is a property inherent to the object. So, all concrete
 classes extend an abstract class `AColorTransform/AFiter` which checks for correct kernels, and is
-called using `super()` in the constructors for the subclasses. Each `AColorTransform` subclass is
-also `final`, so that they cannot be extended. The reasoning for this is that each operation is
-always going to remain that same, and is uniquely defined by its kernel, so there is never a need to
-extend it. So, to protect against extension, we made them final. We did not, however, do this to
-`Blur` and `Sharpen` since there could be the case where someone wants to extend these classes to
-create "stronger" or "weaker" versions (i.e. the kernels are scaled so that the effect strength
-changes).
+called using `super()` in the constructors for the subclasses.
 
 The new `Sepia` color transform was added, along with a different way to do luma greyscaling
 using `Luma`. We did **not** want to make this the only way to do luma greyscaling, and the user can
@@ -187,7 +182,7 @@ at [`/src/cs3500/ime/diagram.jpg`](./src/cs3500/ime/diagram.jpg).
 
 ### Commands to load example image, modify it and save the output
 
-Run `IME.java` main method using IntelliJ. If not already there, make sure the directory `res/Test`
+Run `IME.jar` inside `res/`. If not already there, make sure the directory `res/Test`
 exists.
 
 ```

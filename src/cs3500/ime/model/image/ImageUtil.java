@@ -39,7 +39,7 @@ public class ImageUtil {
     } catch (IOException e) {
       throw new IllegalArgumentException("File " + filename + " not found!");
     }
-    //get image width and height
+    // get image width and height
     int width = img.getWidth();
     int height = img.getHeight();
 
@@ -47,9 +47,8 @@ public class ImageUtil {
 
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-          /* get pixel value (the arguments in the getRGB method
-         denotes the  coordinates of the image from which the
-         pixel values need to be extracted) */
+        // get pixel value (the arguments in the getRGB method denotes the  coordinates of the
+        // image from which the pixel values need to be extracted)
         int p = img.getRGB(j, i);
 
         // get red
@@ -68,6 +67,14 @@ public class ImageUtil {
     return new Image(height, width, pixelArray);
   }
 
+  /**
+   * Writes a non-PPM image to the specified filepath.
+   *
+   * @param filePath filepath to write image to
+   * @param img      image to write
+   * @throws IllegalArgumentException if the parameters are null, the image is empty, the file is
+   *                                  write-protected, or an IO error has occurred.
+   */
   public static void writeImage(String filePath, IImage img)
       throws IllegalArgumentException {
     if (filePath == null || img == null) {

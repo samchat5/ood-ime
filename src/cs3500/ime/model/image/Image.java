@@ -135,7 +135,7 @@ public class Image implements IImage {
   }
 
   /**
-   * Applies filterKernel to this IImage to create a new filtered IImage
+   * Applies filterKernel to this IImage to create a new filtered IImage.
    *
    * @param filterKernel filter scaling
    * @return a new filtered image
@@ -178,7 +178,7 @@ public class Image implements IImage {
   }
 
   /**
-   * Applies filterKernel to this IIMage to create a new color-transformed IIMage
+   * Applies filterKernel to this IIMage to create a new color-transformed IIMage.
    *
    * @param transformKernel kernel to use in color transformation
    * @return a new filtered image
@@ -218,7 +218,7 @@ public class Image implements IImage {
     }
     IPixel target = pixelArray[row][col];
     int[] targetValues = target.getValues();
-    return new Pixel(targetValues[0],targetValues[1],targetValues[2]);
+    return new Pixel(targetValues[0], targetValues[1], targetValues[2]);
   }
 
   /**

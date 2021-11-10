@@ -7,6 +7,9 @@ import cs3500.ime.model.image.pixel.IPixel;
 import cs3500.ime.model.image.pixel.Pixel;
 import org.junit.Test;
 
+/**
+ * Test for all Filters.
+ */
 public class FilterTest {
 
   private final IFilter blur = new Blur();

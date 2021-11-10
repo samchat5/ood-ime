@@ -40,7 +40,7 @@ public interface IImage {
   IImage verticalFlip();
 
   /**
-   * Applies filterKernel to this IImage to create a new filtered IImage
+   * Applies filterKernel to this IImage to create a new filtered IImage.
    *
    * @param filterKernel filter scaling
    * @return a new filtered image
@@ -49,7 +49,7 @@ public interface IImage {
   IImage applyFilter(double[][] filterKernel) throws IllegalArgumentException;
 
   /**
-   * Applies filterKernel to this IIMage to create a new color-transformed IIMage
+   * Applies filterKernel to this IIMage to create a new color-transformed IImage.
    *
    * @param transformKernel kernel to use in color transformation
    * @return a new filtered image
@@ -59,18 +59,21 @@ public interface IImage {
 
   /**
    * Getter method for image width.
+   *
    * @return this image's numeric width
    */
   int getWidth();
 
   /**
    * Getter method for image height.
+   *
    * @return this image's numeric height
    */
   int getHeight();
 
   /**
-   * Returns a pixel at a specified position in the image
+   * Returns a pixel at a specified position in the image.
+   *
    * @param row 0 indexed vertical line position of the specified pixel
    * @param col 0 indexed horizontal line position of the specified pixel
    * @return a copy of the pixel at the given location of this image

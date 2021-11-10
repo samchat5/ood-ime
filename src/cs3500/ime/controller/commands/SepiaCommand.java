@@ -1,8 +1,12 @@
 package cs3500.ime.controller.commands;
 
 import cs3500.ime.model.IIMEModel;
-import cs3500.ime.model.image.color_transform.Sepia;
+import cs3500.ime.model.image.colortransform.Sepia;
 
+/**
+ * Represents the Sepia command. Takes in the image to do a sepia color-transform on, and the name
+ * of the new sepia image.
+ */
 public class SepiaCommand implements IIMECommand {
 
   private final String destImageName;

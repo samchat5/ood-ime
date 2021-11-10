@@ -1,7 +1,7 @@
 package cs3500.ime.model;
 
 import cs3500.ime.model.image.IImage;
-import cs3500.ime.model.image.color_transform.IColorTransform;
+import cs3500.ime.model.image.colortransform.IColorTransform;
 import cs3500.ime.model.image.filter.IFilter;
 
 /**

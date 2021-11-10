@@ -1,7 +1,7 @@
 package cs3500.ime.controller.commands;
 
 import cs3500.ime.model.IIMEModel;
-import cs3500.ime.model.image.color_transform.Luma;
+import cs3500.ime.model.image.colortransform.Luma;
 
 /**
  * Represents a command that creates a luma-greyscale object using TRANSFORMS using the command

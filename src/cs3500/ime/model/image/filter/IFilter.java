@@ -8,7 +8,7 @@ import cs3500.ime.model.image.IImage;
 public interface IFilter {
 
   /**
-   * Applies this filter to the target image
+   * Applies this filter to the target image.
    *
    * @param target original image that is being filtered
    * @return a new IImage with this filter applied to every pixel and component of target

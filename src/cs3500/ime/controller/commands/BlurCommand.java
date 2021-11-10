@@ -3,6 +3,10 @@ package cs3500.ime.controller.commands;
 import cs3500.ime.model.IIMEModel;
 import cs3500.ime.model.image.filter.Blur;
 
+/**
+ * Represents the Blurring command. Takes in the image to blur, and the name of the newly blurred
+ * image.
+ */
 public class BlurCommand implements IIMECommand {
 
   private final String destImageName;

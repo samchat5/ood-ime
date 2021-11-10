@@ -124,7 +124,8 @@ public class IMEControllerTest {
   @Test
   public void testUnknownCommandMultipleArgs() {
     StringBuilder app = new StringBuilder();
-    @SuppressWarnings("SpellCheckingInspection") String in = "some-command ei a q whe a a qwke e  a ksk  dad  \nquit\n";
+    @SuppressWarnings("SpellCheckingInspection")
+    String in = "some-command ei a q whe a a qwke e  a ksk  dad  \nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();

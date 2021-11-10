@@ -6,11 +6,11 @@ import static org.junit.Assert.assertTrue;
 
 import cs3500.ime.model.image.IImage;
 import cs3500.ime.model.image.ImageUtil;
-import cs3500.ime.model.image.color_transform.BlueComponent;
-import cs3500.ime.model.image.color_transform.GreenComponent;
-import cs3500.ime.model.image.color_transform.Luma;
-import cs3500.ime.model.image.color_transform.RedComponent;
-import cs3500.ime.model.image.color_transform.Sepia;
+import cs3500.ime.model.image.colortransform.BlueComponent;
+import cs3500.ime.model.image.colortransform.GreenComponent;
+import cs3500.ime.model.image.colortransform.Luma;
+import cs3500.ime.model.image.colortransform.RedComponent;
+import cs3500.ime.model.image.colortransform.Sepia;
 import cs3500.ime.model.image.filter.Blur;
 import cs3500.ime.model.image.filter.Sharpen;
 import org.junit.Test;
