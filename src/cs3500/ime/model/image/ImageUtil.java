@@ -86,7 +86,7 @@ public class ImageUtil {
     if (new File(filePath).exists() && !new File(filePath).canWrite()) {
       throw new IllegalArgumentException("Write protected file");
     }
-    BufferedImage renderedImage = writeBufferedImage(img);
+    BufferedImage renderedImage = getBufferedImage(img);
 
     try {
       ImageIO.write(renderedImage, filePath.substring(filePath.lastIndexOf(".") + 1),
@@ -96,7 +96,7 @@ public class ImageUtil {
     }
   }
 
-  private static BufferedImage writeBufferedImage(IImage img) {
+  public static BufferedImage getBufferedImage(IImage img) {
     BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(),
         BufferedImage.TYPE_INT_RGB);
 
