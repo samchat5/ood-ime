@@ -1,6 +1,7 @@
 package cs3500.ime.model.image;
 
 import cs3500.ime.model.GreyscaleComponent;
+import cs3500.ime.model.image.histogram.IHistogram;
 import cs3500.ime.model.image.pixel.IPixel;
 
 /**
@@ -80,4 +81,10 @@ public interface IImage {
    * @throws IllegalArgumentException if row or col are out of the image's range
    */
   IPixel getPixelAt(int row, int col) throws IllegalArgumentException;
+
+  /**
+   * Generates a histogram representation of this image.
+   * @return histogram representation
+   */
+  IHistogram histogramRepresentation();
 }
