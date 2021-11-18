@@ -8,6 +8,9 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GuiView extends JFrame implements IGuiView {
 
@@ -35,6 +39,7 @@ public class GuiView extends JFrame implements IGuiView {
   private final JLabel messageLabel;
   private final JScrollPane imagePane;
   private IGuiController features;
+  private String selectedOp = null;
 
 
   public GuiView(IIMEModel model) {
@@ -50,18 +55,43 @@ public class GuiView extends JFrame implements IGuiView {
     this.add(toolbar, BorderLayout.NORTH);
 
     this.fileChooser = new JFileChooser();
+    fileChooser.setFileFilter(new FileNameExtensionFilter("Images", "tif", "ppm", "jpg", "bmp",
+        "gif", "png", "wbmp", "jpeg"));
 
-    operationDropdown = new JComboBox<>(new String[]{"Sepia", "Sharpen", "Blur", "Brighten",
-        "Greyscale - Luma", "Greyscale - Intensity", "Greyscale - Value", "Greyscale - Red",
-        "Greyscale - Green", "Greyscale - Blue", "Flip - Horizontal", "Flip - Vertical"});
+    String[] operations = new String[]{"Sepia", "Sharpen", "Blur", "Brighten",
+        "Luma Component", "Intensity Component", "Value Component", "Red Component",
+        "Green Component", "Blue Component", "Horizontal Flip", "Vertical Flip"};
+    Map<String, String> operationToCommand = new HashMap<String, String>();
+    for (String op : operations) {
+      operationToCommand.put(op, String.join("-", op.toLowerCase().split(" ")));
+    }
+    operationDropdown = new JComboBox<>(operations);
     operationDropdown.setEditable(false);
+    operationDropdown.addActionListener(
+        e -> selectedOp = (String) ((JComboBox<?>) e.getSource()).getSelectedItem());
     toolbar.add(operationDropdown);
 
     separator1 = new Separator();
     toolbar.add(separator1);
+
     applyButton = new JButton();
     applyButton.setText("Apply");
+    applyButton.addActionListener(new ActionListener() {
+      /**
+       * Invoked when an action occurs.
+       *
+       * @param e the event to be processed
+       */
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        if (selectedOp != null) {
+          features.setScanner(new Scanner(operationToCommand.get(selectedOp)));
+          features.run();
+        }
+      }
+    });
     toolbar.add(applyButton);
+
     separator2 = new Separator();
     toolbar.add(separator2);
 
@@ -97,6 +127,7 @@ public class GuiView extends JFrame implements IGuiView {
       @Override
       public void actionPerformed(ActionEvent e) {
         fileChooser.showSaveDialog(frame);
+        features.saveImage(fileChooser.getSelectedFile().getAbsolutePath());
       }
     });
     toolbar.add(saveButton);

@@ -30,6 +30,5 @@ public class IME {
     IGuiController cont = new GuiController(model, view);
 
     view.acceptFeatures(cont);
-    cont.run();
   }
 }

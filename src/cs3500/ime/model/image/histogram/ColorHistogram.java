@@ -1,17 +1,16 @@
 package cs3500.ime.model.image.histogram;
 
+import cs3500.ime.model.image.IImage;
+import cs3500.ime.model.image.pixel.IPixel;
 import java.util.HashMap;
 import java.util.Map;
 
-import cs3500.ime.model.image.IImage;
-import cs3500.ime.model.image.pixel.IPixel;
-
 public class ColorHistogram implements IHistogram {
 
-  private Map<Integer, Integer> redValueFrequency;
-  private Map<Integer, Integer> greenValueFrequency;
-  private Map<Integer, Integer> blueValueFrequency;
-  private Map<Integer, Integer> intensityValueFrequency;
+  private final Map<Integer, Integer> redValueFrequency;
+  private final Map<Integer, Integer> greenValueFrequency;
+  private final Map<Integer, Integer> blueValueFrequency;
+  private final Map<Integer, Integer> intensityValueFrequency;
 
   public ColorHistogram(IImage img) {
     this.redValueFrequency = new HashMap<>();
@@ -40,11 +39,7 @@ public class ColorHistogram implements IHistogram {
         greenValueFrequency.put(greenVal, currentGreenValCount + 1);
         blueValueFrequency.put(blueVal, currentBlueValCount + 1);
         intensityValueFrequency.put(intensityVal, currentIntensityValCount + 1);
-
-
-
-
-      }}
-
+      }
+    }
   }
 }
