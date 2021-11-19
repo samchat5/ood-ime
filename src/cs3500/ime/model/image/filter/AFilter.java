@@ -4,7 +4,7 @@ import cs3500.ime.model.image.IImage;
 
 /**
  * Abstract class for all filters that checks that the filter kernel is valid (i.e. has odd
- * dimensions), and provides the boilerplate method to subclasses for applying filters to images.
+ * dimensions), and provides the boilerplate method to subclasses for applying filters to image.
  */
 public abstract class AFilter implements IFilter {
 

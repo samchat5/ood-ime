@@ -312,13 +312,9 @@ public class IMEModelTest {
   @Test
   public void testBlurFilter() {
     IIMEModel model = new IMEModel();
-    model.load(koala, "koala");
     model.load(testOG, "testOG");
 
-    model.filter("koala", "koalaBlur", new Blur());
     model.filter("testOG", "testOGBlur", new Blur());
-    assertEquals(model.save("koalaBlur"), ImageUtil.readImage(relPathToRes + "PNGImages/koala"
-        + "-blurred.png"));
     assertEquals(model.save("testOGBlur"),
         ImageUtil.readImage(relPathToRes + "PNGImages/testBlurred.png"));
   }
@@ -326,13 +322,9 @@ public class IMEModelTest {
   @Test
   public void testSharpenFilter() {
     IIMEModel model = new IMEModel();
-    model.load(koala, "koala");
     model.load(testOG, "testOG");
 
-    model.filter("koala", "koalaSharpen", new Sharpen());
     model.filter("testOG", "testOGSharpen", new Sharpen());
-    assertEquals(model.save("koalaSharpen"), ImageUtil.readImage(relPathToRes + "PNGImages/koala"
-        + "-sharpened.png"));
     assertEquals(model.save("testOGSharpen"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testSharpened.png"));
   }

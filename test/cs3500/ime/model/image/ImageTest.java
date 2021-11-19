@@ -30,20 +30,20 @@ public class ImageTest {
    * Constructor that initializes test images used by many tests.
    */
   public ImageTest() {
-    randomGreyscaleImage = generateRandomGreyScaleImage(100, 100);
+    randomGreyscaleImage = generateRandomGreyScaleImage();
     emptyImage = new Image(0, 0, new Pixel[][]{});
   }
 
 
-  private IImage generateRandomGreyScaleImage(int height, int width) {
-    IPixel[][] pixelArray = new IPixel[height][width];
+  private IImage generateRandomGreyScaleImage() {
+    IPixel[][] pixelArray = new IPixel[100][100];
     Random rand = new Random();
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    for (int i = 0; i < 100; i++) {
+      for (int j = 0; j < 100; j++) {
         pixelArray[i][j] = new Pixel(rand.nextInt(256));
       }
     }
-    return new Image(height, width, pixelArray);
+    return new Image(100, 100, pixelArray);
   }
 
   private IImage generateRandomColorImage(int height, int width) {

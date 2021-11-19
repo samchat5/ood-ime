@@ -1,7 +1,6 @@
 package cs3500.ime.view;
 
 import cs3500.ime.controller.IGuiController;
-import cs3500.ime.model.IIMEModel;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Insets;
@@ -17,6 +16,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
@@ -25,31 +25,22 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GuiView extends JFrame implements IGuiView {
 
-  private final JComboBox<String> operationDropdown;
-  private final JButton applyButton;
-  private final JButton loadButton;
-  private final JButton saveButton;
-  private final Separator separator1;
-  private final Separator separator2;
-  private final Separator separator3;
-  private final JToolBar toolbar;
   private final JPanel histogram;
   private final JFileChooser fileChooser;
   private final JFrame frame = this;
-  private final JLabel messageLabel;
   private final JScrollPane imagePane;
   private IGuiController features;
   private String selectedOp = null;
 
 
-  public GuiView(IIMEModel model) {
+  public GuiView() {
     super("IME Program");
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout(0, 0));
     this.setMinimumSize(new Dimension(500, 552));
 
-    toolbar = new JToolBar();
+    JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);
     toolbar.setMargin(new Insets(10, 50, 10, 50));
     this.add(toolbar, BorderLayout.NORTH);
@@ -61,20 +52,18 @@ public class GuiView extends JFrame implements IGuiView {
     String[] operations = new String[]{"Sepia", "Sharpen", "Blur", "Brighten",
         "Luma Component", "Intensity Component", "Value Component", "Red Component",
         "Green Component", "Blue Component", "Horizontal Flip", "Vertical Flip"};
-    Map<String, String> operationToCommand = new HashMap<String, String>();
+    Map<String, String> operationToCommand = new HashMap<>();
     for (String op : operations) {
       operationToCommand.put(op, String.join("-", op.toLowerCase().split(" ")));
     }
-    operationDropdown = new JComboBox<>(operations);
+    JComboBox<String> operationDropdown = new JComboBox<>(operations);
     operationDropdown.setEditable(false);
     operationDropdown.addActionListener(
         e -> selectedOp = (String) ((JComboBox<?>) e.getSource()).getSelectedItem());
     toolbar.add(operationDropdown);
 
-    separator1 = new Separator();
-    toolbar.add(separator1);
-
-    applyButton = new JButton();
+    toolbar.add(new Separator());
+    JButton applyButton = new JButton();
     applyButton.setText("Apply");
     applyButton.addActionListener(new ActionListener() {
       /**
@@ -85,17 +74,24 @@ public class GuiView extends JFrame implements IGuiView {
       @Override
       public void actionPerformed(ActionEvent e) {
         if (selectedOp != null) {
-          features.setScanner(new Scanner(operationToCommand.get(selectedOp)));
-          features.run();
+          if (selectedOp.equals("Brighten")) {
+            JOptionPane pane = new BrightenSpinnerOptionPane();
+            Object val = pane.getInputValue();
+            if (val != null) {
+              features.setScanner(new Scanner("brighten " + val));
+              features.run();
+            }
+          } else {
+            features.setScanner(new Scanner(operationToCommand.get(selectedOp)));
+            features.run();
+          }
         }
       }
     });
     toolbar.add(applyButton);
+    toolbar.add(new Separator());
 
-    separator2 = new Separator();
-    toolbar.add(separator2);
-
-    loadButton = new JButton();
+    JButton loadButton = new JButton();
     loadButton.setText("Load");
     loadButton.addActionListener(new ActionListener() {
       /**
@@ -106,17 +102,14 @@ public class GuiView extends JFrame implements IGuiView {
       @Override
       public void actionPerformed(ActionEvent e) {
         fileChooser.showOpenDialog(frame);
-        features.loadImage(fileChooser.getSelectedFile());
+        features.setScanner(new Scanner("load " + fileChooser.getSelectedFile().getAbsolutePath()));
+        features.run();
       }
     });
-
     toolbar.add(loadButton);
-    separator3 = new Separator();
-    toolbar.add(separator3);
-    messageLabel = new JLabel("IME Program");
-    this.add(messageLabel, BorderLayout.PAGE_END);
+    toolbar.add(new Separator());
 
-    saveButton = new JButton();
+    JButton saveButton = new JButton();
     saveButton.setText("Save");
     saveButton.addActionListener(new ActionListener() {
       /**
@@ -127,7 +120,7 @@ public class GuiView extends JFrame implements IGuiView {
       @Override
       public void actionPerformed(ActionEvent e) {
         fileChooser.showSaveDialog(frame);
-        features.saveImage(fileChooser.getSelectedFile().getAbsolutePath());
+        features.setScanner(new Scanner("save " + fileChooser.getSelectedFile().getAbsolutePath()));
       }
     });
     toolbar.add(saveButton);
@@ -143,13 +136,14 @@ public class GuiView extends JFrame implements IGuiView {
   }
 
   /**
-   * Display the given message to the user.
+   * Display the given message to the user. With a GUI, this means showing a dialog to the user.
+   * This method is only used to display error messages for our GUI.
    *
    * @param message message to display
    */
   @Override
   public void displayMessage(String message) {
-    this.messageLabel.setText(message);
+    JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
   }
 
   @Override

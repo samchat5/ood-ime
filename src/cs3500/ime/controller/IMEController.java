@@ -4,7 +4,6 @@ import cs3500.ime.controller.commands.BlurCommand;
 import cs3500.ime.controller.commands.Brighten;
 import cs3500.ime.controller.commands.GreyScale;
 import cs3500.ime.controller.commands.HorizontalFlip;
-import cs3500.ime.controller.commands.IIMECommand;
 import cs3500.ime.controller.commands.Load;
 import cs3500.ime.controller.commands.LumaTransform;
 import cs3500.ime.controller.commands.Save;
@@ -15,25 +14,15 @@ import cs3500.ime.model.GreyscaleComponent;
 import cs3500.ime.model.IIMEModel;
 import cs3500.ime.view.IIMEView;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.Stack;
-import java.util.function.Function;
 
 /**
  * Concrete implementation of {@code IIMEController}. Uses the command design pattern, with a map of
  * known commands initialized on construction, and a stack to be used for undoing operations in the
  * future/maintaining history.
  */
-public class IMEController implements IIMEController {
-
-  private final IIMEModel model;
-  private final IIMEView view;
-  private final Stack<IIMECommand> commands;
-  private final Readable readable;
-
-  private final Map<String, Function<Scanner, IIMECommand>> knownCommands;
+public class IMEController extends AIMEController implements IIMEController {
 
   /**
    * Constructor for this controller that takes in a model to which it sends input from the user.
@@ -49,7 +38,7 @@ public class IMEController implements IIMEController {
       throw new IllegalArgumentException("Null model, readable or view.");
     }
     this.model = model;
-    this.readable = readable;
+    this.scanner = new Scanner(readable);
     this.view = view;
     this.commands = new Stack<>();
     this.knownCommands = new HashMap<>();
@@ -85,32 +74,10 @@ public class IMEController implements IIMEController {
   @Override
   public void run() throws IllegalStateException {
     try {
-      Scanner scan = new Scanner(this.readable);
-      while (scan.hasNext()) {
-        IIMECommand c;
-        String in = scan.next();
-        if (in.equalsIgnoreCase("quit")) {
-          return;
-        }
-        Function<Scanner, IIMECommand> cmd = knownCommands.get(in);
-        if (cmd == null) {
-          this.view.displayMessage("Unknown command.\n");
-          scan.nextLine();
-        } else {
-          try {
-            c = cmd.apply(scan);
-            commands.add(c);
-            c.run(model);
-          } catch (NoSuchElementException e) {
-            this.view.displayMessage("Invalid command usage.\n");
-            scan.nextLine();
-          } catch (Exception e) {
-            this.view.displayMessage(e.getMessage() + "\n");
-          }
-        }
+      super.run();
+      if (!this.hasQuit) {
+        throw new IllegalStateException();
       }
-      // ran out of inputs
-      throw new IllegalStateException();
     } catch (Exception e) {
       throw new IllegalStateException();
     }
