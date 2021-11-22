@@ -25,7 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GuiView extends JFrame implements IGuiView {
 
-  private final JPanel histogram;
+  private final JScrollPane histogram;
   private final JFileChooser fileChooser;
   private final JFrame frame = this;
   private final JScrollPane imagePane;
@@ -128,7 +128,7 @@ public class GuiView extends JFrame implements IGuiView {
     imagePane = new JScrollPane();
     this.add(imagePane, BorderLayout.CENTER);
 
-    histogram = new Histogram();
+    histogram = new JScrollPane();
     this.add(histogram, BorderLayout.EAST);
 
     pack();
@@ -149,6 +149,7 @@ public class GuiView extends JFrame implements IGuiView {
   @Override
   public void loadImage(BufferedImage image) {
     this.imagePane.setViewportView(new JLabel(new ImageIcon(image)));
+    this.histogram.setViewportView(new Histogram(image.getRaster()));
     this.repaint();
   }
 

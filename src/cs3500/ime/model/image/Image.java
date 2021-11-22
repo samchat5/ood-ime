@@ -1,9 +1,6 @@
 package cs3500.ime.model.image;
 
 import cs3500.ime.model.GreyscaleComponent;
-import cs3500.ime.model.image.histogram.ColorHistogram;
-import cs3500.ime.model.image.histogram.GreyHistogram;
-import cs3500.ime.model.image.histogram.IHistogram;
 import cs3500.ime.model.image.pixel.IPixel;
 import cs3500.ime.model.image.pixel.Pixel;
 import java.util.Arrays;
@@ -222,28 +219,6 @@ public class Image implements IImage {
     IPixel target = pixelArray[row][col];
     int[] targetValues = target.getValues();
     return new Pixel(targetValues[0], targetValues[1], targetValues[2]);
-  }
-
-  private boolean isGreyscale() {
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        int[] pixelValues = pixelArray[i][j].getValues();
-        if (!(pixelValues[0]==pixelValues[1] && pixelValues[0]==pixelValues[2])) {
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  @Override
-  public IHistogram histogramRepresentation() {
-    if (this.isGreyscale()) {
-      return new GreyHistogram(this);
-    }
-    else {
-      return new ColorHistogram(this);
-    }
   }
 
   /**
