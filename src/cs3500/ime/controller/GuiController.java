@@ -51,12 +51,8 @@ public class GuiController extends AIMEController implements IGuiController {
 
   @Override
   public void run() throws IllegalStateException {
-    try {
-      super.run();
-      ((IGuiView) this.view).loadImage(ImageUtil.getBufferedImage(model.save("image")));
-    } catch (Exception e) {
-      throw new IllegalStateException();
-    }
+    super.run();
+    ((IGuiView) this.view).loadImage(ImageUtil.getBufferedImage(model.save("image")));
   }
 
   @Override

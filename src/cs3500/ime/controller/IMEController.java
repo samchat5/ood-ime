@@ -73,12 +73,8 @@ public class IMEController extends AIMEController implements IIMEController {
    */
   @Override
   public void run() throws IllegalStateException {
-    try {
-      super.run();
-      if (!this.hasQuit) {
-        throw new IllegalStateException();
-      }
-    } catch (Exception e) {
+    super.run();
+    if (!this.hasQuit) {
       throw new IllegalStateException();
     }
   }
