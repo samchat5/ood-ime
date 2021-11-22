@@ -6,10 +6,7 @@ import cs3500.ime.model.IIMEModel;
  * Represents the "horizontal-flip" command, with the given arguments image name and destination
  * image name passed to the constructor.
  */
-public class HorizontalFlip implements IIMECommand {
-
-  private final String destImageName;
-  private final String imageName;
+public class HorizontalFlip extends ACommand {
 
   /**
    * Constructor for this class.
@@ -18,22 +15,7 @@ public class HorizontalFlip implements IIMECommand {
    * @param destImageName name to give to flipped image
    */
   public HorizontalFlip(String imageName, String destImageName) {
-    this.imageName = imageName;
-    this.destImageName = destImageName;
-  }
-
-  /**
-   * Runs a horizontal flip on the model object.
-   *
-   * @param model model to run command on
-   * @throws IllegalStateException iff the command fails
-   */
-  @Override
-  public void run(IIMEModel model) throws IllegalStateException {
-    try {
-      model.horizontalFlip(imageName, destImageName);
-    } catch (Exception e) {
-      throw new IllegalStateException("Invalid horizontal flip command.");
-    }
+    super((IIMEModel m) -> m.horizontalFlip(imageName, destImageName), "Invalid horizontal flip "
+        + "command.");
   }
 }

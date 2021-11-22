@@ -7,14 +7,11 @@ import cs3500.ime.model.image.filter.Blur;
  * Represents the Blurring command. Takes in the image to blur, and the name of the newly blurred
  * image.
  */
-public class BlurCommand implements IIMECommand {
-
-  private final String destImageName;
-  private final String imageName;
+public class BlurCommand extends ACommand implements IIMECommand {
 
   public BlurCommand(String imageName, String destImageName) {
-    this.imageName = imageName;
-    this.destImageName = destImageName;
+    super((IIMEModel model) -> model.filter(imageName, destImageName, new Blur()), "Illegal blur "
+        + "command.");
   }
 
   /**
@@ -25,10 +22,6 @@ public class BlurCommand implements IIMECommand {
    */
   @Override
   public void run(IIMEModel model) throws IllegalStateException {
-    try {
-      model.filter(imageName, destImageName, new Blur());
-    } catch (Exception e) {
-      throw new IllegalStateException("Illegal blur command.");
-    }
+    super.run(model);
   }
 }

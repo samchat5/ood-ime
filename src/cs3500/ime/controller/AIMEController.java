@@ -3,6 +3,7 @@ package cs3500.ime.controller;
 import cs3500.ime.controller.commands.IIMECommand;
 import cs3500.ime.model.IIMEModel;
 import cs3500.ime.view.IIMEView;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -46,7 +47,7 @@ public abstract class AIMEController implements IIMEController {
           }
         }
       }
-    } catch (Exception e) {
+    } catch (NoSuchElementException | IOException e) {
       throw new IllegalStateException();
     }
   }

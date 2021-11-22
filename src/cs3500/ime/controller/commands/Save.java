@@ -8,10 +8,7 @@ import cs3500.ime.model.image.ImageUtil;
  * Represents the "save" command, which saves the given image to the given filepath. Handles file IO
  * when calling {@code ImageUtil} methods.
  */
-public class Save implements IIMECommand {
-
-  private final String imageName;
-  private final String filePath;
+public class Save extends ACommand {
 
   /**
    * Constructor for this class.
@@ -20,19 +17,7 @@ public class Save implements IIMECommand {
    * @param imageName image to save
    */
   public Save(String filePath, String imageName) {
-    this.filePath = filePath;
-    this.imageName = imageName;
-  }
-
-  /**
-   * Runs Save on the model object.
-   *
-   * @param model model to run command on
-   * @throws IllegalStateException iff the command fails
-   */
-  @Override
-  public void run(IIMEModel model) throws IllegalStateException {
-    try {
+    super((IIMEModel model) -> {
       String ext = filePath.substring(filePath.lastIndexOf(".") + 1);
       IImage image = model.save(imageName);
       if (ext.equalsIgnoreCase("ppm")) {
@@ -40,8 +25,6 @@ public class Save implements IIMECommand {
       } else {
         ImageUtil.writeImage(filePath, image);
       }
-    } catch (Exception e) {
-      throw new IllegalStateException("Save file/image not found.");
-    }
+    }, "Save file/image not found.");
   }
 }
