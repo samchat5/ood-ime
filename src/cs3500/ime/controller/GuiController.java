@@ -16,8 +16,20 @@ import cs3500.ime.view.IGuiView;
 import java.util.Scanner;
 import java.util.Stack;
 
+/**
+ * Concrete class from our GUI controller. Similar to IMEController, but doesn't take in a readable,
+ * and the known commands don't need arguments for the image names, since only one image is being
+ * operated on at a time.
+ */
 public class GuiController extends AIMEController implements IGuiController {
 
+  /**
+   * Constructor for this GuiController.
+   *
+   * @param model the model object to call commands on
+   * @param view  the view that this controller takes input from
+   * @throws IllegalArgumentException if the parameters are null
+   */
   public GuiController(IIMEModel model, IGuiView view)
       throws IllegalArgumentException {
     if (model == null || view == null) {
@@ -56,7 +68,10 @@ public class GuiController extends AIMEController implements IGuiController {
   }
 
   @Override
-  public void setScanner(Scanner s) {
+  public void setScanner(Scanner s) throws IllegalArgumentException {
+    if (s == null) {
+      throw new IllegalArgumentException("Null scanner.");
+    }
     this.scanner = s;
   }
 }

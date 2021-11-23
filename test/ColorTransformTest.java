@@ -1,9 +1,13 @@
-package cs3500.ime.model.image.colortransform;
-
 import static org.junit.Assert.assertEquals;
 
 import cs3500.ime.model.image.IImage;
 import cs3500.ime.model.image.Image;
+import cs3500.ime.model.image.colortransform.BlueComponent;
+import cs3500.ime.model.image.colortransform.GreenComponent;
+import cs3500.ime.model.image.colortransform.IColorTransform;
+import cs3500.ime.model.image.colortransform.Luma;
+import cs3500.ime.model.image.colortransform.RedComponent;
+import cs3500.ime.model.image.colortransform.Sepia;
 import cs3500.ime.model.image.pixel.IPixel;
 import cs3500.ime.model.image.pixel.Pixel;
 import org.junit.Test;

@@ -24,6 +24,11 @@ import javax.swing.JToolBar;
 import javax.swing.JToolBar.Separator;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+/**
+ * Concrete class for our GUI view. This is the main {@code JFrame} that everything in our program
+ * is painted onto, and contains all the event listeners for the sub-components, as private,
+ * anonymous classes.
+ */
 public class GuiView extends JFrame implements IGuiView {
 
   private final JFileChooser fileChooser;
@@ -33,7 +38,10 @@ public class GuiView extends JFrame implements IGuiView {
   private IGuiController features;
   private String selectedOp = null;
 
-
+  /**
+   * Constructor for our GuiView. Takes no parameters, and builds the initial empty layout seen when
+   * opening up the program. Called when any repaint is done.
+   */
   public GuiView() {
     super("IME Program");
 
@@ -79,7 +87,8 @@ public class GuiView extends JFrame implements IGuiView {
           if (selectedOp.equals("Brighten")) {
             JOptionPane pane = new BrightenSpinnerOptionPane();
             Object val = pane.getInputValue();
-            if (val != null) {
+            Object opt = pane.getValue();
+            if (val != null && opt != null && (int) opt == JOptionPane.OK_OPTION) {
               features.setScanner(new Scanner("brighten " + val));
               features.run();
             }

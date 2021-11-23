@@ -1,5 +1,5 @@
-load PPMImages/testOG.ppm OG
-load PNGImages/testOG.png OG-png
+load res/PPMImages/testOG.ppm OG
+load res/PNGImages/testOG.png OG-png
 brighten 10 OG OG-brighter
 vertical-flip OG OG-vertical
 horizontal-flip OG OG-horizontal

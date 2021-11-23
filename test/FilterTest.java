@@ -1,8 +1,9 @@
-package cs3500.ime.model.image.filter;
-
 import static org.junit.Assert.assertEquals;
 
 import cs3500.ime.model.image.Image;
+import cs3500.ime.model.image.filter.Blur;
+import cs3500.ime.model.image.filter.IFilter;
+import cs3500.ime.model.image.filter.Sharpen;
 import cs3500.ime.model.image.pixel.IPixel;
 import cs3500.ime.model.image.pixel.Pixel;
 import org.junit.Test;

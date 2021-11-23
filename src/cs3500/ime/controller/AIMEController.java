@@ -11,6 +11,11 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.function.Function;
 
+/**
+ * Abstract controller class for IIMEController. Since there's significant overlap between the run()
+ * methods for the GuiController and IMEController, this method abstracts out the duplication, and
+ * is inherited as a super class by both those classes.
+ */
 public abstract class AIMEController implements IIMEController {
 
   protected Map<String, Function<Scanner, IIMECommand>> knownCommands = new HashMap<>();
@@ -42,7 +47,7 @@ public abstract class AIMEController implements IIMEController {
           } catch (NoSuchElementException e) {
             this.view.displayMessage("Invalid command usage.\n");
             scanner.nextLine();
-          } catch (Exception e) {
+          } catch (IllegalStateException e) {
             this.view.displayMessage(e.getMessage() + "\n");
           }
         }

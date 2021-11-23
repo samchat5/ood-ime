@@ -1,9 +1,9 @@
-package cs3500.ime.model.image;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import cs3500.ime.model.GreyscaleComponent;
+import cs3500.ime.model.image.IImage;
+import cs3500.ime.model.image.Image;
 import cs3500.ime.model.image.pixel.IPixel;
 import cs3500.ime.model.image.pixel.Pixel;
 import java.util.Arrays;

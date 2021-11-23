@@ -1,8 +1,8 @@
-package cs3500.ime.controller;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import cs3500.ime.controller.GuiController;
+import cs3500.ime.controller.IGuiController;
 import cs3500.ime.model.IMEModel;
 import cs3500.ime.model.image.ImageUtil;
 import cs3500.ime.view.GuiView;
@@ -10,6 +10,9 @@ import java.io.File;
 import java.util.Scanner;
 import org.junit.Test;
 
+/**
+ * Tests for GUI controller.
+ */
 public class GUIControllerTests {
 
   @Test(expected = IllegalArgumentException.class)
@@ -25,6 +28,12 @@ public class GUIControllerTests {
   @Test(expected = IllegalArgumentException.class)
   public void testNullViewConstructor() {
     new GuiController(new IMEModel(), null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testVoidSetScanner() {
+    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    cont.setScanner(null);
   }
 
   @Test

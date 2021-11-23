@@ -1,5 +1,44 @@
 # IME : Image Manipulation and Enhancement
 
+## Changelog: HW6
+
+### Model
+
+The only change made to the model in this HW was in `ImageUtil`, where we
+made `getBufferedImage()` `public`, instead of `private`. This was because it became necessary for
+the controller to get an actual `BufferedImage` object to pass to the view, so that it can display
+it. New tests were added for this method.
+
+### Controller
+
+A new class `GuiController` was added for our new GUI view. Also, this class and `IMEController`
+were both abstracted out to `AIMEController`, since their `run()` commands were incredibly similar,
+and allowed us to reuse code that we had already written and tested. When building out our
+`GuiController`, we envisioned that the best way to write it was to "send messages" from the view to
+the controller, similar to the ones that a user would input in our text view. The only difference
+would be that you work on one image at a time which is modified on each operation call until a new
+one is loaded, so we don't have to worry about handling (new) image names. This allowed us to reuse
+a lot of our old controller code, and adhere nicely to the command design pattern, allowing easy
+extensibility in the future.
+
+The other big updates to the controller were the commands themselves, which were refactored to fix
+some comments we got on HW5 that there was significant code duplication. Essentially, pretty much
+all the commands could be thought of as some method being called on an `IIMEModel`
+object, wrapped in a try-catch block to handle errors from the model. So, we abstracted this out
+to `ACommand`, which all the commands now inherit. Now, the commands call the super constructor
+which takes a `Consumer<IIMEModel>` lambda function that takes a model and calls a method on it, and
+is called within `run()`. This means that the commands are now only differentiated by their
+constructors, giving us some clean looking code!
+
+### View
+
+Of course, this is where the bulk of the changes were made in this HW. There weren't any
+"changes", per se, but rather additions as we added the new GUI view. More info on the GUI and how
+to use it are provided in [`USEME.md`](USEME.md). As a basic overview, the GUI has a bar at the top
+with a dropdown to select the operation, and buttons to load/save images using the Swing file
+chooser, and to apply the selected transformation. Below the bar is a view of the image with all
+currently applied operations, and to the right is a histogram of the channel and intensity values.
+
 ## Changelog: HW5
 
 ### Model
@@ -163,14 +202,6 @@ field. If a command is unknown, it displays so the user through the view, as wel
 used incorrectly (syntactically, like switching arguments around, or otherwise). It only throws an
 error if it runs out of inputs, or there's an `IOException`.
 
-## Image
-
-The image we used for testing the program was taken by me, Samridh Chaturvedi, and I give full
-rights to its use in this program/project.
-
-I have an RGB keyboard and a Rubik's cube lying around, so I thought that variety of colors would be
-a good test for the program :)
-
 ## Class Diagram
 
 You can find the class diagram below, or
@@ -182,8 +213,7 @@ at [`/src/cs3500/ime/diagram.jpg`](./src/cs3500/ime/diagram.jpg).
 
 ### Commands to load example image, modify it and save the output
 
-Run `IME.jar` inside `res/`. If not already there, make sure the directory `res/Test`
-exists.
+Run `IME.jar` inside `res/`
 
 ```
 load res/PPMImages/testOG.ppm OG
@@ -201,30 +231,36 @@ intensity-component OG OG-intensity
 red-component OG OG-red
 blue-component OG OG-blue
 green-component OG OG-green
-save res/Test/OG-brighter.ppm OG-brighter
-save res/Test/OG-vertical.ppm OG-vertical
-save res/Test/OG-horizontal.ppm OG-horizontal
-save res/Test/OG-value.ppm OG-value
-save res/Test/OG-blurred.ppm OG-blurred
-save res/Test/OG-sharpened.ppm OG-sharpened
-save res/Test/OG-greyscaled.ppm OG-greyscaled
-save res/Test/OG-sepia.ppm OG-sepia
-save res/Test/OG-brighter.png OG-brighter
-save res/Test/OG-brighter.jpg OG-brighter
-save res/Test/OG-brighter.jpeg OG-brighter
-save res/Test/OG-luma.png OG-luma
-save res/Test/OG-intensity.png OG-intensity
-save res/Test/OG-red.png OG-red
-save res/Test/OG-blue.png OG-blue
-save res/Test/OG-green.png OG-green
-save res/Test/OG.jpg OG-png
-save res/Test/OG.jpeg OG-png
-save res/Test/OG.ppm OG-png
-save res/Test/OG.png OG-png
+save res/OG-brighter.ppm OG-brighter
+save res/OG-vertical.ppm OG-vertical
+save res/OG-horizontal.ppm OG-horizontal
+save res/OG-value.ppm OG-value
+save res/OG-blurred.ppm OG-blurred
+save res/OG-sharpened.ppm OG-sharpened
+save res/OG-greyscaled.ppm OG-greyscaled
+save res/OG-sepia.ppm OG-sepia
+save res/OG-brighter.png OG-brighter
+save res/OG-brighter.jpg OG-brighter
+save res/OG-brighter.jpeg OG-brighter
+save res/OG-luma.png OG-luma
+save res/OG-intensity.png OG-intensity
+save res/OG-red.png OG-red
+save res/OG-blue.png OG-blue
+save res/OG-green.png OG-green
+save res/OG.jpg OG-png
+save res/OG.jpeg OG-png
+save res/OG.ppm OG-png
+save res/OG.png OG-png
 quit
 ```
 
 ## Credits
+
+The image we used for testing the program was taken by me, Samridh Chaturvedi, and I give full
+rights to its use in this program/project.
+
+I have an RGB keyboard and a Rubik's cube lying around, so I thought that variety of colors would be
+a good test for the program :)
 
 Used https://dyclassroom.com/image-processing-project/how-to-create-a-random-pixel-image-in-java
 as a reference for manipulating bufferedImages. This use is permitted for non-commercial use.

@@ -8,12 +8,22 @@ import java.util.Arrays;
 import java.util.OptionalDouble;
 import javax.swing.JPanel;
 
+/**
+ * Represents the Histogram panel in our GUI. Simply draws the red, green, blue, and intensity value
+ * frequencies for the currently loaded images, passed to the histogram as a raster.
+ */
 public class Histogram extends JPanel {
 
   private final Raster raster;
   private final int rasterHeight;
   private final int rasterWidth;
 
+  /**
+   * Histogram constructor -- takes in a Raster object obtained from a BufferedImage object and uses
+   * is to paint the histogram.
+   *
+   * @param raster image's raster object
+   */
   public Histogram(Raster raster) {
     this.raster = raster;
     this.rasterHeight = raster.getHeight();
@@ -28,9 +38,9 @@ public class Histogram extends JPanel {
     int[] greyCounter = new int[256];
     int max = 0;
 
-    double CANVAS_SCALE_X = getSize().getWidth() / 256;
-    double CANVAS_SCALE_Y = getSize().getHeight() / 256;
-    ((Graphics2D) g).scale(CANVAS_SCALE_X, CANVAS_SCALE_Y);
+    double canvasScaleX = getSize().getWidth() / 256;
+    double canvasScaleY = getSize().getHeight() / 256;
+    ((Graphics2D) g).scale(canvasScaleX, canvasScaleY);
 
     for (int i = 0; i < rasterHeight; i++) {
       for (int j = 0; j < rasterWidth; j++) {

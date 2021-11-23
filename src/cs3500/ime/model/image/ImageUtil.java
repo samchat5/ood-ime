@@ -96,7 +96,17 @@ public class ImageUtil {
     }
   }
 
-  public static BufferedImage getBufferedImage(IImage img) {
+  /**
+   * Converts an {@code IImage} object to a buffered image.
+   *
+   * @param img image to convert
+   * @return converted buffered image
+   * @throws IllegalArgumentException if the image is null, or empty (i.e. has 0 width or height)
+   */
+  public static BufferedImage getBufferedImage(IImage img) throws IllegalArgumentException {
+    if (img == null || img.getWidth() == 0 || img.getHeight() == 0) {
+      throw new IllegalArgumentException("Null/empty image");
+    }
     BufferedImage image = new BufferedImage(img.getWidth(), img.getHeight(),
         BufferedImage.TYPE_INT_RGB);
 
