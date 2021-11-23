@@ -3,175 +3,253 @@
   <ID>JAVA</ID>
   <OriginalElement>D:/CS3500/HW4/src/cs3500/ime</OriginalElement>
   <nodes>
+    <node x="1700.0" y="108.0">cs3500.ime.controller.AIMEController</node>
+    <node x="907.75" y="780.0">cs3500.ime.controller.commands.ACommand</node>
+    <node x="573.0" y="1233.5984251968505">cs3500.ime.model.image.colortransform.AColorTransform</node>
     <node x="0.0" y="283.0">cs3500.ime.model.image.Image</node>
-    <node x="1295.0" y="106.0">cs3500.ime.model.image.colortransform.AColorTransform</node>
-    <node x="0.0" y="1008.0">cs3500.ime.controller.IMEController</node>
-    <node x="884.0000000000001" y="778.0">cs3500.ime.controller.commands.SepiaCommand</node>
-    <node x="1014.2500000000001" y="672.0">cs3500.ime.controller.commands.IIMECommand</node>
-    <node x="658.0000000000001" y="778.0">cs3500.ime.controller.commands.BlurCommand</node>
-    <node x="75.5" y="902.0">cs3500.ime.controller.IIMEController</node>
-    <node x="908.0" y="902.0">cs3500.ime.model.GreyscaleComponent</node>
-    <node x="1295.0" y="0.0">cs3500.ime.model.image.colortransform.IColorTransform</node>
+    <node x="1849.0" y="239.0">cs3500.ime.controller.GuiController</node>
+    <node x="1531.0" y="250.5">cs3500.ime.controller.IMEController</node>
+    <node x="400.0" y="922.5">cs3500.ime.controller.commands.SepiaCommand</node>
+    <node x="561.3189655172414" y="672.0">cs3500.ime.controller.commands.IIMECommand</node>
+    <node x="0.0" y="911.0">cs3500.ime.controller.commands.BlurCommand</node>
+    <node x="1743.75" y="0.0">cs3500.ime.controller.IIMEController</node>
+    <node x="1354.0" y="1035.0">cs3500.ime.model.GreyscaleComponent</node>
     <node x="336.0" y="0.0">cs3500.ime.model.IIMEModel</node>
-    <node x="248.0000000000001" y="778.0">cs3500.ime.controller.commands.LumaTransform</node>
+    <node x="1593.0" y="922.5">cs3500.ime.controller.commands.LumaTransform</node>
+    <node x="257.0" y="1035.0">cs3500.ime.model.image.colortransform.IColorTransform</node>
     <node x="336.0" y="282.0">cs3500.ime.model.IMEModel</node>
-    <node x="1507.0" y="235.0">cs3500.ime.model.image.colortransform.BlueComponent</node>
-    <node x="1947.0" y="235.0">cs3500.ime.model.image.filter.Blur</node>
-    <node x="1517.0" y="778.0">cs3500.ime.controller.commands.Brighten</node>
-    <node x="1200.0" y="902.0">cs3500.ime.IME</node>
-    <node x="1295.0" y="778.0">cs3500.ime.controller.commands.HorizontalFlip</node>
-    <node x="343.0" y="902.0">cs3500.ime.view.IIMEView</node>
+    <node x="285.0" y="1270.0">cs3500.ime.model.image.colortransform.BlueComponent</node>
+    <node x="1061.0" y="922.5">cs3500.ime.controller.commands.Brighten</node>
+    <node x="914.0" y="1270.0">cs3500.ime.model.image.filter.Blur</node>
+    <node x="633.0" y="922.5">cs3500.ime.controller.commands.HorizontalFlip</node>
+    <node x="0.0" y="1371.0">cs3500.ime.IME</node>
+    <node x="1170.75" y="0.0">cs3500.ime.view.IIMEView</node>
+    <node x="1646.0" y="1035.0">cs3500.ime.view.BrightenSpinnerOptionPane</node>
     <node x="705.0" y="0.0">cs3500.ime.model.image.pixel.IPixel</node>
-    <node x="1117.0" y="778.0">cs3500.ime.controller.commands.Load</node>
-    <node x="1730.0" y="778.0">cs3500.ime.controller.commands.VerticalFlip</node>
-    <node x="1936.0" y="778.0">cs3500.ime.controller.commands.GreyScale</node>
-    <node x="1142.0" y="235.0">cs3500.ime.model.image.colortransform.RedComponent</node>
-    <node x="1821.0" y="235.0">cs3500.ime.model.image.filter.Sharpen</node>
-    <node x="1837.25" y="106.0">cs3500.ime.model.image.filter.AFilter</node>
-    <node x="1837.25" y="0.0">cs3500.ime.model.image.filter.IFilter</node>
-    <node x="1318.0" y="235.0">cs3500.ime.model.image.colortransform.GreenComponent</node>
-    <node x="343.0" y="1008.0">cs3500.ime.view.IMETextView</node>
+    <node x="226.0" y="922.5">cs3500.ime.controller.commands.Load</node>
+    <node x="855.0" y="922.5">cs3500.ime.controller.commands.VerticalFlip</node>
+    <node x="1902.0" y="119.5">cs3500.ime.controller.IGuiController</node>
+    <node x="109.0" y="1270.0">cs3500.ime.model.image.colortransform.RedComponent</node>
+    <node x="1274.0" y="922.5">cs3500.ime.controller.commands.GreyScale</node>
+    <node x="788.0" y="1270.0">cs3500.ime.model.image.filter.Sharpen</node>
+    <node x="804.25" y="1141.0">cs3500.ime.model.image.filter.AFilter</node>
+    <node x="1927.0" y="1035.0">cs3500.ime.view.Histogram</node>
+    <node x="804.25" y="1035.0">cs3500.ime.model.image.filter.IFilter</node>
+    <node x="574.0" y="1270.0">cs3500.ime.model.image.colortransform.GreenComponent</node>
+    <node x="1033.0" y="106.5">cs3500.ime.view.IGuiView</node>
+    <node x="1289.0" y="106.0">cs3500.ime.view.IMETextView</node>
     <node x="705.0" y="173.0">cs3500.ime.model.image.pixel.Pixel</node>
-    <node x="585.0" y="902.0">cs3500.ime.model.image.ImageUtil</node>
-    <node x="480.0000000000001" y="778.0">cs3500.ime.controller.commands.Save</node>
-    <node x="1686.0" y="235.0">cs3500.ime.model.image.colortransform.Luma</node>
-    <node x="0.0" y="778.0">cs3500.ime.controller.commands.SharpenCommand</node>
+    <node x="1040.0" y="1035.0">cs3500.ime.model.image.ImageUtil</node>
+    <node x="1825.0" y="922.5">cs3500.ime.controller.commands.Save</node>
+    <node x="464.0" y="1270.0">cs3500.ime.model.image.colortransform.Luma</node>
+    <node x="1033.0" y="235.0">cs3500.ime.view.GuiView</node>
+    <node x="1997.0" y="922.5">cs3500.ime.controller.commands.SharpenCommand</node>
+    <node x="0.0" y="1270.0">cs3500.ime.model.image.colortransform.Sepia</node>
     <node x="0.0" y="0.0">cs3500.ime.model.image.IImage</node>
-    <node x="1033.0" y="235.0">cs3500.ime.model.image.colortransform.Sepia</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="cs3500.ime.model.image.colortransform.GreenComponent" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
+    <edge source="cs3500.ime.controller.commands.LumaTransform" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
       <point x="0.0" y="-28.0" />
-      <point x="0.0" y="39.5" />
-    </edge>
-    <edge source="cs3500.ime.controller.commands.BlurCommand" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="761.0000000000001" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.model.image.colortransform.AColorTransform" target="cs3500.ime.model.image.colortransform.IColorTransform" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.controller.commands.HorizontalFlip" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="1396.0" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.controller.commands.Load" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="1196.0" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.model.image.colortransform.Luma" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
-      <point x="0.0" y="-28.0" />
-      <point x="1731.0" y="210.0" />
-      <point x="1402.5" y="210.0" />
+      <point x="1699.0" y="885.0" />
+      <point x="1052.75" y="885.0" />
       <point x="0.0" y="39.5" />
     </edge>
     <edge source="cs3500.ime.model.image.pixel.Pixel" target="cs3500.ime.model.image.pixel.IPixel" relationship="REALIZATION">
       <point x="0.0" y="-139.0" />
       <point x="0.0" y="61.5" />
     </edge>
-    <edge source="cs3500.ime.model.image.filter.Sharpen" target="cs3500.ime.model.image.filter.AFilter" relationship="GENERALIZATION">
+    <edge source="cs3500.ime.model.image.colortransform.Luma" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
       <point x="0.0" y="-28.0" />
-      <point x="1874.0" y="210.0" />
-      <point x="1930.75" y="210.0" />
+      <point x="509.0" y="1245.0" />
+      <point x="680.5" y="1245.0" />
       <point x="0.0" y="39.5" />
     </edge>
-    <edge source="cs3500.ime.controller.commands.VerticalFlip" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="1823.0" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
+    <edge source="cs3500.ime.view.GuiView" target="cs3500.ime.view.IGuiView" relationship="REALIZATION">
+      <point x="0.0" y="-61.5" />
+      <point x="0.0" y="39.0" />
     </edge>
-    <edge source="cs3500.ime.model.IMEModel" target="cs3500.ime.model.IIMEModel" relationship="REALIZATION">
-      <point x="0.0" y="-127.5" />
-      <point x="0.0" y="116.0" />
-    </edge>
-    <edge source="cs3500.ime.controller.commands.Brighten" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="1613.5" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.model.image.colortransform.Sepia" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
-      <point x="0.0" y="-28.0" />
-      <point x="1077.5" y="210.0" />
-      <point x="1402.5" y="210.0" />
+    <edge source="cs3500.ime.controller.commands.BlurCommand" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="51.5" y="-39.5" />
+      <point x="154.5" y="885.0" />
+      <point x="1052.75" y="885.0" />
       <point x="0.0" y="39.5" />
-    </edge>
-    <edge source="cs3500.ime.controller.commands.Save" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="559.0000000000001" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.view.IMETextView" target="cs3500.ime.view.IIMEView" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.controller.commands.GreyScale" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="2085.5" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
     </edge>
     <edge source="cs3500.ime.model.image.Image" target="cs3500.ime.model.image.IImage" relationship="REALIZATION">
       <point x="0.0" y="-172.0" />
       <point x="0.0" y="116.5" />
     </edge>
-    <edge source="cs3500.ime.controller.commands.SharpenCommand" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="114.0" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.controller.commands.LumaTransform" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="354.0000000000001" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.controller.IMEController" target="cs3500.ime.controller.IIMEController" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="0.0" y="28.0" />
-    </edge>
-    <edge source="cs3500.ime.model.image.colortransform.BlueComponent" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
-      <point x="0.0" y="-28.0" />
-      <point x="1586.5" y="210.0" />
-      <point x="1402.5" y="210.0" />
+    <edge source="cs3500.ime.controller.GuiController" target="cs3500.ime.controller.AIMEController" relationship="GENERALIZATION">
+      <point x="-60.0" y="-51.0" />
+      <point x="1909.0" y="213.0" />
+      <point x="1776.5" y="213.0" />
       <point x="0.0" y="39.5" />
     </edge>
     <edge source="cs3500.ime.model.image.colortransform.RedComponent" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
       <point x="0.0" y="-28.0" />
-      <point x="1220.0" y="210.0" />
-      <point x="1402.5" y="210.0" />
+      <point x="187.0" y="1245.0" />
+      <point x="680.5" y="1245.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.controller.AIMEController" target="cs3500.ime.controller.IIMEController" relationship="REALIZATION">
+      <point x="0.0" y="-39.5" />
+      <point x="1776.5" y="87.0" />
+      <point x="1733.0" y="87.0" />
+      <point x="1733.0" y="77.0" />
+      <point x="1780.5" y="77.0" />
+      <point x="-36.75" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.SharpenCommand" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="2111.0" y="885.0" />
+      <point x="1052.75" y="885.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.model.image.filter.Blur" target="cs3500.ime.model.image.filter.AFilter" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="954.5" y="1245.0" />
+      <point x="897.75" y="1245.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.ACommand" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
+      <point x="0.0" y="-39.5" />
+      <point x="1052.75" y="754.0" />
+      <point x="640.3189655172414" y="754.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.model.image.colortransform.GreenComponent" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="658.5" y="1245.0" />
+      <point x="680.5" y="1245.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.BlurCommand" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
+      <point x="-51.5" y="-39.5" />
+      <point x="51.5" y="885.0" />
+      <point x="98.0" y="885.0" />
+      <point x="98.0" y="754.0" />
+      <point x="640.3189655172414" y="754.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.model.image.colortransform.AColorTransform" target="cs3500.ime.model.image.colortransform.IColorTransform" relationship="REALIZATION">
+      <point x="0.0" y="-39.5" />
+      <point x="680.5" y="1116.0" />
+      <point x="364.5" y="1116.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.IMEController" target="cs3500.ime.controller.AIMEController" relationship="GENERALIZATION">
+      <point x="74.5" y="-39.5" />
+      <point x="1754.5" y="213.0" />
+      <point x="1776.5" y="213.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.Save" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="1901.0" y="885.0" />
+      <point x="1052.75" y="885.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.model.image.filter.Sharpen" target="cs3500.ime.model.image.filter.AFilter" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="841.0" y="1245.0" />
+      <point x="897.75" y="1245.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.GreyScale" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="1423.5" y="885.0" />
+      <point x="1052.75" y="885.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.model.IMEModel" target="cs3500.ime.model.IIMEModel" relationship="REALIZATION">
+      <point x="0.0" y="-127.5" />
+      <point x="0.0" y="116.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.Brighten" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="1157.5" y="885.0" />
+      <point x="1052.75" y="885.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.model.image.colortransform.Sepia" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="44.5" y="1245.0" />
+      <point x="680.5" y="1245.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.view.IMETextView" target="cs3500.ime.view.IIMEView" relationship="REALIZATION">
+      <point x="0.0" y="-39.5" />
+      <point x="1387.5" y="81.0" />
+      <point x="1318.5" y="81.0" />
+      <point x="49.25" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.Load" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="303.0" y="885.0" />
+      <point x="1052.75" y="885.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.controller.GuiController" target="cs3500.ime.controller.IGuiController" relationship="REALIZATION">
+      <point x="60.0" y="-51.0" />
+      <point x="2029.0" y="213.0" />
+      <point x="1974.0" y="213.0" />
+      <point x="0.0" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.view.IGuiView" target="cs3500.ime.view.IIMEView" relationship="INTERFACE_GENERALIZATION">
+      <point x="0.0" y="-39.0" />
+      <point x="1151.0" y="81.0" />
+      <point x="1220.0" y="81.0" />
+      <point x="-49.25" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.VerticalFlip" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="948.0" y="885.0" />
+      <point x="1052.75" y="885.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.controller.IMEController" target="cs3500.ime.controller.IIMEController" relationship="REALIZATION">
+      <point x="-74.5" y="-39.5" />
+      <point x="1605.5" y="213.0" />
+      <point x="1675.0" y="213.0" />
+      <point x="1675.0" y="87.0" />
+      <point x="1733.0" y="87.0" />
+      <point x="1733.0" y="77.0" />
+      <point x="1780.5" y="77.0" />
+      <point x="-36.75" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.IGuiController" target="cs3500.ime.controller.IIMEController" relationship="INTERFACE_GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="1974.0" y="87.0" />
+      <point x="1854.0" y="87.0" />
+      <point x="36.75" y="28.0" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.HorizontalFlip" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="734.0" y="885.0" />
+      <point x="1052.75" y="885.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.model.image.colortransform.BlueComponent" target="cs3500.ime.model.image.colortransform.AColorTransform" relationship="GENERALIZATION">
+      <point x="0.0" y="-28.0" />
+      <point x="364.5" y="1245.0" />
+      <point x="680.5" y="1245.0" />
+      <point x="0.0" y="39.5" />
+    </edge>
+    <edge source="cs3500.ime.controller.commands.SepiaCommand" target="cs3500.ime.controller.commands.ACommand" relationship="GENERALIZATION">
+      <point x="-1.1368683772161603E-13" y="-28.0" />
+      <point x="506.4999999999999" y="885.0" />
+      <point x="1052.75" y="885.0" />
       <point x="0.0" y="39.5" />
     </edge>
     <edge source="cs3500.ime.model.image.filter.AFilter" target="cs3500.ime.model.image.filter.IFilter" relationship="REALIZATION">
       <point x="0.0" y="-39.5" />
       <point x="0.0" y="28.0" />
     </edge>
-    <edge source="cs3500.ime.model.image.filter.Blur" target="cs3500.ime.model.image.filter.AFilter" relationship="GENERALIZATION">
-      <point x="0.0" y="-28.0" />
-      <point x="1987.5" y="210.0" />
-      <point x="1930.75" y="210.0" />
-      <point x="0.0" y="39.5" />
-    </edge>
-    <edge source="cs3500.ime.controller.commands.SepiaCommand" target="cs3500.ime.controller.commands.IIMECommand" relationship="REALIZATION">
-      <point x="0.0" y="-39.5" />
-      <point x="990.5000000000001" y="753.0" />
-      <point x="1093.25" y="753.0" />
-      <point x="0.0" y="28.0" />
-    </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.30509977827051" showDependencies="false" x="1117.5" y="543.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic" zoom="0.6047619047619047" showDependencies="false" x="1112.5" y="725.0" />
+  <SelectedNodes>
+    <node>cs3500.ime.model.image.colortransform.AColorTransform</node>
+  </SelectedNodes>
   <Categories>
     <Category>Constructors</Category>
     <Category>Inner Classes</Category>

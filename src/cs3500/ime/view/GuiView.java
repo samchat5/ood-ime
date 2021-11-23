@@ -3,6 +3,7 @@ package cs3500.ime.view;
 import cs3500.ime.controller.IGuiController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,10 +26,10 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GuiView extends JFrame implements IGuiView {
 
-  private final JScrollPane histogram;
   private final JFileChooser fileChooser;
   private final JFrame frame = this;
   private final JScrollPane imagePane;
+  private final JScrollPane histogram;
   private IGuiController features;
   private String selectedOp = null;
 
@@ -38,7 +39,7 @@ public class GuiView extends JFrame implements IGuiView {
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setLayout(new BorderLayout(0, 0));
-    this.setMinimumSize(new Dimension(500, 552));
+    this.setMinimumSize(new Dimension(755, 552));
 
     JToolBar toolbar = new JToolBar();
     toolbar.setFloatable(false);
@@ -60,6 +61,7 @@ public class GuiView extends JFrame implements IGuiView {
     operationDropdown.setEditable(false);
     operationDropdown.addActionListener(
         e -> selectedOp = (String) ((JComboBox<?>) e.getSource()).getSelectedItem());
+    operationDropdown.setSelectedIndex(0);
     toolbar.add(operationDropdown);
 
     toolbar.add(new Separator());
@@ -126,10 +128,12 @@ public class GuiView extends JFrame implements IGuiView {
     toolbar.add(saveButton);
 
     imagePane = new JScrollPane();
-    this.add(imagePane, BorderLayout.CENTER);
-
     histogram = new JScrollPane();
-    this.add(histogram, BorderLayout.EAST);
+
+    JPanel mainSplitPane = new JPanel(new GridLayout(1, 2));
+    mainSplitPane.add(imagePane);
+    mainSplitPane.add(histogram);
+    this.add(mainSplitPane, BorderLayout.CENTER);
 
     pack();
     setVisible(true);
@@ -148,8 +152,8 @@ public class GuiView extends JFrame implements IGuiView {
 
   @Override
   public void loadImage(BufferedImage image) {
-    this.imagePane.setViewportView(new JLabel(new ImageIcon(image)));
     this.histogram.setViewportView(new Histogram(image.getRaster()));
+    this.imagePane.setViewportView(new JLabel(new ImageIcon(image)));
     this.repaint();
   }
 

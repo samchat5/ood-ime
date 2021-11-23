@@ -45,8 +45,8 @@ public class GuiController extends AIMEController implements IGuiController {
     knownCommands.put("sepia", (Scanner s) -> new SepiaCommand("image", "image"));
     knownCommands.put("sharpen", (Scanner s) -> new SharpenCommand("image", "image"));
     knownCommands.put("blur", (Scanner s) -> new BlurCommand("image", "image"));
-    knownCommands.put("load", (Scanner s) -> new Load(s.next(), "image"));
-    knownCommands.put("save", (Scanner s) -> new Save(s.next(), "image"));
+    knownCommands.put("load", (Scanner s) -> new Load(s.nextLine().strip(), "image"));
+    knownCommands.put("save", (Scanner s) -> new Save(s.nextLine().strip(), "image"));
   }
 
   @Override
