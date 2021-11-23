@@ -1,3 +1,6 @@
+*.zip
+*.iml
+
 # Default ignored files
 /shelf/
 # Datasource local storage ignored files
@@ -7,5 +10,4 @@
 /httpRequests/
 # IntelliJ configs
 /.idea/*
-/*.iml
 /out/*
