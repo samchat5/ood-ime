@@ -5,6 +5,9 @@ interface (no loose classes).
 
 # Implementation Critique
 
+The lack of command design pattern overly complicated the implementation of the controller classes.
+The code we received used switch statements with cases for each possible command permutation. As 
+such it had various code repetition and was somewhat difficult to extend gracefully.
 
 
 # Documentation Critique
