@@ -6,9 +6,9 @@ package controller;
 public interface ImageController {
 
   /**
-   * Represents the method used to run the image processor.
-   * Takes in user inputs and applies to related actions to the image provided.
+   * Represents the method used to run the image processor. Takes in user inputs and applies to
+   * related actions to the image provided.
    */
-  public void begin() throws IllegalStateException;
+  void begin() throws IllegalStateException;
 
 }

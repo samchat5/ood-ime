@@ -10,15 +10,16 @@ import java.util.Arrays;
 public class Image implements ImageState {
 
   //A image is a 2D array of pixels.
-  private Pixel[][] image;
-  private int width;
+  private final Pixel[][] image;
+  private final int width;
 
-  private int height;
+  private final int height;
 
 
   /**
-   * This constructor creates an image given a 2D array of pixels. It computes the width and
-   * height of the image using the getImageWidth() and getImageHeight() methods.
+   * This constructor creates an image given a 2D array of pixels. It computes the width and height
+   * of the image using the getImageWidth() and getImageHeight() methods.
+   *
    * @param image a 2D array of pixels representing an image.
    */
   public Image(Pixel[][] image) {
@@ -33,8 +34,8 @@ public class Image implements ImageState {
 
 
   /**
-   * Gets the image at its current state.
-   * The image is an array of pixels.
+   * Gets the image at its current state. The image is an array of pixels.
+   *
    * @return the array of pixels that make up the image.
    */
   @Override
@@ -43,8 +44,8 @@ public class Image implements ImageState {
   }
 
   /**
-   * Gets the height of the image.
-   * Height is represented by number of pixels.
+   * Gets the height of the image. Height is represented by number of pixels.
+   *
    * @return the height of the image in pixels.
    */
   public int getImageHeight() {
@@ -52,8 +53,8 @@ public class Image implements ImageState {
   }
 
   /**
-   * Gets the width of the image.
-   * Width is represented by number of pixels.
+   * Gets the width of the image. Width is represented by number of pixels.
+   *
    * @return the width of the image in pixels.
    */
   public int getImageWidth() {
@@ -61,8 +62,9 @@ public class Image implements ImageState {
   }
 
   /**
-   * Coputes what the maximum value is across all pixels in the image.
-   * The value is the maximum number in the color representation.
+   * Computes what the maximum value is across all pixels in the image. The value is the maximum
+   * number in the color representation.
+   *
    * @return the maximum value.
    */
   public int getMaxRgb() {
@@ -79,8 +81,9 @@ public class Image implements ImageState {
 
 
   /**
-   * This method overrides Java's built-in equals method. An image is equal to another image
-   * if the given image is an Image and
+   * This method overrides Java's built-in equals method. An image is equal to another image if the
+   * given image is an Image and
+   *
    * @param image an Image that represents the pixels of an image.
    * @return a boolean; true when the images are equal, otherwise returns false.
    */
@@ -106,6 +109,7 @@ public class Image implements ImageState {
 
   /**
    * Overrides hashcode using the same fields equals uses.
+   *
    * @return an integer representing the hashcode of this image.
    */
   @Override

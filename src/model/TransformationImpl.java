@@ -1,16 +1,16 @@
 package model;
 
 /**
- * Represents an implementation of the transformation interface.
- * Represents linear color transformations and the associated methods.
+ * Represents an implementation of the transformation interface. Represents linear color
+ * transformations and the associated methods.
  */
 public class TransformationImpl implements Transformation {
 
   double[][] transformation;
 
   /**
-   * Represents a type of transformation.
-   * Defined by the given array.
+   * Represents a type of transformation. Defined by the given array.
+   *
    * @param transformation represents the array by which the color values of the pixel are
    *                       multiplied to achieve the transformation.
    */
@@ -29,8 +29,8 @@ public class TransformationImpl implements Transformation {
   }
 
   /**
-   * Applies the given transformation to the image.
-   * The transformation is applied based on the color values of a pixel.
+   * Applies the given transformation to the image. The transformation is applied based on the color
+   * values of a pixel.
    *
    * @return the transformed image.
    */
@@ -51,20 +51,19 @@ public class TransformationImpl implements Transformation {
   }
 
   private Pixel pixelTransform(Pixel pix) {
-    int red = 0;
-    int green = 0;
-    int blue = 0;
-
+    int red;
+    int green;
+    int blue;
 
     red = (int) Math.floor(transformation[0][0] * pix.getRed()
-            + transformation[0][1] * pix.getGreen()
-            + transformation[0][2] * pix.getBlue());
+        + transformation[0][1] * pix.getGreen()
+        + transformation[0][2] * pix.getBlue());
     blue = (int) Math.floor(transformation[1][0] * pix.getRed()
-            + transformation[1][1] * pix.getGreen()
-            + transformation[1][2] * pix.getBlue());
+        + transformation[1][1] * pix.getGreen()
+        + transformation[1][2] * pix.getBlue());
     green = (int) Math.floor(transformation[2][0] * pix.getRed()
-            + transformation[2][1] * pix.getGreen()
-            + transformation[2][2] * pix.getBlue());
+        + transformation[2][1] * pix.getGreen()
+        + transformation[2][2] * pix.getBlue());
 
     red = this.range(red);
     green = this.range(green);

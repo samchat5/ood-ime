@@ -1,14 +1,12 @@
+import static org.junit.Assert.assertEquals;
+
+import model.PixelRGB;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.PixelRGB;
-
-import static org.junit.Assert.assertEquals;
-
 /**
- * Represents the tests for the PixelRGB class.
- * Ensures that all methods and constructors are working as they are supposed to as defined by their
- * descriptions.
+ * Represents the tests for the PixelRGB class. Ensures that all methods and constructors are
+ * working as they are supposed to as defined by their descriptions.
  */
 public class PixelRGBTest {
 
@@ -19,8 +17,7 @@ public class PixelRGBTest {
   PixelRGB mixedGreen;
 
   /**
-   * Initializes values for testing.
-   * Ensures that mutation will not disrupt any tests.
+   * Initializes values for testing. Ensures that mutation will not disrupt any tests.
    */
   @Before
   public void setUp() {
@@ -56,34 +53,34 @@ public class PixelRGBTest {
     assertEquals(mixedGreen.getBlue(), 200);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void constructFail() {
-    PixelRGB all0 = new PixelRGB(-1, 0, 0);
+    new PixelRGB(-1, 0, 0);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void constructFail2() {
-    PixelRGB all0 = new PixelRGB(0, -10, 0);
+    new PixelRGB(0, -10, 0);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void constructFail3() {
-    PixelRGB all0 = new PixelRGB(0, 0, -255);
+    new PixelRGB(0, 0, -255);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void constructFail4() {
-    PixelRGB all0 = new PixelRGB(260, 0, 0);
+    new PixelRGB(260, 0, 0);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void constructFail5() {
-    PixelRGB all0 = new PixelRGB(10, 270, 0);
+    new PixelRGB(10, 270, 0);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void constructFail6() {
-    PixelRGB all0 = new PixelRGB(20, 0, 256);
+    new PixelRGB(20, 0, 256);
   }
 
   @Test
@@ -227,12 +224,12 @@ public class PixelRGBTest {
     assertEquals(mixedRed.getRed(), 255);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void negativeBrighter() {
     all0.makePixelBrighter(-10);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void negativeDarker() {
     all0.makePixelBrighter(-10);
   }

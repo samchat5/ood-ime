@@ -3,20 +3,22 @@ package model;
 import java.util.Objects;
 
 /**
- * This class is and implementation of the Pixel interface. It represents a RGB pixel with the
- * all the methods that can be used to modify a pixel. This class has three fields: red, green,
- * and blue.
+ * This class is and implementation of the Pixel interface. It represents an RGB pixel with the all
+ * the methods that can be used to modify a pixel. This class has three fields: red, green, and
+ * blue.
  */
 public class PixelRGB implements Pixel {
+
   private int red;
   private int blue;
   private int green;
 
   /**
    * This constructor creates a pixel with the following values: red, green and blue.
-   * @param red the red component of a pixel.
+   *
+   * @param red   the red component of a pixel.
    * @param green the green component of a pixel.
-   * @param blue the blue component of a pixel.
+   * @param blue  the blue component of a pixel.
    * @throws IllegalArgumentException if the red, blue, or green values are invalid.
    */
   public PixelRGB(int red, int green, int blue) throws IllegalArgumentException {
@@ -25,8 +27,7 @@ public class PixelRGB implements Pixel {
       this.red = red;
       this.green = green;
       this.blue = blue;
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Red, blue and green values must be between 0 and 255");
     }
 
@@ -51,7 +52,7 @@ public class PixelRGB implements Pixel {
   @Override
   public int computeLuma() {
     double luma = (0.2126 * this.red + 0.7152 * this.green + 0.0722 * this.blue);
-    return (int)Math.round(luma);
+    return (int) Math.round(luma);
   }
 
   /**
@@ -112,6 +113,7 @@ public class PixelRGB implements Pixel {
 
   /**
    * Makes the pixel a shade of gray based on the value given.
+   *
    * @param value represents the value to set all three channels to.
    */
   private void greyscale(int value) {
@@ -138,7 +140,8 @@ public class PixelRGB implements Pixel {
   }
 
   /**
-   * Thic methods overrides equals. Determines if the given pixel is equal to this pixel.
+   * This method overrides equals. Determines if the given pixel is equal to this pixel.
+   *
    * @param pixel the given pixel.
    * @return a boolean, true if they are equal. otherwise, returns false.
    */
@@ -149,11 +152,12 @@ public class PixelRGB implements Pixel {
     }
     return this.red == ((Pixel) pixel).getRed()
         && this.blue == ((Pixel) pixel).getBlue()
-        && this.green == ((Pixel)pixel).getGreen();
+        && this.green == ((Pixel) pixel).getGreen();
   }
 
   /**
    * This method overrides hashcode using the same fields as equals.
+   *
    * @return an integer representing the hashcode.
    */
   @Override

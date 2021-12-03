@@ -6,10 +6,12 @@ import java.io.IOException;
  * This represents the view of an RGB image. Implements the ImageView interface.
  */
 public class RGBView implements ImageView {
-  private Appendable append;
+
+  private final Appendable append;
 
   /**
    * This constructor creates a RGBView with the model and appendable as the inputs.
+   *
    * @param append the appendable.
    * @throws IllegalArgumentException when state or appendable is null.
    */
@@ -21,8 +23,7 @@ public class RGBView implements ImageView {
   }
 
   /**
-   * Renders the given message.
-   * Sends the string to the provided output.
+   * Renders the given message. Sends the string to the provided output.
    *
    * @param message a String representing the message to be shared.
    */

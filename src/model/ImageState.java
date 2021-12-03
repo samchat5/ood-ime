@@ -7,30 +7,33 @@ package model;
 public interface ImageState {
 
   /**
-   * Acts as a getter for the image being acted upon.
-   * The image is made up of a 2d array of pixels.
+   * Acts as a getter for the image being acted upon. The image is made up of a 2d array of pixels.
+   *
    * @return the two-dimensional array of pixels that make up the image
    */
-  public Pixel[][] getImage();
+  Pixel[][] getImage();
 
   /**
    * This method gets the width of this image. In other words, how many pixels wide the image is.
    * The width is an integer.
+   *
    * @return width as an integer.
    */
-  public int getImageHeight();
+  int getImageHeight();
 
   /**
    * This method gets the height of this image. In other words, how many pixels tall the image is.
    * The height is an integer.
+   *
    * @return height as an integer.
    */
-  public int getImageWidth();
+  int getImageWidth();
 
   /**
    * Finds the largest RGB value in the entire image.
+   *
    * @return an integer representing the value
    */
-  public int getMaxRgb();
+  int getMaxRgb();
 
 }

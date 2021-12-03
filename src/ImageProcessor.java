@@ -1,12 +1,11 @@
 import controller.GuiControllerImpl;
 import controller.ImageController;
+import controller.ImageControllerImpl;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import controller.ImageControllerImpl;
 import java.io.Reader;
 import model.ImageModel;
 import model.RGBModel;
@@ -16,9 +15,8 @@ import view.ImageView;
 import view.RGBView;
 
 /**
- * Represents the actual image processor.
- * Allows the user to start using the image processor by initializing model, view and controller
- * and starting the program.
+ * Represents the actual image processor. Allows the user to start using the image processor by
+ * initializing model, view and controller and starting the program.
  */
 public final class ImageProcessor {
 

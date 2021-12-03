@@ -1,18 +1,15 @@
-
-import model.Image;
-import org.junit.Test;
-
-import model.Pixel;
-import model.PixelRGB;
-
 import static model.ImageUtil.readFile;
 import static model.ImageUtil.writeToFile;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+
+import model.Image;
+import model.Pixel;
+import model.PixelRGB;
+import org.junit.Test;
 
 /**
- * Represents the tests for the imageUtils class.
- * Ensures that all methods and constructors work properly.
+ * Represents the tests for the imageUtils class. Ensures that all methods and constructors work
+ * properly.
  */
 public class ImageUtilTest {
 
@@ -29,30 +26,30 @@ public class ImageUtilTest {
         {new PixelRGB(15, 0, 15), black, black, black}};
     Image ppm = new Image(arrPPM);
 
-    assertTrue(ppm.equals(test));
-    assertTrue(ppm.equals(test2));
-    assertTrue(ppm.equals(test3));
-    assertTrue(ppm.equals(test4));
+    assertEquals(ppm, test);
+    assertEquals(ppm, test2);
+    assertEquals(ppm, test3);
+    assertEquals(ppm, test4);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void readPPMFileDoesntExist() {
-    Image test = readFile("res/fail.ppm");
+    readFile("res/fail.ppm");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void readPNGFileDoesntExist() {
-    Image test = readFile("res/fail.png");
+    readFile("res/fail.png");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void readBMPFileDoesntExist() {
-    Image test = readFile("res/fail.bmp");
+    readFile("res/fail.bmp");
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void readJPGFileDoesntExist() {
-    Image test = readFile("res/fail.jpg");
+    readFile("res/fail.jpg");
   }
 
   @Test
@@ -64,7 +61,7 @@ public class ImageUtilTest {
         {black, black, new PixelRGB(0, 15, 7), black},
         {new PixelRGB(15, 0, 15), black, black, black}};
     Image ppm = new Image(arrPPM);
-    assertTrue(ppm.equals(test1));
+    assertEquals(ppm, test1);
     writeToFile(test1, "res/test.ppm");
     writeToFile(test1, "res/test.png");
     writeToFile(test1, "res/test.jpg");
@@ -84,7 +81,7 @@ public class ImageUtilTest {
         {black, black, new PixelRGB(0, 15, 7), black},
         {new PixelRGB(15, 0, 15), black, black, black}};
     Image png = new Image(arrPPM);
-    assertTrue(png.equals(test1));
+    assertEquals(png, test1);
     writeToFile(test1, "res/test.ppm");
     writeToFile(test1, "res/test.png");
     writeToFile(test1, "res/test.jpg");
@@ -104,7 +101,7 @@ public class ImageUtilTest {
         {black, black, new PixelRGB(0, 15, 7), black},
         {new PixelRGB(15, 0, 15), black, black, black}};
     Image bmp = new Image(arrPPM);
-    assertTrue(bmp.equals(test1));
+    assertEquals(bmp, test1);
     writeToFile(test1, "res/test.ppm");
     writeToFile(test1, "res/test.png");
     writeToFile(test1, "res/test.jpg");
@@ -124,7 +121,7 @@ public class ImageUtilTest {
         {black, black, new PixelRGB(0, 15, 7), black},
         {new PixelRGB(15, 0, 15), black, black, black}};
     Image jpg = new Image(arrPPM);
-    assertTrue(jpg.equals(test1));
+    assertEquals(jpg, test1);
     writeToFile(test1, "res/test.ppm");
     writeToFile(test1, "res/test.png");
     writeToFile(test1, "res/test.jpg");

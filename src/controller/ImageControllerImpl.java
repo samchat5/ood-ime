@@ -6,32 +6,32 @@ import static model.ImageUtil.writeToFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import model.Image;
 import model.ImageModel;
 import view.ImageView;
 
 /**
- * Represents the implementation of the image controller. Makes sure the data is taken
- * from the user and pushed to the model. Also ensures that the view is showing the proper messages.
+ * Represents the implementation of the image controller. Makes sure the data is taken from the user
+ * and pushed to the model. Also ensures that the view is showing the proper messages.
  */
 public class ImageControllerImpl implements ImageController {
 
-  private ImageModel model;
-  private ImageView view;
-  private Readable read;
-  private ArrayList<String> knownCommands;
+  private final ImageModel model;
+  private final ImageView view;
+  private final Readable read;
+  private final ArrayList<String> knownCommands;
 
   /**
-   * Acts as the constructor for the ImageControllerImpl class.
-   * Connects the model, view, and user inputs.
+   * Acts as the constructor for the ImageControllerImpl class. Connects the model, view, and user
+   * inputs.
+   *
    * @param model represents the model being used.
-   * @param view represents the view being used.
-   * @param read represents the location of the users inputs.
+   * @param view  represents the view being used.
+   * @param read  represents the location of the users inputs.
    * @throws IllegalArgumentException if any of the arguments are null.
    */
   public ImageControllerImpl(ImageModel model, ImageView view, Readable read)
-          throws IllegalArgumentException {
+      throws IllegalArgumentException {
     if (model == null || view == null || read == null) {
       throw new IllegalArgumentException("The model, view, and readable cannot be null.");
     }
@@ -61,8 +61,8 @@ public class ImageControllerImpl implements ImageController {
   }
 
   /**
-   * Represents the method used to run the image processor.
-   * Takes in user inputs and applies to related actions to the image provided.
+   * Represents the method used to run the image processor. Takes in user inputs and applies to
+   * related actions to the image provided.
    */
   public void begin() throws IllegalStateException {
     Scanner input = new Scanner(this.read); //creating scanner that reads from the readable
@@ -86,7 +86,7 @@ public class ImageControllerImpl implements ImageController {
           //check for valid inputs, if invalid ask to re-enter value
           if (validCommand(nextInput)) {
             String afterCommand = input.next();
-            chooseClass(nextInput,afterCommand);
+            chooseClass(nextInput, afterCommand);
 
           } else {
             tryCatchRenderMessage("Invalid input \n" + nextInput + " is not a valid "
@@ -204,11 +204,13 @@ public class ImageControllerImpl implements ImageController {
   }
 
   private class Load implements Runnable {
-    String filepath;
+
+    final String filepath;
 
     /**
-     * Sets the filepath to the user inputted string.
-     * The filepath reveals the location of the image.
+     * Sets the filepath to the user inputted string. The filepath reveals the location of the
+     * image.
+     *
      * @param filepath is the location of the image's ppm fil
      */
     public Load(String filepath) {
@@ -225,11 +227,12 @@ public class ImageControllerImpl implements ImageController {
   }
 
   private class Save implements Runnable {
-    String filepath;
+
+    final String filepath;
 
     /**
-     * Saves the image to the given path.
-     * Overwrites the image if it already exists.
+     * Saves the image to the given path. Overwrites the image if it already exists.
+     *
      * @param path represents the location of the image.
      */
     public Save(String path) {
@@ -321,7 +324,8 @@ public class ImageControllerImpl implements ImageController {
   }
 
   private class Brighten implements Runnable {
-    int amount;
+
+    final int amount;
 
     Brighten(int amount) {
       this.amount = amount;
@@ -335,7 +339,8 @@ public class ImageControllerImpl implements ImageController {
   }
 
   private class Darken implements Runnable {
-    int amount;
+
+    final int amount;
 
     Darken(int amount) {
       this.amount = amount;

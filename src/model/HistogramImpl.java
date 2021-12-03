@@ -1,33 +1,29 @@
 package model;
 
 /**
- * Represents an implementation of the Histogram interface for RGBModels.
- * Bases values for histogram off of the rbg color values.
+ * Represents an implementation of the Histogram interface for RGBModels. Values for histogram based
+ * off of the rbg color values.
  */
 public class HistogramImpl implements Histogram {
 
-  @Override
   public int[] redHistogram(Image i) {
     RGBModel m = new RGBModel(i);
     m.makeRed();
     return generateHistogram(m.getImage());
   }
 
-  @Override
   public int[] greenHistogram(Image i) {
     RGBModel m = new RGBModel(i);
     m.makeGreen();
     return generateHistogram(m.getImage());
   }
 
-  @Override
   public int[] blueHistogram(Image i) {
     RGBModel m = new RGBModel(i);
     m.makeBlue();
     return generateHistogram(m.getImage());
   }
 
-  @Override
   public int[] intensityHistogram(Image i) {
     RGBModel m = new RGBModel(i);
     m.imageIntensity();

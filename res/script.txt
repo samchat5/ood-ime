@@ -1,0 +1,20 @@
+load res/4by4.ppm
+blur res/4by4.ppm
+sharpen res/4by4.ppm
+greyscale res/4by4.ppm
+sepia res/4by4.ppm
+make-red res/4by4.ppm
+make-blue res/4by4.ppm
+make-green res/4by4.ppm
+value-component res/4by4.ppm
+horizontal-flip res/4by4.ppm
+vertical-flip res/4by4.ppm
+brighten 50
+darken 50
+save res/4by4script.ppm
+save res/4by4script.png
+save res/4by4script.bmp
+save res/4by4script.jpg
+quit or q 
+
+  

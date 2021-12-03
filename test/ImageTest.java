@@ -1,18 +1,17 @@
-import org.junit.Before;
-import org.junit.Test;
-
 import static model.ImageUtil.readFile;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 
 import model.Image;
 import model.Pixel;
 import model.PixelRGB;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Contains the tests for the methods in the Image class.
- * Tests that the various methods and constructor work properly.
+ * Contains the tests for the methods in the Image class. Tests that the various methods and
+ * constructor work properly.
  */
 public class ImageTest {
 
@@ -25,8 +24,7 @@ public class ImageTest {
   Pixel[][] pix;
 
   /**
-   * Initializes variables used for testing.
-   * Ensures that mutation does not cause testing problems.
+   * Initializes variables used for testing. Ensures that mutation does not cause testing problems.
    */
   @Before
   public void setUp() {
@@ -72,14 +70,14 @@ public class ImageTest {
     assertEquals(iPixel.getImageWidth(), 1);
     assertEquals(iflower, readFile("res/flower.ppm"));
     assertEquals(iPixel, readFile("res/one_black_pixel.ppm"));
-    assertEquals(iPixel.getImage(), pix);
-    assertEquals(by4.getImage(), pixels);
+    assertArrayEquals(iPixel.getImage(), pix);
+    assertArrayEquals(by4.getImage(), pixels);
   }
 
   @Test
   public void getImageTest() {
-    assertEquals(by4.getImage(), pixels);
-    assertEquals(iPixel.getImage(), pix);
+    assertArrayEquals(by4.getImage(), pixels);
+    assertArrayEquals(iPixel.getImage(), pix);
   }
 
   @Test
@@ -102,13 +100,13 @@ public class ImageTest {
 
   @Test
   public void equalsTest() {
-    assertTrue(iflower.equals(iflower2));
-    assertFalse(iflower.equals(iPixel));
+    assertEquals(iflower, iflower2);
+    assertNotEquals(iflower, iPixel);
   }
 
   @Test
   public void hashCodeTest() {
     assertEquals(iflower.hashCode(), iflower2.hashCode());
-    assertFalse(iflower.hashCode() == by4.hashCode());
+    assertNotEquals(iflower.hashCode(), by4.hashCode());
   }
 }

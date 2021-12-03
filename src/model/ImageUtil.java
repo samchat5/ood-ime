@@ -3,11 +3,11 @@ package model;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.FileInputStream;
 import javax.imageio.ImageIO;
 
 /**
@@ -19,6 +19,7 @@ public class ImageUtil {
   /**
    * Reads the given file and returns and Image of that file. Supports JPG, JPEG, PPM, BMP, and PNG
    * file types.
+   *
    * @param filepath The filepath of the image.
    * @return an image of the given file.
    */
@@ -31,23 +32,24 @@ public class ImageUtil {
   }
 
   /**
-   *Writes the given image to the given file returns and Image of that file.
-   * Supports JPG, JPEG, PPM, and PNG
-   *file types.
-   * @param image The image that will be written in the file.
+   * Writes the given image to the given file returns and Image of that file. Supports JPG, JPEG,
+   * PPM, and PNG file types.
+   *
+   * @param image    The image that will be written in the file.
    * @param filepath The filepath of the image
    * @throws IllegalArgumentException if the file is not a ppm or if it cannot be found.
    */
   public static void writeToFile(Image image, String filepath) {
     if (getFileExtension(filepath).equals("ppm")) {
-      saveToPPM(image,filepath);
+      saveToPPM(image, filepath);
     } else {
-      writeToImage(image,image.getImageWidth(),image.getImageHeight(),filepath);
+      writeToImage(image, image.getImageWidth(), image.getImageHeight(), filepath);
     }
   }
 
   /**
    * Read an image file in the PPM format and return the contents in an array.
+   *
    * @param filename the filepath fo the given file.
    * @return An image that represents the rgb values in the given ppm file
    * @throws IllegalArgumentException If the ppm file is not type P3 (ASCII).
@@ -70,7 +72,7 @@ public class ImageUtil {
     while (sc.hasNextLine()) {
       String s = sc.nextLine();
       if (s.charAt(0) != '#') {
-        builder.append(s + System.lineSeparator());
+        builder.append(s).append(System.lineSeparator());
       }
     }
 
@@ -85,12 +87,10 @@ public class ImageUtil {
     }
     int width = sc.nextInt();
     int height = sc.nextInt();
-    int maxValue = sc.nextInt();
 
     //Create empty image with the correct width and height
 
     Image image = new Image(new Pixel[height][width]);
-
 
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
@@ -116,9 +116,10 @@ public class ImageUtil {
 
   /**
    * Saves a PPM file to a PPM file format.
+   *
    * @param filename String representing the filepath.
    * @throws IllegalArgumentException If  the file is not a PPM.
-   * @throws IllegalStateException If the file cannot be written in.
+   * @throws IllegalStateException    If the file cannot be written in.
    */
   private static void saveToPPM(ImageState givenimage, String filename) throws
       IllegalStateException {
@@ -145,28 +146,28 @@ public class ImageUtil {
 
     String header = "P3\n" + width + " " + height + "\n" + maxValue + "\n";
 
-    String imagestr = "";
-    imagestr += header;
+    StringBuilder imagestr = new StringBuilder();
+    imagestr.append(header);
 
     for (int row = 0; row < height; row++) {
-      String line = "";
+      StringBuilder line = new StringBuilder();
       for (int col = 0; col < width; col++) {
         int r = givenimage.getImage()[row][col].getRed();
         int g = givenimage.getImage()[row][col].getGreen();
         int b = givenimage.getImage()[row][col].getBlue();
 
         String pixel = "" + r + " " + g + " " + b + " ";
-        line += pixel;
+        line.append(pixel);
       }
 
-      imagestr += line;
+      imagestr.append(line);
       if (row != height - 1) {
-        imagestr += "\n";
+        imagestr.append("\n");
       }
 
     }
 
-    byte[] strToBytes = imagestr.getBytes();
+    byte[] strToBytes = imagestr.toString().getBytes();
     try {
       out.write(strToBytes);
       out.close();
@@ -178,11 +179,12 @@ public class ImageUtil {
 
   /**
    * This method reads an image of the following formats: jpeg, jpg, png, and gif.
+   *
    * @param filepath String representing the filepath of an image.
    * @return an image from the given file.
    * @throws IllegalStateException If the file cannot be read
    */
-  private static Image readImage(String filepath)  {
+  private static Image readImage(String filepath) {
     BufferedImage givenImage;
 
     //use read method to read an image
@@ -200,7 +202,7 @@ public class ImageUtil {
 
     for (int row = 0; row < height; row++) {
       for (int col = 0; col < width; col++) {
-        int rgb = givenImage.getRGB(col,row); //get the RGB value of one pixel
+        int rgb = givenImage.getRGB(col, row); //get the RGB value of one pixel
         Color c = new Color(rgb); //turn it into a color to avoid dealing with binary
         int red = c.getRed();  //get the red value of the pixel
         int green = c.getGreen(); //get the green value of the pixel
@@ -222,14 +224,14 @@ public class ImageUtil {
         int red = p.getRed(); //get red value of pixel
         int green = p.getGreen(); //get green value of pixel
         int blue = p.getBlue(); //get blue value of pixel
-        Color c = new Color(red,green,blue);  //create a Color using red green and blue
+        Color c = new Color(red, green, blue);  //create a Color using red green and blue
         out.setRGB(col, row, c.getRGB()); //pass the rgb value to the pixel
         // at the position (row,col)
       }
     }
     String ext = getFileExtension(filepath);
     try {
-      ImageIO.write(out,ext,new File(filepath));
+      ImageIO.write(out, ext, new File(filepath));
     } catch (IOException e) {
       throw new IllegalStateException("Cannot write to file" + filepath);
     }

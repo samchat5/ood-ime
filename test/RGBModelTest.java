@@ -1,22 +1,19 @@
+import static model.ImageUtil.readFile;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+
 import model.Image;
 import model.ImageModel;
 import model.ImageState;
+import model.PixelRGB;
+import model.RGBModel;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.PixelRGB;
-import model.RGBModel;
-
-import static model.ImageUtil.readFile;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertTrue;
-
 /**
- * Represents the tests for the RGBModel class.
- * Ensures that all methods and constructors are working as they are supposed to as defined by their
- * descriptions.
+ * Represents the tests for the RGBModel class. Ensures that all methods and constructors are
+ * working as they are supposed to as defined by their descriptions.
  */
 public class RGBModelTest {
 
@@ -45,8 +42,7 @@ public class RGBModelTest {
   ImageModel fourByFourSepia;
 
   /**
-   * Initializes values for testing.
-   * Ensures that mutation will not disrupt any tests.
+   * Initializes values for testing. Ensures that mutation will not disrupt any tests.
    */
   @Before
   public void setUp() {
@@ -82,7 +78,7 @@ public class RGBModelTest {
     assertEquals(flower.getImage(), readFile("res/flower.ppm"));
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void constructFail() {
     new RGBModel(readFile("res/flower-grayscale.ppm"));
   }
@@ -199,7 +195,7 @@ public class RGBModelTest {
     assertEquals(flower, flowerBrighter100);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void negBright() {
     hedgehog.brighten(-1);
   }
@@ -225,7 +221,7 @@ public class RGBModelTest {
     assertEquals(oneBlack, oneBlackCopy);
   }
 
-  @Test (expected = IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void negDark() {
     hedgehog.darken(-1);
   }
@@ -272,9 +268,9 @@ public class RGBModelTest {
   @Test
   public void equalsTest() {
     this.setUp();
-    assertTrue(flower.equals(flowerCopy));
-    assertTrue(oneBlack.equals(oneBlackCopy));
-    assertFalse(flower.equals(flowerHV));
+    assertEquals(flower, flowerCopy);
+    assertEquals(oneBlack, oneBlackCopy);
+    assertNotEquals(flower, flowerHV);
   }
 
   @Test

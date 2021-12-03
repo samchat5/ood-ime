@@ -11,14 +11,14 @@ import model.ImageModel;
 import view.GuiView;
 
 /**
- * Represents a GUI implementation of the image controller. Makes sure the data is taken
- * from the user and pushed to the model. Also ensures that the view is showing the proper messages.
+ * Represents a GUI implementation of the image controller. Makes sure the data is taken from the
+ * user and pushed to the model. Also ensures that the view is showing the proper messages.
  */
 public class GuiControllerImpl implements ImageController {
 
-  private ImageModel model;
-  private GuiView view;
-  private ArrayList<String> knownCommands;
+  private final ImageModel model;
+  private final GuiView view;
+  private final ArrayList<String> knownCommands;
 
   /**
    * Acts as the constructor for the ImageControllerImpl class. Connects the model, view, and user
@@ -68,6 +68,7 @@ public class GuiControllerImpl implements ImageController {
   /**
    * Accepts string from the Command Callback in the view and passes it to the ProcessGivenCommand
    * method and refreshes the view.
+   *
    * @param s the command from the view.
    */
   public void accept(String s) {
@@ -90,7 +91,7 @@ public class GuiControllerImpl implements ImageController {
         if (validCommand(nextInput)) {
           if (nextInput.equals("load") || nextInput.equals("save")) {
             String afterCommand = input.next();
-            System.out.println(nextInput + "-> " + afterCommand );
+            System.out.println(nextInput + "-> " + afterCommand);
             loadSaveHandler(nextInput, afterCommand);
           } else {
             chooseClass(nextInput);
@@ -169,7 +170,6 @@ public class GuiControllerImpl implements ImageController {
   }
 
 
-
   //handles try-catch for the renderMessage method
   private void tryCatchRenderMessage(String msg) {
     try {
@@ -190,14 +190,22 @@ public class GuiControllerImpl implements ImageController {
     return false;
   }
 
+  private static class Quit implements Runnable {
 
+    @Override
+    public void run() {
+      System.exit(0);
+    }
+  }
 
   private class Load implements Runnable {
-    String filepath;
+
+    final String filepath;
 
     /**
-     * Sets the filepath to the user inputted string.
-     * The filepath reveals the location of the image.
+     * Sets the filepath to the user inputted string. The filepath reveals the location of the
+     * image.
+     *
      * @param filepath is the location of the image's ppm file.
      */
     public Load(String filepath) {
@@ -213,11 +221,12 @@ public class GuiControllerImpl implements ImageController {
   }
 
   private class Save implements Runnable {
-    String filepath;
+
+    final String filepath;
 
     /**
-     * Saves the image to the given path.
-     * Overwrites the image if it already exists.
+     * Saves the image to the given path. Overwrites the image if it already exists.
+     *
      * @param path represents the location of the image.
      */
     public Save(String path) {
@@ -298,10 +307,12 @@ public class GuiControllerImpl implements ImageController {
   }
 
   private class Brighten implements Runnable {
-    int amount;
+
+    final int amount;
 
     /**
      * Creates an instance of Brighten with the amount equal to the given amount.
+     *
      * @param amount the amount to brighten by.
      */
     Brighten(int amount) {
@@ -315,10 +326,12 @@ public class GuiControllerImpl implements ImageController {
   }
 
   private class Darken implements Runnable {
-    int amount;
+
+    final int amount;
 
     /**
      * Creates an instance of Darken with the amount equal to the given amount.
+     *
      * @param amount the amount to darken by.
      */
     Darken(int amount) {
@@ -360,14 +373,6 @@ public class GuiControllerImpl implements ImageController {
     @Override
     public void run() {
       model.greyscale();
-    }
-  }
-
-  private class Quit implements Runnable {
-
-    @Override
-    public void run() {
-      System.exit(0);
     }
   }
 

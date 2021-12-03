@@ -3,40 +3,38 @@ package view;
 import static model.ImageUtil.writeToFile;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
 import java.util.function.Consumer;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.ImageIcon;
-import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import model.HistogramImpl;
 import model.ImageModel;
 
 /**
- * This represents the implementation of a GuiView. It shows a graphical interface that the user
- * can interact with.
+ * This represents the implementation of a GuiView. It shows a graphical interface that the user can
+ * interact with.
  */
 public class GuiViewImpl extends JFrame implements GuiView {
 
-  private ImageModel model;
+  private final ImageModel model;
   private JPanel mainPanel;
   private JPanel imagePanel;
   private BufferedImage currentImage;
@@ -51,6 +49,7 @@ public class GuiViewImpl extends JFrame implements GuiView {
   /**
    * This constructor creates and instance of this class and draws the initial version of the view
    * before the image is loaded.
+   *
    * @param model the given model.
    */
   public GuiViewImpl(ImageModel model) {
@@ -66,7 +65,7 @@ public class GuiViewImpl extends JFrame implements GuiView {
     saveImage();
     openImage();
     commandCallback = null;
-    this.makeVisible(true);
+    this.makeVisible();
   }
 
   public void setCommandCallback(Consumer<String> c) {
@@ -76,18 +75,14 @@ public class GuiViewImpl extends JFrame implements GuiView {
   /**
    * This method makes objects visible in the view. It uses a built-in JFrame method called
    * setVisible to make things like panels visible on screen.
-   *
-   * @param b a boolean for whether the view should be visible.
    */
-  @Override
-  public void makeVisible(boolean b) {
-    this.setVisible(b);
+  private void makeVisible() {
+    this.setVisible(true);
   }
 
 
   /**
-   * Updates the view based on the recent changes.
-   * Ensures that all displays are up to date.
+   * Updates the view based on the recent changes. Ensures that all displays are up-to-date.
    */
   public void refresh() {
     showImage();
@@ -123,8 +118,7 @@ public class GuiViewImpl extends JFrame implements GuiView {
     writeToFile(model.getImage(), "res/temp.png");
     try {
       currentImage = ImageIO.read(new FileInputStream("res/temp.png"));
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
       throw new IllegalArgumentException(" File does not exist");
     }
     imagelabel = new JLabel(new ImageIcon(currentImage));
@@ -279,7 +273,7 @@ public class GuiViewImpl extends JFrame implements GuiView {
   }
 
   @Override
-  public void renderMessage(String message) throws IOException {
+  public void renderMessage(String message) {
     JOptionPane.showMessageDialog(GuiViewImpl.this, message,
         "Message", JOptionPane.PLAIN_MESSAGE);
   }
@@ -302,7 +296,7 @@ public class GuiViewImpl extends JFrame implements GuiView {
     final JFileChooser fchooser = new JFileChooser(FileSystemView.getFileSystemView());
     fileOpenButton.addActionListener((ActionEvent e) -> {
       FileNameExtensionFilter filter = new FileNameExtensionFilter(
-              "Image Files", "jpg", "gif", "png", "jpeg", "ppm", "bpm");
+          "Image Files", "jpg", "gif", "png", "jpeg", "ppm", "bpm");
       fchooser.setFileFilter(filter);
       int retvalue = fchooser.showOpenDialog(null);
       if (retvalue == JFileChooser.APPROVE_OPTION && commandCallback != null) {
@@ -346,13 +340,14 @@ public class GuiViewImpl extends JFrame implements GuiView {
   }
 
   /**
-   * This class represents a panel in which to draw the histogram. It contains method to a draw
-   * a histogram.
+   * This class represents a panel in which to draw the histogram. It contains method to a draw a
+   * histogram.
    */
   private class HistogramPanel extends JPanel {
 
     /**
-     *  This method overrides the original painComponent method to draw a histogram.
+     * This method overrides the original painComponent method to draw a histogram.
+     *
      * @param g the graphics that are being painted.
      */
     @Override
@@ -373,7 +368,4 @@ public class GuiViewImpl extends JFrame implements GuiView {
       }
     }
   }
-
-
-
 }

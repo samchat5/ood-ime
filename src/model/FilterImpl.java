@@ -1,18 +1,17 @@
 package model;
 
 /**
- * Represents the methods associated with filtering images using
- * given parameters for the filter.
- * The filter is based on a 2D matrix of values.
- * Implements the filter interface.
+ * Represents the methods associated with filtering images using given parameters for the filter.
+ * The filter is based on a 2D matrix of values. Implements the filter interface.
  */
 public class FilterImpl implements Filter {
 
-  private double[][] filter;
+  private final double[][] filter;
 
   /**
-   * Represents a filter that can be applied to an image.
-   * The filter is represented by a 2D matrix that must have odd dimensions.
+   * Represents a filter that can be applied to an image. The filter is represented by a 2D matrix
+   * that must have odd dimensions.
+   *
    * @param filter represents the 2d matrix of values of the filter being represented.
    */
   public FilterImpl(double[][] filter) {
@@ -35,8 +34,9 @@ public class FilterImpl implements Filter {
   }
 
   /**
-   * Applies a given kernel based filter to an image.
-   * Produces an updated image with all pixels updated.
+   * Applies a given kernel based filter to an image. Produces an updated image with all pixels
+   * updated.
+   *
    * @param image represents the image the filter is being applied to.
    * @return the updated image after the filter has been applied.
    */
@@ -76,19 +76,18 @@ public class FilterImpl implements Filter {
   }
 
   private int[][][] getKernel(Pixel[][] image, int row, int col) {
-    int halfR = (int) Math.floor(this.getHeight() / 2);
-    int halfC = (int) Math.floor(this.getWidth() / 2);
+    int halfR = this.getHeight() / 2;
+    int halfC = this.getWidth() / 2;
     int[][][] kernel = new int[this.getHeight()][this.getWidth()][3];
 
     for (int r = 0; r < this.getHeight(); r++) {
       for (int c = 0; c < this.getWidth(); c++) {
         if ((r + (row - halfR) > 0 && r + (row - halfR) < image.length)
-                && (c + (col - halfC) > 0 && c + (col - halfC) < image[0].length)) {
+            && (c + (col - halfC) > 0 && c + (col - halfC) < image[0].length)) {
           kernel[r][c][0] = image[r + (row - halfR)][c + (col - halfC)].getRed();
           kernel[r][c][1] = image[r + (row - halfR)][c + (col - halfC)].getGreen();
           kernel[r][c][2] = image[r + (row - halfR)][c + (col - halfC)].getBlue();
-        }
-        else {
+        } else {
           kernel[r][c][0] = 0;
           kernel[r][c][1] = 0;
           kernel[r][c][2] = 0;
