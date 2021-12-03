@@ -87,6 +87,7 @@ public class ImageUtil {
     }
     int width = sc.nextInt();
     int height = sc.nextInt();
+    sc.nextInt();
 
     //Create empty image with the correct width and height
 
@@ -142,9 +143,8 @@ public class ImageUtil {
 
     int width = givenimage.getImageWidth();
     int height = givenimage.getImageHeight();
-    int maxValue = givenimage.getMaxRgb();
 
-    String header = "P3\n" + width + " " + height + "\n" + maxValue + "\n";
+    String header = "P3\n" + width + " " + height + "\n255\n";
 
     StringBuilder imagestr = new StringBuilder();
     imagestr.append(header);

@@ -29,11 +29,5 @@ public interface ImageState {
    */
   int getImageWidth();
 
-  /**
-   * Finds the largest RGB value in the entire image.
-   *
-   * @return an integer representing the value
-   */
-  int getMaxRgb();
 
 }

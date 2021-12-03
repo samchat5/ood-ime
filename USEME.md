@@ -1,4 +1,5 @@
-##INSTRUCTIONS OF HOW TO USE PROGRAM:
+## INSTRUCTIONS OF HOW TO USE PROGRAM:
+
     Hit run then type these commands into command line:
     java -jar Image-Processor.jar
 

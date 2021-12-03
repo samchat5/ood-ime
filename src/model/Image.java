@@ -62,25 +62,6 @@ public class Image implements ImageState {
   }
 
   /**
-   * Computes what the maximum value is across all pixels in the image. The value is the maximum
-   * number in the color representation.
-   *
-   * @return the maximum value.
-   */
-  public int getMaxRgb() {
-    int max = image[0][0].computeValue();  //first value
-    for (int row = 0; row < getImageHeight(); row++) {
-      for (int col = 0; col < getImageWidth(); col++) {
-        if (image[row][col].computeValue() > max) {
-          max = image[row][col].computeValue();  //new maximum
-        }
-      }
-    }
-    return max;
-  }
-
-
-  /**
    * This method overrides Java's built-in equals method. An image is equal to another image if the
    * given image is an Image and
    *
@@ -105,6 +86,18 @@ public class Image implements ImageState {
       }
     }
     return true;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    for (int row = 0; row < getImageHeight(); row++) {
+      for (int col = 0; col < getImageWidth(); col++) {
+        sb.append(image[row][col].toString());
+      }
+      sb.append("\n");
+    }
+    return sb.toString();
   }
 
   /**

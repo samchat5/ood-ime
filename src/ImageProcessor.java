@@ -35,43 +35,37 @@ public final class ImageProcessor {
     Appendable out = System.out;
     Readable in = new BufferedReader(new InputStreamReader(inputStream));
 
-    if (args.length > 2) {
-      if (args[0].equals("java") && args[1].equals("-jar")
-          && args[2].equals("Image-Processor.jar")) {
-        if (args.length == 5) {
-          if (args[3].equals("-file")) {  //for script.txt
-            try {
-              Reader input = new FileReader(args[4]);
-              view = new RGBView(out);
-              controller = new ImageControllerImpl(model, view, input);
-              controller.begin();
-            } catch (IllegalArgumentException i) {
-              throw new IllegalArgumentException("file name is not valid");
-            }
-          }
-        } else if (args.length == 4) {
-          if (args[3].equals("-text")) { //opens terminal
-            try {
-              view = new RGBView(out);
-              controller = new ImageControllerImpl(model, view, in);
-              controller.begin();
-            } catch (IllegalArgumentException i) {
-              throw new IllegalArgumentException("file name is not valid");
-            }
-          }
-        } else {
-          try {
-            view2 = new GuiViewImpl(model);
-            controller = new GuiControllerImpl(model, view2);
-            controller.begin();
-          } catch (IllegalArgumentException i) {
-            throw new IllegalArgumentException("file name is not valid");
-          }
+    if (args.length == 2) {
+      if (args[1].equals("-file")) {  // for script.txt
+        try {
+          Reader input = new FileReader(args[1]);
+          view = new RGBView(out);
+          controller = new ImageControllerImpl(model, view, input);
+          controller.begin();
+        } catch (IllegalArgumentException i) {
+          throw new IllegalArgumentException("file name is not valid");
         }
-      } else {
-        throw new IllegalArgumentException("Error: Invalid command given.");
       }
-
+    } else if (args.length == 1) {
+      if (args[0].equals("-text")) { // opens terminal
+        try {
+          view = new RGBView(out);
+          controller = new ImageControllerImpl(model, view, in);
+          controller.begin();
+        } catch (IllegalArgumentException i) {
+          throw new IllegalArgumentException("file name is not valid");
+        }
+      }
+    } else if (args.length == 0) { // opens gui
+      try {
+        view2 = new GuiViewImpl(model);
+        controller = new GuiControllerImpl(model, view2);
+        controller.begin();
+      } catch (IllegalArgumentException i) {
+        throw new IllegalArgumentException("file name is not valid");
+      }
+    } else {
+      throw new IllegalArgumentException("invalid arguments");
     }
   }
 }

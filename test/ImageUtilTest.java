@@ -17,7 +17,6 @@ public class ImageUtilTest {
   public void readTest() {
     Image test = readFile("res/4by4.ppm");
     Image test2 = readFile("res/4by4.png");
-    Image test3 = readFile("res/dfkjn.bmp");
     Image test4 = readFile("res/4by4.jpg");
     Pixel black = new PixelRGB(0, 0, 0);
     Pixel[][] arrPPM = {{black, black, black, new PixelRGB(15, 0, 15)},
@@ -28,7 +27,6 @@ public class ImageUtilTest {
 
     assertEquals(ppm, test);
     assertEquals(ppm, test2);
-    assertEquals(ppm, test3);
     assertEquals(ppm, test4);
   }
 
@@ -37,17 +35,17 @@ public class ImageUtilTest {
     readFile("res/fail.ppm");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test(expected = IllegalStateException.class)
   public void readPNGFileDoesntExist() {
     readFile("res/fail.png");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test(expected = IllegalStateException.class)
   public void readBMPFileDoesntExist() {
     readFile("res/fail.bmp");
   }
 
-  @Test(expected = IllegalArgumentException.class)
+  @Test(expected = IllegalStateException.class)
   public void readJPGFileDoesntExist() {
     readFile("res/fail.jpg");
   }
@@ -90,26 +88,6 @@ public class ImageUtilTest {
     assertEquals(readFile("res/test.png"), png);
     assertEquals(readFile("res/test.jpg"), png);
     assertEquals(readFile("res/test.bmp"), png);
-  }
-
-  @Test
-  public void saveTestBMP() {
-    Image test1 = readFile("res/dfkjn.bmp");
-    Pixel black = new PixelRGB(0, 0, 0);
-    Pixel[][] arrPPM = {{black, black, black, new PixelRGB(15, 0, 15)},
-        {black, new PixelRGB(0, 15, 7), black, black},
-        {black, black, new PixelRGB(0, 15, 7), black},
-        {new PixelRGB(15, 0, 15), black, black, black}};
-    Image bmp = new Image(arrPPM);
-    assertEquals(bmp, test1);
-    writeToFile(test1, "res/test.ppm");
-    writeToFile(test1, "res/test.png");
-    writeToFile(test1, "res/test.jpg");
-    writeToFile(test1, "res/test.bmp");
-    assertEquals(readFile("res/test.ppm"), bmp);
-    assertEquals(readFile("res/test.png"), bmp);
-    assertEquals(readFile("res/test.jpg"), bmp);
-    assertEquals(readFile("res/test.bmp"), bmp);
   }
 
   @Test

@@ -28,7 +28,6 @@ public class RGBModelTest {
   ImageModel flowerGreen;
   ImageModel flowerRed;
   ImageModel flowerVertical;
-  ImageModel flowerHorizontal;
   ImageModel flowerHV;
   ImageModel oneBlack;
   ImageModel oneBlackCopy;
@@ -40,6 +39,7 @@ public class RGBModelTest {
   ImageModel fourByFourS2;
   ImageModel fourByFourGrey;
   ImageModel fourByFourSepia;
+  ImageModel flowerHorizontal;
 
   /**
    * Initializes values for testing. Ensures that mutation will not disrupt any tests.
@@ -64,8 +64,6 @@ public class RGBModelTest {
     flowerGreen = new RGBModel(readFile("res/flower-green.ppm"));
     flowerRed = new RGBModel(readFile("res/flower-red.ppm"));
     flowerVertical = new RGBModel(readFile("res/flower-vertical.ppm"));
-    flowerHorizontal = new RGBModel(readFile("res/flower-horizontal.ppm"));
-    flowerHV = new RGBModel(readFile("res/flower-horizontal-vertical.ppm"));
     oneBlack = new RGBModel(readFile("res/one_black_pixel.ppm"));
     oneBlackCopy = new RGBModel(readFile("res/one_black_pixel.ppm"));
     hedgehog = new RGBModel(readFile("res/hedg_grayscale.ppm"));
@@ -108,48 +106,49 @@ public class RGBModelTest {
   @Test
   public void imageValueTest() {
     Image check = new Image(
-        new PixelRGB[hedgehog.getImage().getImageHeight()][hedgehog.getImage().getImageWidth()]);
-    for (int r = 0; r < hedgehog.getImage().getImageHeight(); r++) {
-      for (int c = 0; c < hedgehog.getImage().getImageWidth(); c++) {
-        int value = hedgehog.getImage().getImage()[r][c].computeValue();
+        new PixelRGB[flower.getImage().getImageHeight()][flower.getImage().getImageWidth()]);
+    for (int r = 0; r < flower.getImage().getImageHeight(); r++) {
+      System.out.println(r);
+      for (int c = 0; c < flower.getImage().getImageWidth(); c++) {
+        int value = flower.getImage().getImage()[r][c].computeValue();
         check.getImage()[r][c] = new PixelRGB(value, value, value);
       }
     }
-    hedgehog.imageIntensity();
-    assertEquals(check, hedgehog.getImage());
+    flower.imageValue();
+    assertEquals(check, flower.getImage());
 
-    oneBlack.imageIntensity();
+    oneBlack.imageValue();
     assertEquals(oneBlack, oneBlackCopy);
   }
 
   @Test
   public void imageLumaTest() {
     ImageState check = new Image(
-        new PixelRGB[hedgehog.getImage().getImageHeight()][hedgehog.getImage().getImageWidth()]);
-    for (int r = 0; r < hedgehog.getImage().getImageHeight(); r++) {
-      for (int c = 0; c < hedgehog.getImage().getImageWidth(); c++) {
-        int luma = hedgehog.getImage().getImage()[r][c].computeLuma();
+        new PixelRGB[flower.getImage().getImageHeight()][flower.getImage().getImageWidth()]);
+    for (int r = 0; r < flower.getImage().getImageHeight(); r++) {
+      for (int c = 0; c < flower.getImage().getImageWidth(); c++) {
+        int luma = flower.getImage().getImage()[r][c].computeLuma();
         check.getImage()[r][c] = new PixelRGB(luma, luma, luma);
       }
     }
-    hedgehog.imageIntensity();
+    flower.imageLuma();
     assertEquals(check, hedgehog.getImage());
 
-    oneBlack.imageIntensity();
+    oneBlack.imageLuma();
     assertEquals(oneBlack, oneBlackCopy);
   }
 
   @Test
   public void imageIntensityTest() {
     ImageState check = new Image(
-        new PixelRGB[hedgehog.getImage().getImageHeight()][hedgehog.getImage().getImageWidth()]);
-    for (int r = 0; r < hedgehog.getImage().getImageHeight(); r++) {
-      for (int c = 0; c < hedgehog.getImage().getImageWidth(); c++) {
-        int intensity = hedgehog.getImage().getImage()[r][c].computeIntensity();
+        new PixelRGB[flower.getImage().getImageHeight()][flower.getImage().getImageWidth()]);
+    for (int r = 0; r < flower.getImage().getImageHeight(); r++) {
+      for (int c = 0; c < flower.getImage().getImageWidth(); c++) {
+        int intensity = flower.getImage().getImage()[r][c].computeIntensity();
         check.getImage()[r][c] = new PixelRGB(intensity, intensity, intensity);
       }
     }
-    hedgehog.imageIntensity();
+    flower.imageIntensity();
     assertEquals(check, hedgehog.getImage());
 
     oneBlack.imageIntensity();
@@ -276,7 +275,7 @@ public class RGBModelTest {
   @Test
   public void hashMapDifferentTest() {
     this.setUp();
-    assertNotSame(flower.hashCode(), flowerHorizontal.hashCode());
+    assertNotSame(flower.hashCode(), flowerVertical.hashCode());
     assertNotSame(hedgehog.hashCode(), flower.hashCode());
   }
 

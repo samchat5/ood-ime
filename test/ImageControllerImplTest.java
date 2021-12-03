@@ -3,8 +3,6 @@ import static org.junit.Assert.assertEquals;
 
 import controller.ImageController;
 import controller.ImageControllerImpl;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.Reader;
 import java.io.StringReader;
 import model.ImageModel;
@@ -15,12 +13,29 @@ import org.junit.Test;
 import view.ImageView;
 import view.RGBView;
 
+
 /**
  * Represents the tests for the ImageControllerImpl class. Ensures that all methods and constructors
  * work properly.
  */
 public class ImageControllerImplTest {
 
+  private final String menu = "Instructions:\nTo load an image type: load filepath\n"
+      + "To save an image type: save filepath\n"
+      + "To show the red component of an image type: make-red filepath\n"
+      + "To show the blue component of an image type: make-blue filepath\n"
+      + "To show the green component of an image type: make-green filepath\n"
+      + "To show the value component of an image type: value-component filepath\n"
+      + "To blur an image type: blur filepath\n"
+      + "To sharpen an image type: sharpen filepath\n"
+      + "To make an image sepia type: sepia filepath\n"
+      + "To make an image greyscale type: greyscale filepath\n"
+      + "To do a horizontal flip type: horizontal-flip filepath\n"
+      + "To do a vertical flip type: vertical-flip filepath\n"
+      + "To brighten an image type: brighten amount\n"
+      + "To darken an image type: darken amount\n"
+      + "To quit the program type: quit or q\n"
+      + "For example, to load kick.ppm located in the res folder type: \n";
   ImageModel flower;
   StringBuilder append;
   ImageView view;
@@ -33,7 +48,6 @@ public class ImageControllerImplTest {
     view = new RGBView(append);
     in = new StringReader("");
   }
-
 
   @Test(expected = IllegalArgumentException.class)
   public void constructFail() {
@@ -54,37 +68,39 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void testLoading() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm");
+  public void testLoading() {
+    Reader in = new StringReader("load res/4by4.ppm\nq");
     StringBuffer out = new StringBuffer();
-    ImageModel ppm = new RGBModel(readFile("res/4by4.ppm"));
+    ImageModel ppm = new RGBModel();
     ImageView view = new RGBView(out);
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
 
-    assertEquals(view.toString(), "Loading...");
+    assertEquals(out.toString(), menu + "load res/kick.ppm\nInsert a valid command: \nLoading...."
+        + ".\nQuitting.....\n");
   }
 
   @Test
-  public void testSaving() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm");
+  public void testSaving() {
+    Reader in = new StringReader("load res/4by4.ppm\nsave res/4by4.ppm\nq");
     StringBuffer out = new StringBuffer();
-    ImageModel ppm = new RGBModel(readFile("res/4by4.ppm"));
+    ImageModel ppm = new RGBModel();
     ImageView view = new RGBView(out);
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
 
-    assertEquals(view.toString(), "Loading...");
+    assertEquals(out.toString(), menu
+        + "load res/kick.ppm\nInsert a valid command: \nLoading.....\nSaving.....\nQuitting.....\n");
   }
 
   @Test
-  public void redTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm make-red");
+  public void redTest() {
+    Reader in = new StringReader("make-red res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -93,11 +109,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void greenTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm make-green");
+  public void greenTest() {
+    Reader in = new StringReader("make-green res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -106,11 +122,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void blueTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm make-blue");
+  public void blueTest() {
+    Reader in = new StringReader("make-blue res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -119,11 +135,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void valueTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm value-component");
+  public void valueTest() {
+    Reader in = new StringReader("value-component res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -132,11 +148,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void intensityTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm change intensity");
+  public void intensityTest() {
+    Reader in = new StringReader("change-intensity res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -145,11 +161,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void lumaTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm luma-component");
+  public void lumaTest() {
+    Reader in = new StringReader("luma-component res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -158,11 +174,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void horizontalTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm horizontal-flip");
+  public void horizontalTest() {
+    Reader in = new StringReader("horizontal-flip res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -171,11 +187,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void verticalTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm vertical-flip");
+  public void verticalTest() {
+    Reader in = new StringReader("vertical-flip res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -184,11 +200,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void brightenTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm brighten 50");
+  public void brightenTest() {
+    Reader in = new StringReader("load res/4by4.ppm\nbrighten 50\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -197,11 +213,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void darkenTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm darken 50");
+  public void darkenTest() {
+    Reader in = new StringReader("load res/4by4.ppm\ndarken 50\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -210,11 +226,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void blurTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm blur");
+  public void blurTest() {
+    Reader in = new StringReader("blur res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -223,11 +239,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void sharpenTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm sharpen");
+  public void sharpenTest() {
+    Reader in = new StringReader("sharpen res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -236,11 +252,11 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void sepiaTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm sepia");
+  public void sepiaTest() {
+    Reader in = new StringReader("sepia res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
@@ -249,16 +265,15 @@ public class ImageControllerImplTest {
   }
 
   @Test
-  public void greyTest() throws FileNotFoundException {
-    Reader in = new FileReader("res/4by4.ppm greyscale");
+  public void greyTest() {
+    Reader in = new StringReader("greyscale res/4by4.ppm\nq");
     StringBuilder out = new StringBuilder();
     MockModel ppm = new MockModel(out);
-    ImageView view = new RGBView(out);
+    ImageView view = new RGBView(new StringBuilder());
     ImageController test = new ImageControllerImpl(ppm, view, in);
 
     test.begin();
 
     assertEquals(out.toString(), "greyscale");
   }
-
 }

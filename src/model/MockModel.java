@@ -1,6 +1,5 @@
 package model;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -114,7 +113,6 @@ public class MockModel implements ImageModel {
    */
   @Override
   public void overWriteImage(Image image) {
-    this.log.append("overwrite").append(Arrays.deepToString(image.getImage()));
   }
 
   /**

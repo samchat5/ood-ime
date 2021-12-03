@@ -93,12 +93,6 @@ public class ImageTest {
   }
 
   @Test
-  public void getMaxRGBTest() {
-    assertEquals(iPixel.getMaxRgb(), 0);
-    assertEquals(iflower.getMaxRgb(), 255);
-  }
-
-  @Test
   public void equalsTest() {
     assertEquals(iflower, iflower2);
     assertNotEquals(iflower, iPixel);

@@ -165,4 +165,8 @@ public class PixelRGB implements Pixel {
     return Objects.hash(red, blue, green);
   }
 
+  @Override
+  public String toString() {
+    return "(" + this.red + ", " + this.green + ", " + this.blue + ")";
+  }
 }

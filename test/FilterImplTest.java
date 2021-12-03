@@ -27,7 +27,7 @@ public class FilterImplTest {
    */
   @Before
   public void setUp() {
-    fourByFour = new RGBModel(readFile("test/resources/4x4.png"));
+    fourByFour = new RGBModel(readFile("res/4by4.ppm"));
     fourByFourB1 = new RGBModel(readFile("res/4by4Blur.ppm"));
     fourByFourB2 = new RGBModel(readFile("res/4by4Blur2.ppm"));
     fourByFourS1 = new RGBModel(readFile("res/4by4Sharpen.ppm"));
@@ -67,7 +67,6 @@ public class FilterImplTest {
     Filter gaussian = new FilterImpl(blur);
     Image i = gaussian.apply(fourByFour.getImage());
     assertEquals(i, fourByFourB1.getImage());
-
   }
 
   @Test
@@ -86,5 +85,4 @@ public class FilterImplTest {
     Image newImage = sharp.apply(fourByFour.getImage());
     assertEquals(newImage, fourByFourS1.getImage());
   }
-
 }

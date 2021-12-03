@@ -46,7 +46,7 @@ public class ImageControllerImpl implements ImageController {
     knownCommands.add("make-blue");
     knownCommands.add("make-green");
     knownCommands.add("value-component");
-    knownCommands.add("change intensity");
+    knownCommands.add("change-intensity");
     knownCommands.add("luma-component");
     knownCommands.add("horizontal-flip");
     knownCommands.add("vertical-flip");
@@ -65,17 +65,17 @@ public class ImageControllerImpl implements ImageController {
    * related actions to the image provided.
    */
   public void begin() throws IllegalStateException {
-    Scanner input = new Scanner(this.read); //creating scanner that reads from the readable
-    String nextInput = ""; //represents the next input from the readable
+    Scanner input = new Scanner(this.read); // creating scanner that reads from the readable
+    String nextInput = ""; // represents the next input from the readable
 
     menu();
 
     while (!hasQuit(nextInput)) {
-      //if there's another input then set it to next input
+      // if there's another input then set it to next input
       if (input.hasNext()) {
         nextInput = input.next();
 
-        //if quit then call run method from quit class
+        // if quit then call run method from quit class
         if (nextInput.equalsIgnoreCase("q") ||
             nextInput.equalsIgnoreCase("quit")) {
 
@@ -83,7 +83,7 @@ public class ImageControllerImpl implements ImageController {
           break;
         } else {
 
-          //check for valid inputs, if invalid ask to re-enter value
+          // check for valid inputs, if invalid ask to re-enter value
           if (validCommand(nextInput)) {
             String afterCommand = input.next();
             chooseClass(nextInput, afterCommand);
@@ -140,7 +140,6 @@ public class ImageControllerImpl implements ImageController {
   private void chooseClass(String givenCommand, String next) {
 
     switch (givenCommand) {
-
       case "load":
         new Load(next).run();
         break;
@@ -159,7 +158,7 @@ public class ImageControllerImpl implements ImageController {
       case "value-component":
         new Value().run();
         break;
-      case "change intensity":
+      case "change-intensity":
         new Intensity().run();
         break;
       case "luma-component":
@@ -393,7 +392,7 @@ public class ImageControllerImpl implements ImageController {
 
     @Override
     public void run() {
-      tryCatchRenderMessage("Quiting.....");
+      tryCatchRenderMessage("Quitting.....");
     }
 
   }
