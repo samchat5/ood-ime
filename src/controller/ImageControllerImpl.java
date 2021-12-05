@@ -22,10 +22,10 @@ import view.ImageView;
 public class ImageControllerImpl implements ImageController {
 
   protected final Map<String, Consumer<String>> knownCommands;
-  protected final ImageModel model;
+  protected final List<String> menu;
+  private final ImageModel model;
   private final ImageView view;
   private final Readable read;
-  protected List<String> menu;
 
   /**
    * Acts as the constructor for the ImageControllerImpl class. Connects the model, view, and user

@@ -21,7 +21,7 @@ public class MosaicController extends ImageControllerImpl {
       throws IllegalArgumentException {
     super(model, view, read);
     this.knownCommands.put("mosaic", (String s) -> new Mosaic(Integer.parseInt(s),
-        new Random().nextInt(), model));
+        new Random().nextInt(), model, this::tryCatchRenderMessage).run());
     this.menu.add("To mosaic an image type: mosaic seedCount");
   }
 }

@@ -70,6 +70,17 @@ non-static and (at least) package-public, and abstract out common functionality.
 duplication and having to stick to the current implementation pattern, our `Mosaic` command has some
 duplication too.
 
+Ultimately, we realized that it wouldn't require much of a refactor to follow a more extensible
+design, so we made changes to the command design pattern implementation (namely creating a mapping
+from a command to lambda). If we didn't do this, we would have had to copy and paste the code into
+two new classes for the Mosaic controller, because our updates required using a new
+`MosaicModel` interface that "decorated" the model implementation. Thus, we would have had to change
+the type of the model, breaking all current implementations that used the previous
+`RGBModel`. With our refactoring, we were able to extend easily off of the previous controller,
+separate the new mosaic logic from the past implementation, and no implementations would be broken
+since all new programs that have mosaicking would use the `MosaicModel` interface *with*
+the `MosaicController`. Therefore, no existing code would have to be changed.
+
 In the model, the only major bug or code issue we had been with the `ImageUtil` class not reading
 from PPMs properly. They get the height and width of the image from the file correctly, but don't
 read the max-value correctly. As a result, the images were all off by 1 channel at every pixel. It
@@ -104,4 +115,5 @@ lot of time learning the code and the purpose of each method/class. Excellent jo
 The biggest takeaway, in my opinion, would be to have put a greater emphasis on tests. Almost all
 the bugs would have been noticed during the test phase. The design itself was fairly good and stuck
 to MVC and the design patterns learned in class, but the implementation made some code hard to
-extend and build on at times. 
+extend and build on at times. This was limiting for us when implementing the Mosaic command,
+creating more unnecessary complexity.
