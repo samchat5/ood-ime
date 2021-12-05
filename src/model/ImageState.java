@@ -7,6 +7,14 @@ package model;
 public interface ImageState {
 
   /**
+   * Computes what the maximum value is across all pixels in the image. The value is the maximum
+   * number in the color representation.
+   *
+   * @return the maximum value.
+   */
+  int getMaxRgb();
+
+  /**
    * Acts as a getter for the image being acted upon. The image is made up of a 2d array of pixels.
    *
    * @return the two-dimensional array of pixels that make up the image

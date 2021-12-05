@@ -4,11 +4,14 @@ import static model.ImageUtil.readFile;
 import static model.ImageUtil.writeToFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Consumer;
 import model.Image;
 import model.ImageModel;
 import view.GuiView;
+
 
 /**
  * Represents a GUI implementation of the image controller. Makes sure the data is taken from the
@@ -16,9 +19,9 @@ import view.GuiView;
  */
 public class GuiControllerImpl implements ImageController {
 
+  protected final Map<String, Consumer<String>> knownCommands;
   private final ImageModel model;
   private final GuiView view;
-  private final ArrayList<String> knownCommands;
 
   /**
    * Acts as the constructor for the ImageControllerImpl class. Connects the model, view, and user
@@ -36,25 +39,31 @@ public class GuiControllerImpl implements ImageController {
 
     this.model = model;
     this.view = view;
-    this.knownCommands = new ArrayList<>();
-    knownCommands.add("load");
-    knownCommands.add("save");
-    knownCommands.add("make-red");
-    knownCommands.add("make-blue");
-    knownCommands.add("make-green");
-    knownCommands.add("value-component");
-    knownCommands.add("change-intensity");
-    knownCommands.add("luma-component");
-    knownCommands.add("horizontal-flip");
-    knownCommands.add("vertical-flip");
-    knownCommands.add("brighten");
-    knownCommands.add("darken");
-    knownCommands.add("quit");
-    knownCommands.add("q");
-    knownCommands.add("blur");
-    knownCommands.add("sharpen");
-    knownCommands.add("greyscale");
-    knownCommands.add("sepia");
+    this.knownCommands = new HashMap<>();
+    knownCommands.put("load", (String s) -> {
+      System.out.println("load -> " + s);
+      new Load(s).run();
+    });
+    knownCommands.put("save", (String s) -> {
+      System.out.println("save -> " + s);
+      new Save(s).run();
+    });
+    knownCommands.put("make-red", (String s) -> new RedComponent().run());
+    knownCommands.put("make-blue", (String s) -> new BlueComponent().run());
+    knownCommands.put("make-green", (String s) -> new GreenComponent().run());
+    knownCommands.put("value-component", (String s) -> new Value().run());
+    knownCommands.put("change-intensity", (String s) -> new Intensity().run());
+    knownCommands.put("luma-component", (String s) -> new Luma().run());
+    knownCommands.put("horizontal-flip", (String s) -> new HorizontalFlip().run());
+    knownCommands.put("vertical-flip", (String s) -> new VerticalFlip().run());
+    knownCommands.put("brighten", (String s) -> new Brighten(25).run());
+    knownCommands.put("darken", (String s) -> new Darken(25).run());
+    knownCommands.put("quit", (String s) -> new Quit().run());
+    knownCommands.put("q", (String s) -> new Quit().run());
+    knownCommands.put("blur", (String s) -> new Blur().run());
+    knownCommands.put("sharpen", (String s) -> new Sharpen().run());
+    knownCommands.put("greyscale", (String s) -> new Greyscale().run());
+    knownCommands.put("sepia", (String s) -> new Sepia().run());
   }
 
   /**
@@ -77,100 +86,26 @@ public class GuiControllerImpl implements ImageController {
   }
 
   private void processGivenCommand(String s) {
-    Scanner input = new Scanner(s); //creating scanner that reads the string
-    String nextInput = ""; //represents the next input from the readable
+    Scanner input = new Scanner(s); // creating scanner that reads the string
+    String nextInput = ""; // represents the next input from the readable
 
-    if (!hasQuit(nextInput)) {
+    if (!hasQuit(nextInput) && input.hasNext()) {
       nextInput = input.next();
-
-      //if quit then call run method from quit class
-      if (nextInput.equalsIgnoreCase("q") ||
-          nextInput.equalsIgnoreCase("quit")) {
-        new Quit().run();
+      if (validCommand(nextInput)) {
+        this.knownCommands.get(nextInput).accept(input.hasNext() ? input.next() : "");
       } else {
-        if (validCommand(nextInput)) {
-          if (nextInput.equals("load") || nextInput.equals("save")) {
-            String afterCommand = input.next();
-            System.out.println(nextInput + "-> " + afterCommand);
-            loadSaveHandler(nextInput, afterCommand);
-          } else {
-            chooseClass(nextInput);
-          }
-        } else {
-          tryCatchRenderMessage("Invalid input " + nextInput + " is not a valid input.");
-        }
+        tryCatchRenderMessage("Invalid input " + nextInput + " is not a valid input.");
       }
     }
   }
 
-  //Deals with the load and save commands
-  private void loadSaveHandler(String command, String path) {
-    if (command.equals("load")) {
-      new Load(path).run();
-    } else {
-      new Save(path).run();
-    }
-  }
-
-  //If a command is not load and save, chooses the class that has the method for that command
-  private void chooseClass(String givenCommand) {
-    int twentyfive = 25;
-
-    switch (givenCommand) {
-      case "make-red":
-        new RedComponent().run();
-        break;
-      case "make-blue":
-        new BlueComponent().run();
-        break;
-      case "make-green":
-        new GreenComponent().run();
-        break;
-      case "value-component":
-        new Value().run();
-        break;
-      case "change-intensity":
-        new Intensity().run();
-        break;
-      case "luma-component":
-        new Luma().run();
-        break;
-      case "horizontal-flip":
-        new HorizontalFlip().run();
-        break;
-      case "vertical-flip":
-        new VerticalFlip().run();
-        break;
-      case "brighten":
-        new Brighten(twentyfive).run();
-        break;
-      case "darken":
-        new Darken(twentyfive).run();
-        break;
-      case "blur":
-        new Blur().run();
-        break;
-      case "sharpen":
-        new Sharpen().run();
-        break;
-      case "sepia":
-        new Sepia().run();
-        break;
-      case "greyscale":
-        new Greyscale().run();
-        break;
-      default:
-        throw new IllegalStateException("Should never get to this point");
-    }
-  }
-
-  //checks if the person has quit
+  // checks if the person has quit
   private boolean hasQuit(String str) {
     return str.equalsIgnoreCase("q") || str.equalsIgnoreCase("quit");
   }
 
 
-  //handles try-catch for the renderMessage method
+  // handles try-catch for the renderMessage method
   private void tryCatchRenderMessage(String msg) {
     try {
       this.view.renderMessage(msg);
@@ -179,10 +114,10 @@ public class GuiControllerImpl implements ImageController {
     }
   }
 
-  //Determines if the given string is a valid command, True if it's valid and false otherwise
-  //A command is valid if it is in the list of known commands.
+  // Determines if the given string is a valid command, True if it's valid and false otherwise
+  // A command is valid if it is in the list of known commands.
   private boolean validCommand(String command) {
-    for (String knownCommand : this.knownCommands) {
+    for (String knownCommand : this.knownCommands.keySet()) {
       if (knownCommand.equals(command)) {
         return true;
       }
@@ -217,7 +152,6 @@ public class GuiControllerImpl implements ImageController {
       Image givenImage = readFile(this.filepath);
       model.overWriteImage(givenImage);
     }
-
   }
 
   private class Save implements Runnable {
@@ -302,7 +236,6 @@ public class GuiControllerImpl implements ImageController {
     @Override
     public void run() {
       model.flipVertical();
-
     }
   }
 
@@ -375,5 +308,4 @@ public class GuiControllerImpl implements ImageController {
       model.greyscale();
     }
   }
-
 }

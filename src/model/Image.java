@@ -32,6 +32,24 @@ public class Image implements ImageState {
     }
   }
 
+  /**
+   * Computes what the maximum value is across all pixels in the image. The value is the maximum
+   * number in the color representation.
+   *
+   * @return the maximum value.
+   */
+  @Override
+  public int getMaxRgb() {
+    int max = image[0][0].computeValue();  //first value
+    for (int row = 0; row < getImageHeight(); row++) {
+      for (int col = 0; col < getImageWidth(); col++) {
+        if (image[row][col].computeValue() > max) {
+          max = image[row][col].computeValue();  //new maximum
+        }
+      }
+    }
+    return max;
+  }
 
   /**
    * Gets the image at its current state. The image is an array of pixels.

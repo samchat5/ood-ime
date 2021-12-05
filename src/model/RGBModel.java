@@ -1,11 +1,12 @@
 package model;
 
 /**
- * This class is an implementation of the image model. Represents all methods that can
- * modify model.
+ * This class is an implementation of the image model. Represents all methods that can modify
+ * model.
  */
 public class RGBModel implements ImageModel {
-  private Image image;
+
+  protected Image image;
 
   public RGBModel(Image image) {
     this.image = image;
@@ -16,8 +17,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Produces the image represented by the red values of the current image.
-   * The red values are defined by the color representation.
+   * Produces the image represented by the red values of the current image. The red values are
+   * defined by the color representation.
    */
   public void makeRed() {
     for (int r = 0; r < image.getImageHeight(); r++) {
@@ -28,8 +29,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Produces the image represented by the green values of the current image.
-   * The red values are defined by the color representation.
+   * Produces the image represented by the green values of the current image. The red values are
+   * defined by the color representation.
    */
   public void makeGreen() {
     for (int r = 0; r < image.getImageHeight(); r++) {
@@ -40,8 +41,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Produces the image represented by the blue values of the current image.
-   * The red values are defined by the color representation.
+   * Produces the image represented by the blue values of the current image. The red values are
+   * defined by the color representation.
    */
   public void makeBlue() {
     for (int r = 0; r < image.getImageHeight(); r++) {
@@ -52,8 +53,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Produces the image represented by the value of the current image.
-   * The value is the maximum color component of each pixel.
+   * Produces the image represented by the value of the current image. The value is the maximum
+   * color component of each pixel.
    */
   public void imageValue() {
     for (int r = 0; r < image.getImageHeight(); r++) {
@@ -64,8 +65,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Produces the image represented by the intensity of the current image.
-   * The intensity is the average of all color components.
+   * Produces the image represented by the intensity of the current image. The intensity is the
+   * average of all color components.
    */
   public void imageIntensity() {
     for (int r = 0; r < image.getImageHeight(); r++) {
@@ -76,8 +77,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Produces the image represented by the luma of the current image.
-   * The luma is the weighted sum of the color components.
+   * Produces the image represented by the luma of the current image. The luma is the weighted sum
+   * of the color components.
    */
   public void imageLuma() {
     for (int r = 0; r < image.getImageHeight(); r++) {
@@ -88,8 +89,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Flips the image so that the left and right sides of the image are reversed.
-   * The vertical component of each part of the image stays constant.
+   * Flips the image so that the left and right sides of the image are reversed. The vertical
+   * component of each part of the image stays constant.
    */
   public void flipHorizontal() {
     Image newImage = new Image(new Pixel[image.getImageHeight()][image.getImageWidth()]);
@@ -102,8 +103,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Flips each image so that the top and bottom of the image are reversed.
-   * The horizontal component of each part should stay constant.
+   * Flips each image so that the top and bottom of the image are reversed. The horizontal component
+   * of each part should stay constant.
    */
   public void flipVertical() {
     Image newImage = new Image(new Pixel[image.getImageHeight()][image.getImageWidth()]);
@@ -116,8 +117,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Brightens the image by a specified amount.
-   * Brightens the image by increasing the color values.
+   * Brightens the image by a specified amount. Brightens the image by increasing the color values.
+   *
    * @param amount the amount to brighten the image by.
    */
   public void brighten(int amount) {
@@ -129,8 +130,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Darkens the image by a specified amount.
-   * Darkens the image by decreasing the color values.
+   * Darkens the image by a specified amount. Darkens the image by decreasing the color values.
+   *
    * @param amount the amount to darken the image by.
    */
   public void darken(int amount) {
@@ -145,6 +146,7 @@ public class RGBModel implements ImageModel {
   /**
    * Gets the image of this RGBModel. This image is a copy of the image instead of the image itself.
    * This prevents a user from changing values in this image's array through access.
+   *
    * @return the array representing this image.
    */
   public Image getImage() {
@@ -175,8 +177,7 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Applies a blur effect to an image.
-   * Blur effect is based on a 3x3 kernel.
+   * Applies a blur effect to an image. Blur effect is based on a 3x3 kernel.
    */
   @Override
   public void gaussianBlur() {
@@ -195,8 +196,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Adjusts the color values of each pixel in the image.
-   * Makes color values represent a greyscale image based on luma.
+   * Adjusts the color values of each pixel in the image. Makes color values represent a greyscale
+   * image based on luma.
    */
   public void greyscale() {
     double[][] grey = new double[3][3];
@@ -214,8 +215,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Adjusts the color values of each pixel in the image.
-   * Makes color values represent a sepia image.
+   * Adjusts the color values of each pixel in the image. Makes color values represent a sepia
+   * image.
    */
   public void sepia() {
     double[][] sep = new double[3][3];
@@ -233,8 +234,7 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Applies a sharpening effect to an image.
-   * Sharpening effect is based on 5x5 kernel.
+   * Applies a sharpening effect to an image. Sharpening effect is based on 5x5 kernel.
    */
   @Override
   public void sharpen() {
@@ -249,8 +249,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Checks if two models are equal to each other.
-   * DOes this based on their images.
+   * Checks if two models are equal to each other. DOes this based on their images.
+   *
    * @param m is the object being compared to.
    * @return whether the object is equal to the model.
    */
@@ -264,8 +264,8 @@ public class RGBModel implements ImageModel {
   }
 
   /**
-   * Returns an identifying key for the model.
-   * Creates this key based on the image.
+   * Returns an identifying key for the model. Creates this key based on the image.
+   *
    * @return the identifying key.
    */
   public int hashCode() {

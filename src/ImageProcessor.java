@@ -1,16 +1,16 @@
-import controller.GuiControllerImpl;
+import controller.HW7.MosaicController;
+import controller.HW7.MosaicGuiController;
 import controller.ImageController;
-import controller.ImageControllerImpl;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import model.ImageModel;
-import model.RGBModel;
+import model.HW7.MosaicModel;
+import model.HW7.MosaicModelImpl;
 import view.GuiView;
-import view.GuiViewImpl;
+import view.HW7.MosaicGuiView;
 import view.ImageView;
 import view.RGBView;
 
@@ -29,7 +29,7 @@ public final class ImageProcessor {
   public static void main(String[] args) throws FileNotFoundException {
     ImageView view;
     GuiView view2;
-    ImageModel model = new RGBModel();
+    MosaicModel model = new MosaicModelImpl();
     ImageController controller;
     InputStream inputStream = System.in;
     Appendable out = System.out;
@@ -40,7 +40,7 @@ public final class ImageProcessor {
         try {
           Reader input = new FileReader(args[1]);
           view = new RGBView(out);
-          controller = new ImageControllerImpl(model, view, input);
+          controller = new MosaicController(model, view, input);
           controller.begin();
         } catch (IllegalArgumentException i) {
           throw new IllegalArgumentException("file name is not valid");
@@ -50,7 +50,7 @@ public final class ImageProcessor {
       if (args[0].equals("-text")) { // opens terminal
         try {
           view = new RGBView(out);
-          controller = new ImageControllerImpl(model, view, in);
+          controller = new MosaicController(model, view, in);
           controller.begin();
         } catch (IllegalArgumentException i) {
           throw new IllegalArgumentException("file name is not valid");
@@ -58,8 +58,8 @@ public final class ImageProcessor {
       }
     } else if (args.length == 0) { // opens gui
       try {
-        view2 = new GuiViewImpl(model);
-        controller = new GuiControllerImpl(model, view2);
+        view2 = new MosaicGuiView(model);
+        controller = new MosaicGuiController(model, view2);
         controller.begin();
       } catch (IllegalArgumentException i) {
         throw new IllegalArgumentException("file name is not valid");

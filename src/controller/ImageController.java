@@ -10,5 +10,4 @@ public interface ImageController {
    * related actions to the image provided.
    */
   void begin() throws IllegalStateException;
-
 }

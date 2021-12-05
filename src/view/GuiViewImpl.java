@@ -35,6 +35,8 @@ import model.ImageModel;
 public class GuiViewImpl extends JFrame implements GuiView {
 
   private final ImageModel model;
+  protected Consumer<String> commandCallback;
+  protected JPanel buttonPanel;
   private JPanel mainPanel;
   private JPanel imagePanel;
   private BufferedImage currentImage;
@@ -42,8 +44,6 @@ public class GuiViewImpl extends JFrame implements GuiView {
   private JLabel fileOpenDisplay;
   private JLabel fileSaveDisplay;
   private JLabel imagelabel;
-  private Consumer<String> commandCallback;
-  private JPanel buttonPanel;
 
 
   /**
@@ -92,7 +92,7 @@ public class GuiViewImpl extends JFrame implements GuiView {
       imagelabel.setIcon(new ImageIcon(currentImage));
       imagePanel.add(imagelabel);
     }
-    histograms();
+    // histograms();
     repaint();
   }
 
@@ -125,8 +125,8 @@ public class GuiViewImpl extends JFrame implements GuiView {
   }
 
 
-  //This method builds the button panel and its content.
-  private void buildButtons() {
+  // This method builds the button panel and its content.
+  protected void buildButtons() {
     this.buildButtonPanel();
     this.buildGreyscaleButton();
     this.buildSepiaButton();
@@ -143,13 +143,13 @@ public class GuiViewImpl extends JFrame implements GuiView {
   }
 
 
-  //Creates the panel that houses all the buttons for this program.
+  // Creates the panel that houses all the buttons for this program.
   private void buildButtonPanel() {
     buttonPanel = new JPanel();
     mainPanel.add(buttonPanel); //Add the button panel to the main panel
   }
 
-  //creates the greyscale button
+  // creates the greyscale button
   private void buildGreyscaleButton() {
     JButton greyscale = new JButton("Greyscale");
     greyscale.addActionListener((ActionEvent e) -> {
@@ -159,7 +159,6 @@ public class GuiViewImpl extends JFrame implements GuiView {
     });
     buttonPanel.add(greyscale);
   }
-
 
   private void buildSepiaButton() {
     JButton sepia = new JButton("Sepia");
