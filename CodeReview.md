@@ -79,7 +79,9 @@ the type of the model, breaking all current implementations that used the previo
 `RGBModel`. With our refactoring, we were able to extend easily off of the previous controller,
 separate the new mosaic logic from the past implementation, and no implementations would be broken
 since all new programs that have mosaicking would use the `MosaicModel` interface *with*
-the `MosaicController`. Therefore, no existing code would have to be changed.
+the `MosaicController`. Therefore, no existing code would have to be changed. This was a
+*slight* departure from the original design, but it avoided some complexity and breaking of SOLID
+principles. We would have not done this if it wasn't a minor departure, though.
 
 In the model, the only major bug or code issue we had been with the `ImageUtil` class not reading
 from PPMs properly. They get the height and width of the image from the file correctly, but don't
