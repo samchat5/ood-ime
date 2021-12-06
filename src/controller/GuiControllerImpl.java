@@ -56,8 +56,8 @@ public class GuiControllerImpl implements ImageController {
     knownCommands.put("luma-component", (String s) -> new Luma().run());
     knownCommands.put("horizontal-flip", (String s) -> new HorizontalFlip().run());
     knownCommands.put("vertical-flip", (String s) -> new VerticalFlip().run());
-    knownCommands.put("brighten", (String s) -> new Brighten(25).run());
-    knownCommands.put("darken", (String s) -> new Darken(25).run());
+    knownCommands.put("brighten", (String s) -> new Brighten().run());
+    knownCommands.put("darken", (String s) -> new Darken().run());
     knownCommands.put("quit", (String s) -> new Quit().run());
     knownCommands.put("q", (String s) -> new Quit().run());
     knownCommands.put("blur", (String s) -> new Blur().run());
@@ -239,11 +239,9 @@ public class GuiControllerImpl implements ImageController {
 
     /**
      * Creates an instance of Brighten with the amount equal to the given amount.
-     *
-     * @param amount the amount to brighten by.
      */
-    Brighten(int amount) {
-      this.amount = amount;
+    Brighten() {
+      this.amount = 25;
     }
 
     @Override
@@ -258,11 +256,9 @@ public class GuiControllerImpl implements ImageController {
 
     /**
      * Creates an instance of Darken with the amount equal to the given amount.
-     *
-     * @param amount the amount to darken by.
      */
-    Darken(int amount) {
-      this.amount = amount;
+    Darken() {
+      this.amount = 25;
     }
 
     @Override

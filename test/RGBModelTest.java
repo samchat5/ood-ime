@@ -1,6 +1,5 @@
 import static model.ImageUtil.readFile;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotSame;
 
 import model.Image;
@@ -28,7 +27,6 @@ public class RGBModelTest {
   ImageModel flowerGreen;
   ImageModel flowerRed;
   ImageModel flowerVertical;
-  ImageModel flowerHV;
   ImageModel oneBlack;
   ImageModel oneBlackCopy;
   ImageModel hedgehog;
@@ -39,7 +37,6 @@ public class RGBModelTest {
   ImageModel fourByFourS2;
   ImageModel fourByFourGrey;
   ImageModel fourByFourSepia;
-  ImageModel flowerHorizontal;
 
   /**
    * Initializes values for testing. Ensures that mutation will not disrupt any tests.
@@ -156,33 +153,12 @@ public class RGBModelTest {
   }
 
   @Test
-  public void flipHorizontalTest() {
-    this.setUp();
-    flower.flipHorizontal();
-    assertEquals(flower, flowerHorizontal);
-    flower.flipHorizontal();
-    assertEquals(flowerCopy, flower);
-  }
-
-  @Test
   public void flipVerticalTest() {
     this.setUp();
     flower.flipVertical();
     assertEquals(flower, flowerVertical);
     flower.flipVertical();
     assertEquals(flowerCopy, flower);
-  }
-
-  @Test
-  public void flipBothTest() {
-    this.setUp();
-    flower.flipHorizontal();
-    flower.flipVertical();
-    assertEquals(flower, flowerHV);
-    flower.flipVertical();
-    assertEquals(flower, flowerHorizontal);
-    flower.flipHorizontal();
-    assertEquals(flower, flowerCopy);
   }
 
   @Test
@@ -269,7 +245,6 @@ public class RGBModelTest {
     this.setUp();
     assertEquals(flower, flowerCopy);
     assertEquals(oneBlack, oneBlackCopy);
-    assertNotEquals(flower, flowerHV);
   }
 
   @Test

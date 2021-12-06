@@ -30,6 +30,7 @@ public class MosaicControllerTest {
       + "the res folder type: \nload res/kick.ppm\nInsert a valid command: \n";
   private final String loading = "Loading.....\n";
   private final String quitting = "\nQuitting.....\n";
+  private final String mosaicking = "Mosaicking...\n";
 
   @Test(expected = IllegalArgumentException.class)
   public void testMosaicCommandNullModel() {
@@ -43,9 +44,10 @@ public class MosaicControllerTest {
     ImageController cont = new MosaicController(new MosaicModelImpl(), new RGBView(app),
         new StringReader(in));
     cont.begin();
-    assertEquals(app.toString(), menu + loading + "Invalid input \nload is not a valid input. "
-        + "Please re-enter: \n\nMosaic failed: Invalid image (either not loaded or corrupted).\n"
-        + quitting);
+    assertEquals(app.toString(),
+        menu + loading + "Invalid input \nload is not a valid input. " + "Please re-enter: \n\n"
+            + mosaicking + "Mosaic failed: Invalid image (either not loaded" + " or corrupted).\n"
+            + quitting);
   }
 
   @Test
@@ -67,7 +69,8 @@ public class MosaicControllerTest {
     ImageController cont = new MosaicController(new MosaicModelImpl(), new RGBView(app),
         new StringReader(in));
     cont.begin();
-    assertEquals(app.toString(), menu + "Mosaic failed: Invalid image (either not loaded or "
+    assertEquals(app.toString(), menu + mosaicking + "Mosaic failed: Invalid image (either not "
+        + "loaded or "
         + "corrupted).\n" + quitting);
   }
 
@@ -79,7 +82,8 @@ public class MosaicControllerTest {
         new StringReader(in));
     cont.begin();
     assertEquals(app.toString(),
-        menu + loading + "Mosaic failed: Seed count must be greater than 0.\n" + quitting);
+        menu + loading + mosaicking + "Mosaic failed: Seed count must be greater than 0.\n"
+            + quitting);
   }
 
   @Test
@@ -90,7 +94,8 @@ public class MosaicControllerTest {
         new StringReader(in));
     cont.begin();
     assertEquals(app.toString(),
-        menu + loading + "Mosaic failed: Seed count must be greater than 0.\n" + quitting);
+        menu + loading + mosaicking + "Mosaic failed: Seed count must be greater than 0.\n"
+            + quitting);
   }
 
   @Test

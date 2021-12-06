@@ -12,6 +12,7 @@ public interface ImageState {
    *
    * @return the maximum value.
    */
+  @SuppressWarnings("unused")
   int getMaxRgb();
 
   /**

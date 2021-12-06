@@ -1,16 +1,15 @@
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-
 import static model.ImageUtil.readFile;
+import static org.junit.Assert.assertEquals;
 
 import model.HistogramImpl;
 import model.ImageModel;
 import model.RGBModel;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
- * Represents the tests for the histogram impl class.
- * Ensures that proper histograms are created when using the methods on various images.
+ * Represents the tests for the histogram impl class. Ensures that proper histograms are created
+ * when using the methods on various images.
  */
 public class HistogramImplTest {
 

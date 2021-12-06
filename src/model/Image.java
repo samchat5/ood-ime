@@ -38,6 +38,7 @@ public class Image implements ImageState {
    *
    * @return the maximum value.
    */
+  @SuppressWarnings("unused")
   @Override
   public int getMaxRgb() {
     int max = image[0][0].computeValue();  //first value
