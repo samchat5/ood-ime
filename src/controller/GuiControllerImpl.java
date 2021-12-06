@@ -87,9 +87,9 @@ public class GuiControllerImpl implements ImageController {
 
   private void processGivenCommand(String s) {
     Scanner input = new Scanner(s); // creating scanner that reads the string
-    String nextInput = ""; // represents the next input from the readable
+    String nextInput; // represents the next input from the readable
 
-    if (!hasQuit(nextInput) && input.hasNext()) {
+    while (input.hasNext()) {
       nextInput = input.next();
       if (validCommand(nextInput)) {
         this.knownCommands.get(nextInput).accept(input.hasNext() ? input.next() : "");
@@ -98,12 +98,6 @@ public class GuiControllerImpl implements ImageController {
       }
     }
   }
-
-  // checks if the person has quit
-  private boolean hasQuit(String str) {
-    return str.equalsIgnoreCase("q") || str.equalsIgnoreCase("quit");
-  }
-
 
   // handles try-catch for the renderMessage method
   private void tryCatchRenderMessage(String msg) {

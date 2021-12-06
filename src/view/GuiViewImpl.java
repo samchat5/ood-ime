@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.function.Consumer;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -51,21 +52,26 @@ public class GuiViewImpl extends JFrame implements GuiView {
    * before the image is loaded.
    *
    * @param model the given model.
+   * @throws IllegalArgumentException if the model is null.
    */
-  public GuiViewImpl(ImageModel model) {
+  public GuiViewImpl(ImageModel model) throws IllegalArgumentException {
     super();
-    setTitle("Image Processor");
-    setSize(1200, 700);
-    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    this.model = model;
-    setUpMainPanel();
-    buildButtons();
-    buildImageDisplay();
-    dialogueBoxes();
-    saveImage();
-    openImage();
-    commandCallback = null;
-    this.makeVisible();
+    try {
+      setTitle("Image Processor");
+      setSize(1200, 700);
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.model = Objects.requireNonNull(model);
+      setUpMainPanel();
+      buildButtons();
+      buildImageDisplay();
+      dialogueBoxes();
+      saveImage();
+      openImage();
+      commandCallback = null;
+      this.makeVisible();
+    } catch (NullPointerException e) {
+      throw new IllegalArgumentException("Model cannot be null");
+    }
   }
 
   public void setCommandCallback(Consumer<String> c) {
@@ -92,7 +98,6 @@ public class GuiViewImpl extends JFrame implements GuiView {
       imagelabel.setIcon(new ImageIcon(currentImage));
       imagePanel.add(imagelabel);
     }
-    // histograms();
     repaint();
   }
 

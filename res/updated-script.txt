@@ -1,0 +1,7 @@
+load testOG.png
+mosaic 2000
+save testOG-mosaic-2000.png
+load testOG.png
+mosaic 7500
+save testOG-mosaic-7500.png
+q

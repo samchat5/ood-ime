@@ -2,6 +2,7 @@ package view.HW7;
 
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import model.ImageModel;
 import view.GuiViewImpl;
 
@@ -26,8 +27,12 @@ public class MosaicGuiView extends GuiViewImpl {
   private void buildMosaicButton() {
     JButton mosaic = new JButton("Mosaic");
     mosaic.addActionListener((ActionEvent e) -> {
-      if (commandCallback != null) {
-        commandCallback.accept("mosaic 1000");
+      JOptionPane pane = new SpinnerOptionPane("Number of seeds", "Mosaic", 0, 15000, 7500, 100);
+      Object val = pane.getInputValue();
+      Object opt = pane.getValue();
+      if (commandCallback != null && val != null && opt != null
+          && (int) opt == JOptionPane.OK_OPTION) {
+        commandCallback.accept("mosaic " + val);
       }
     });
     buttonPanel.add(mosaic);

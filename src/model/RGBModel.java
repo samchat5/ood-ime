@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 /**
  * This class is an implementation of the image model. Represents all methods that can modify
  * model.
@@ -8,8 +10,12 @@ public class RGBModel implements ImageModel {
 
   protected Image image;
 
-  public RGBModel(Image image) {
-    this.image = image;
+  public RGBModel(Image image) throws IllegalArgumentException {
+    try {
+      this.image = Objects.requireNonNull(image);
+    } catch (NullPointerException e) {
+      throw new IllegalArgumentException("Image cannot be null");
+    }
   }
 
   public RGBModel() {

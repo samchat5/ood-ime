@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public class MockModel implements ImageModel {
 
-  final StringBuilder log;
+  protected final StringBuilder log;
 
   public MockModel(StringBuilder log) {
     this.log = Objects.requireNonNull(log);
@@ -193,6 +193,9 @@ public class MockModel implements ImageModel {
    */
   @Override
   public Image getImage() {
-    return null;
+    return new Image(
+        new Pixel[][]{{new PixelRGB(0, 0, 0), new PixelRGB(0, 0, 0), new PixelRGB(0, 0, 0)},
+            {new PixelRGB(0, 0, 0), new PixelRGB(0, 0, 0), new PixelRGB(0, 0, 0)},
+            {new PixelRGB(0, 0, 0), new PixelRGB(0, 0, 0), new PixelRGB(0, 0, 0)}});
   }
 }

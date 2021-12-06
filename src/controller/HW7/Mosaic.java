@@ -22,11 +22,11 @@ public class Mosaic implements Runnable {
    * @param randSeed        the seed used for random number generation
    * @param model           model to run command on
    * @param messageCallback function to print a message to a view
+   * @throws IllegalArgumentException if model is null
    */
-  public Mosaic(int seedCount, int randSeed, MosaicModel model, Consumer<String> messageCallback) {
-    this.seedCount = seedCount;
-    this.randSeed = randSeed;
-    this.model = model;
+  public Mosaic(int seedCount, int randSeed, MosaicModel model, Consumer<String> messageCallback)
+      throws IllegalArgumentException {
+    this(seedCount, randSeed, model);
     this.messageCallback = messageCallback;
   }
 
@@ -36,8 +36,12 @@ public class Mosaic implements Runnable {
    * @param seedCount the number of seeds to use
    * @param randSeed  the seed used for random number generation
    * @param model     model to run command on
+   * @throws IllegalArgumentException if model is null
    */
-  public Mosaic(int seedCount, int randSeed, MosaicModel model) {
+  public Mosaic(int seedCount, int randSeed, MosaicModel model) throws IllegalArgumentException {
+    if (model == null) {
+      throw new IllegalArgumentException("Model cannot be null");
+    }
     this.seedCount = seedCount;
     this.randSeed = randSeed;
     this.model = model;
@@ -45,9 +49,16 @@ public class Mosaic implements Runnable {
 
   @Override
   public void run() {
-    model.mosaic(seedCount, randSeed);
-    if (messageCallback != null) {
-      messageCallback.accept("Mosaicking...");
+    try {
+      if (messageCallback != null) {
+        messageCallback.accept("Mosaicking...");
+      }
+      model.mosaic(seedCount, randSeed);
+    } catch (IllegalStateException e) {
+      if (messageCallback != null) {
+        messageCallback.accept("Mosaic failed: " + e.getMessage() +
+            "\n");
+      }
     }
   }
 }

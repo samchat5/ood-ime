@@ -17,13 +17,16 @@ followed the command design pattern.
 # Design/code weaknesses
 
 While its good that each class/method has its own responsibility, it would have been nice to have
-them separated into different subpackages. While this is a minor nitpick, the rest of the design has
-several major flaws. The majority of these errors were found with the controller and the tests. Upon
-receiving the code, the program with the GUI greyscaled all images *before* operating on them. Turns
-out, this was due to the unimplemented Histogram behavior causing errors by directly operating on
-the image rather than retrieving values from it. It was fully commented-out/removed, so it still
-caused errors. Features were missing from the GUI, such as the ability to choose how much to
-brighten/darken an image. There's no way to specify which files to operate on either.
+them separated into different subpackages. Also, many of the fields and classes had the default
+package-private access modifier, which is not ideal. While these are minor nitpicks, the rest of the
+design has several major flaws. The majority of these errors were found with the controller and the
+tests. Firstly, the `accept` method in the `GuiController` doesn't overwrite an interface method, so
+during testing, all `GuiController`s broke the Liskov substitution rule. receiving the code, the
+program with the GUI greyscaled all images *before* operating on them. Turns out, this was due to
+the unimplemented Histogram behavior causing errors by directly operating on the image rather than
+retrieving values from it. It was fully commented-out/removed, so it still caused errors. Features
+were missing from the GUI, such as the ability to choose how much to brighten/darken an image, and
+there was no button for sharpening. There's no way to specify which files to operate on either.
 
 Upon deeper inspection, this turned out to be an issue with the entire model not supporting more
 than one image at a time. This is fine if working with only the GUI, but the same was true with the
@@ -33,6 +36,11 @@ specify is `mosaic seed-count`. On top of that, we were confused about the comma
 the `filepath` argument. The model only supports one image at a time, so all images are loading
 using `load`, so the `filepath` argument is superfluous, and the `image-name` arguments are not
 considered or used by the controller.
+
+Another minor design issue we noticed is that the program creates a `res/temp.png` file that
+contains the current image with the applied operations. To save, the program essentially copies
+the `res/test.png` file to the new specified filepath. This solution isn't necessarily portable,
+since it requires a `res` folder, and leads to some (very) slight performance loss.
 
 In general, the testing was a bit of a mess. They seemed completely different from what was actually
 implemented, (i.e. the controller commands being quite different from what you'd expect from the
@@ -94,7 +102,12 @@ small files or very dark images would be incorrect. *However*, there is some amb
 documentation for PPM files that we found, and it's pretty easy to see why anyone would be confused.
 
 The view was well-designed and written, as explained above. Good job guys! It was very easy to
-extend, work with, and debug.
+extend, work with, and debug. We weren't able to reuse any dialogs to select extra arguments for a
+command, like how much to darken/brighten by, for selecting the mosaic seed amount. But, we were
+able to reuse the solution used in our HW6 project, and it fit with the design very well. Also, we
+saw that the `NullPointerException` was not caught when the user tried to operate on an unloaded
+file. For our mosaic, we were able to show an error dialog, but the error remained uncaught because
+the program tries to save a null image to `res/temp.png`.
 
 The tests had a lot of issues. They often didn't test the correct functionality, and would not run
 properly. There were no tests for edge cases, which there ended up being bugs for. In the controller

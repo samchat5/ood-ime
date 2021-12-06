@@ -93,14 +93,19 @@ public class ImageControllerImpl implements ImageController {
    */
   @Override
   public void begin() throws IllegalStateException {
-    Scanner input = new Scanner(this.read); //creating scanner that reads the string
+    Scanner input = new Scanner(this.read); // creating scanner that reads the string
     String nextInput; // represents the next input from the readable
     menu();
 
     while (input.hasNext()) {
       nextInput = input.next();
       if (validCommand(nextInput)) {
-        this.knownCommands.get(nextInput).accept(input.hasNext() ? input.next() : "");
+        try {
+          this.knownCommands.get(nextInput).accept(input.hasNext() ? input.next() : "");
+        } catch (IllegalStateException | IllegalArgumentException e) {
+          tryCatchRenderMessage("Invalid input \n" + nextInput + " is not a valid "
+              + "input. Please re-enter: \n");
+        }
       } else {
         tryCatchRenderMessage("Invalid input \n" + nextInput + " is not a valid "
             + "input. Please re-enter: \n");

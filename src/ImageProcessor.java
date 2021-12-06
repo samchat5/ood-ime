@@ -36,7 +36,7 @@ public final class ImageProcessor {
     Readable in = new BufferedReader(new InputStreamReader(inputStream));
 
     if (args.length == 2) {
-      if (args[1].equals("-file")) {  // for script.txt
+      if (args[0].equals("-file")) {  // for script.txt
         try {
           Reader input = new FileReader(args[1]);
           view = new RGBView(out);
@@ -65,7 +65,7 @@ public final class ImageProcessor {
         throw new IllegalArgumentException("file name is not valid");
       }
     } else {
-      throw new IllegalArgumentException("invalid arguments");
+      throw new IllegalArgumentException("Invalid arguments");
     }
   }
 }

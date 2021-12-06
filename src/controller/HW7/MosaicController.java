@@ -22,6 +22,6 @@ public class MosaicController extends ImageControllerImpl {
     super(model, view, read);
     this.knownCommands.put("mosaic", (String s) -> new Mosaic(Integer.parseInt(s),
         new Random().nextInt(), model, this::tryCatchRenderMessage).run());
-    this.menu.add("To mosaic an image type: mosaic seedCount");
+    this.menu.add("To mosaic an image type: mosaic seed-count");
   }
 }

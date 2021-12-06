@@ -1,6 +1,7 @@
 package controller.HW7;
 
 import controller.GuiControllerImpl;
+import java.io.IOException;
 import java.util.Random;
 import model.HW7.MosaicModel;
 import view.GuiView;
@@ -19,7 +20,12 @@ public class MosaicGuiController extends GuiControllerImpl {
       throws IllegalArgumentException {
     super(model, view);
     this.knownCommands.put("mosaic", (String s) -> new Mosaic(Integer.parseInt(s),
-        new Random().nextInt(), model).run());
+        new Random().nextInt(), model, (String m) -> {
+      try {
+        view.renderMessage(m);
+      } catch (IOException e) {
+        throw new IllegalStateException("IO Exception occurred");
+      }
+    }).run());
   }
-
 }

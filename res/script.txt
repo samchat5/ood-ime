@@ -15,6 +15,6 @@ save res/4by4script.ppm
 save res/4by4script.png
 save res/4by4script.bmp
 save res/4by4script.jpg
-quit or q 
+quit or q
 
   

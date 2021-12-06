@@ -19,7 +19,7 @@ public class MosaicModelImpl extends RGBModel implements MosaicModel {
   private final Map<Point, Integer[]> seedsToRGB = new HashMap<>();
   private List<Point> seeds;
 
-  public MosaicModelImpl(Image img) {
+  public MosaicModelImpl(Image img) throws IllegalArgumentException {
     super(img);
   }
 
@@ -88,16 +88,25 @@ public class MosaicModelImpl extends RGBModel implements MosaicModel {
   }
 
   @Override
-  public void mosaic(int seedCount, int randSeed) {
-    this.generateSeeds(seedCount, randSeed);
-    for (int y = 0; y < image.getImageHeight(); y++) {
-      for (int x = 0; x < image.getImageWidth(); x++) {
-        Point p = new Point(x, y);
-        Point closestSeed = this.closestSeed(p);
-        seedsToPoints.get(closestSeed).add(p);
-      }
+  public void mosaic(int seedCount, int randSeed) throws IllegalStateException {
+    if (seedCount < 1) {
+      throw new IllegalStateException("Seed count must be greater than 0.");
     }
-    this.generateMeanSeeds();
-    this.overWriteImage(new Image(this.changePoints()));
+    // Make sure seed count is not greater than the number of pixels in the image
+    try {
+      seedCount = Math.min(seedCount, image.getImageHeight() * image.getImageWidth());
+      this.generateSeeds(seedCount, randSeed);
+      for (int y = 0; y < image.getImageHeight(); y++) {
+        for (int x = 0; x < image.getImageWidth(); x++) {
+          Point p = new Point(x, y);
+          Point closestSeed = this.closestSeed(p);
+          seedsToPoints.get(closestSeed).add(p);
+        }
+      }
+      this.generateMeanSeeds();
+      this.overWriteImage(new Image(this.changePoints()));
+    } catch (NullPointerException e) {
+      throw new IllegalStateException("Invalid image (either not loaded or corrupted).");
+    }
   }
 }
