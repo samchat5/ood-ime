@@ -1,18 +1,18 @@
-import controller.HW7.MosaicController;
-import controller.HW7.MosaicGuiController;
 import controller.ImageController;
+import controller.hw7.MosaicController;
+import controller.hw7.MosaicGuiController;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import model.HW7.MosaicModel;
-import model.HW7.MosaicModelImpl;
+import model.hw7.MosaicModel;
+import model.hw7.MosaicModelImpl;
 import view.GuiView;
-import view.HW7.MosaicGuiView;
 import view.ImageView;
 import view.RGBView;
+import view.hw7.MosaicGuiView;
 
 /**
  * Represents the actual image processor. Allows the user to start using the image processor by

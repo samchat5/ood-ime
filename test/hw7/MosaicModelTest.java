@@ -1,14 +1,17 @@
-package HW7;
+package hw7;
 
 import static junit.framework.TestCase.assertEquals;
 
 import java.util.Random;
-import model.HW7.MosaicModel;
-import model.HW7.MosaicModelImpl;
 import model.Image;
 import model.ImageUtil;
+import model.hw7.MosaicModel;
+import model.hw7.MosaicModelImpl;
 import org.junit.Test;
 
+/**
+ * Tests for the MosaicModel class.
+ */
 public class MosaicModelTest {
 
   private final Image testOG;

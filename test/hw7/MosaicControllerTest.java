@@ -1,20 +1,23 @@
-package HW7;
+package hw7;
 
 import static junit.framework.TestCase.assertEquals;
 
 import controller.GuiControllerImpl;
-import controller.HW7.Mosaic;
-import controller.HW7.MosaicController;
-import controller.HW7.MosaicGuiController;
 import controller.ImageController;
+import controller.hw7.Mosaic;
+import controller.hw7.MosaicController;
+import controller.hw7.MosaicGuiController;
 import java.io.StringReader;
-import model.HW7.MockMosaicModel;
-import model.HW7.MosaicModel;
-import model.HW7.MosaicModelImpl;
+import model.hw7.MockMosaicModel;
+import model.hw7.MosaicModel;
+import model.hw7.MosaicModelImpl;
 import org.junit.Test;
-import view.HW7.MosaicGuiView;
 import view.RGBView;
+import view.hw7.MosaicGuiView;
 
+/**
+ * Tests for MosaicControllers (GUI and text-based).
+ */
 public class MosaicControllerTest {
 
   private final String menu = "Instructions:\nTo load an image type: load filepath\nTo save an "

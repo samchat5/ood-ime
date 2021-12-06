@@ -1,12 +1,15 @@
-package controller.HW7;
+package controller.hw7;
 
 import controller.ImageControllerImpl;
 import java.util.Random;
-import model.HW7.MosaicModel;
+import model.hw7.MosaicModel;
 import view.ImageView;
 
+/**
+ * Represents the controller for the text-based program, with the added functionality of mosaicking.
+ * Extends off the previous {@code ImageControllerImpl} class.
+ */
 public class MosaicController extends ImageControllerImpl {
-
 
   /**
    * Acts as the constructor for the ImageControllerImpl class. Connects the model, view, and user

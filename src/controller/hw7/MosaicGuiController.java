@@ -1,11 +1,15 @@
-package controller.HW7;
+package controller.hw7;
 
 import controller.GuiControllerImpl;
 import java.io.IOException;
 import java.util.Random;
-import model.HW7.MosaicModel;
+import model.hw7.MosaicModel;
 import view.GuiView;
 
+/**
+ * Represents the controller for the GUI-based program, with the added functionality of mosaicking.
+ * Extends off the previous {@code GuiControllerImpl} class.
+ */
 public class MosaicGuiController extends GuiControllerImpl {
 
   /**

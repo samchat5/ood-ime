@@ -1,4 +1,4 @@
-package view.HW7;
+package view.hw7;
 
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -6,6 +6,11 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeListener;
 
+/**
+ * General class represents an option pane with a spinner input. Used in our program for picking
+ * number of seeds in mosaicking, but can be used for any purpose where an alert with a spinner is
+ * needed.
+ */
 public class SpinnerOptionPane extends JOptionPane {
 
   private final int stepSize;
@@ -13,6 +18,16 @@ public class SpinnerOptionPane extends JOptionPane {
   private final int minVal;
   private final int initVal;
 
+  /**
+   * Constructs an option pane with a spinner input.
+   *
+   * @param message  the message to display
+   * @param title    the title of the option pane
+   * @param minVal   the minimum value of the spinner
+   * @param maxVal   the maximum value of the spinner
+   * @param initVal  the initial value of the spinner
+   * @param stepSize the step size of the spinner
+   */
   public SpinnerOptionPane(String message, String title, int minVal, int maxVal, int initVal,
       int stepSize) {
     super(null);

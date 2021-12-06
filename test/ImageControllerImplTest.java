@@ -92,7 +92,8 @@ public class ImageControllerImplTest {
     test.begin();
 
     assertEquals(out.toString(), menu
-        + "load res/kick.ppm\nInsert a valid command: \nLoading.....\nSaving.....\nQuitting.....\n");
+        + "load res/kick.ppm\nInsert a valid command: \nLoading.....\nSaving....."
+        + "\nQuitting.....\n");
   }
 
   @Test

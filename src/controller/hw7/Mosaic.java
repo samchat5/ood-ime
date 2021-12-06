@@ -1,7 +1,7 @@
-package controller.HW7;
+package controller.hw7;
 
 import java.util.function.Consumer;
-import model.HW7.MosaicModel;
+import model.hw7.MosaicModel;
 
 /**
  * Implements the Mosaic command for the controller, passing the command to the model. Purposefully

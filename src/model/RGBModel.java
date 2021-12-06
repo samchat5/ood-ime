@@ -10,6 +10,12 @@ public class RGBModel implements ImageModel {
 
   protected Image image;
 
+  /**
+   * Constructs the main model for our program. Takes in a non-null image.
+   *
+   * @param image image to load the model with at the beginning of the program.
+   * @throws IllegalArgumentException if the image is null.
+   */
   public RGBModel(Image image) throws IllegalArgumentException {
     try {
       this.image = Objects.requireNonNull(image);
@@ -18,6 +24,10 @@ public class RGBModel implements ImageModel {
     }
   }
 
+  /**
+   * Constructs the main model for our program. Does not take in an image, and creates a default
+   * blank 3x3 image.
+   */
   public RGBModel() {
     this.image = new Image(new Pixel[3][3]);
   }

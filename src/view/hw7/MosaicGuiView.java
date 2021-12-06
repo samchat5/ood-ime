@@ -1,4 +1,4 @@
-package view.HW7;
+package view.hw7;
 
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
@@ -6,6 +6,10 @@ import javax.swing.JOptionPane;
 import model.ImageModel;
 import view.GuiViewImpl;
 
+/**
+ * Represents the GUI view for the program, with the added functionality for mosaicking. Builds a
+ * new button for feature, and includes a popup menu for the user to select the number of seeds.
+ */
 public class MosaicGuiView extends GuiViewImpl {
 
   /**

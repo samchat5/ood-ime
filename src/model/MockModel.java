@@ -113,6 +113,7 @@ public class MockModel implements ImageModel {
    */
   @Override
   public void overWriteImage(Image image) {
+    this.log.append("overwrite image");
   }
 
   /**

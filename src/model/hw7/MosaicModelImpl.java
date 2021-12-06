@@ -1,4 +1,4 @@
-package model.HW7;
+package model.hw7;
 
 import java.awt.Point;
 import java.util.ArrayList;
@@ -13,6 +13,10 @@ import model.Pixel;
 import model.PixelRGB;
 import model.RGBModel;
 
+/**
+ * Implementation of the MosaicModel interface. Runs in approximately O(xyn) time, where n is the
+ * number of seeds, and x and y are the dimensions of the image.
+ */
 public class MosaicModelImpl extends RGBModel implements MosaicModel {
 
   private final Map<Point, Set<Point>> seedsToPoints = new HashMap<>();
@@ -87,6 +91,13 @@ public class MosaicModelImpl extends RGBModel implements MosaicModel {
     return img;
   }
 
+  /**
+   * Mosaic the current image.
+   *
+   * @param seedCount the number of seeds to use for the mosaic.
+   * @param randSeed  the random seed to use for the mosaic.
+   * @throws IllegalStateException if the seed count is <= 0, or if the image is not loaded.
+   */
   @Override
   public void mosaic(int seedCount, int randSeed) throws IllegalStateException {
     if (seedCount < 1) {

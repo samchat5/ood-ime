@@ -332,45 +332,45 @@ public class GuiViewImpl extends JFrame implements GuiView {
     filesavePanel.add(fileSaveDisplay);
   }
 
-// --Commented out by Inspection START (12/6/2021 1:05 AM):
-//  private void histograms() {
-//    if (model.getImage() != null) {
-//      HistogramPanel hist = new HistogramPanel();
-//      hist.paintComponent(getGraphics());
-//      mainPanel.add(hist);
-//    }
-//  }
-// --Commented out by Inspection STOP (12/6/2021 1:05 AM)
+  // --Commented out by Inspection START (12/6/2021 1:05 AM):
+  //  private void histograms() {
+  //    if (model.getImage() != null) {
+  //      HistogramPanel hist = new HistogramPanel();
+  //      hist.paintComponent(getGraphics());
+  //      mainPanel.add(hist);
+  //    }
+  //  }
+  // --Commented out by Inspection STOP (12/6/2021 1:05 AM)
 
-// --Commented out by Inspection START (12/6/2021 1:08 AM):
-//  /**
-//   * This class represents a panel in which to draw the histogram. It contains method to a draw a
-//   * histogram.
-//   */
-//  private class HistogramPanel extends JPanel {
-//
-//    /**
-//     * This method overrides the original painComponent method to draw a histogram.
-//     *
-//     * @param g the graphics that are being painted.
-//     */
-//    @Override
-//    public void paintComponent(Graphics g) {
-//      super.paintComponent(g);
-//      HistogramImpl h = new HistogramImpl();
-//      int[] red = h.redHistogram(model.getImage());
-//      int[] green = h.greenHistogram(model.getImage());
-//      int[] blue = h.blueHistogram(model.getImage());
-//      for (int i = 0; i < 255; i++) {
-//        int xTwo = i + 1;
-//        g.setColor(Color.RED);
-//        g.drawLine(i * 20, red[i] * 20, xTwo * 20, red[xTwo] * 20);
-//        g.setColor(Color.GREEN);
-//        g.drawLine(i * 20, green[i] * 20 + 100, xTwo * 20, green[xTwo] * 20 + 100);
-//        g.setColor(Color.BLUE);
-//        g.drawLine(i * 20, blue[i] * 20 + 150, xTwo * 20, blue[xTwo] * 20 + 150);
-//      }
-//    }
-//  }
-// --Commented out by Inspection STOP (12/6/2021 1:08 AM)
+  // --Commented out by Inspection START (12/6/2021 1:08 AM):
+  //  /**
+  //   * This class represents a panel in which to draw the histogram. It contains method to a draw
+  //   * a histogram.
+  //   */
+  //  private class HistogramPanel extends JPanel {
+  //
+  //    /**
+  //     * This method overrides the original painComponent method to draw a histogram.
+  //     *
+  //     * @param g the graphics that are being painted.
+  //     */
+  //    @Override
+  //    public void paintComponent(Graphics g) {
+  //      super.paintComponent(g);
+  //      HistogramImpl h = new HistogramImpl();
+  //      int[] red = h.redHistogram(model.getImage());
+  //      int[] green = h.greenHistogram(model.getImage());
+  //      int[] blue = h.blueHistogram(model.getImage());
+  //      for (int i = 0; i < 255; i++) {
+  //        int xTwo = i + 1;
+  //        g.setColor(Color.RED);
+  //        g.drawLine(i * 20, red[i] * 20, xTwo * 20, red[xTwo] * 20);
+  //        g.setColor(Color.GREEN);
+  //        g.drawLine(i * 20, green[i] * 20 + 100, xTwo * 20, green[xTwo] * 20 + 100);
+  //        g.setColor(Color.BLUE);
+  //        g.drawLine(i * 20, blue[i] * 20 + 150, xTwo * 20, blue[xTwo] * 20 + 150);
+  //      }
+  //    }
+  //  }
+  // --Commented out by Inspection STOP (12/6/2021 1:08 AM)
 }

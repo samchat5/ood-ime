@@ -88,6 +88,6 @@ functionality.
 
 ## Other Notes
 
-Almost all of our new code is inside the HW7 subpackages in each directory, to make it easier to
+Almost all of our new code is inside the hw7 subpackages in each directory, to make it easier to
 separate old logic from the new.
 
