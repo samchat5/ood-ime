@@ -191,4 +191,30 @@ public class IMEModel implements IIMEModel {
     }
     this.imageMap.put(destImageName, filter.applyFilter(imageMap.get(imageName)));
   }
+
+  /**
+   * Downscales the image and saves the given image to the new name.
+   *
+   * @param imageName     image to downscale
+   * @param destImageName new image name
+   * @param newWidth      new width of modified image
+   * @param newHeight     new height of modified image
+   * @throws IllegalArgumentException if the image is not loaded, or the arguments are null
+   */
+  @Override
+  public void downscale(String imageName, String destImageName, int newWidth, int newHeight)
+      throws IllegalArgumentException {
+    if (imageName == null || destImageName == null) {
+      throw new IllegalArgumentException("Invalid downscale.");
+    }
+    if (!this.imageMap.containsKey(imageName)) {
+      throw new IllegalArgumentException("Unloaded image.");
+    }
+    try {
+      this.imageMap.put(destImageName, this.imageMap.get(imageName).downscale(newWidth,
+          newHeight));
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(e.getMessage());
+    }
+  }
 }

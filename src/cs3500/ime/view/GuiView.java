@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -60,7 +61,7 @@ public class GuiView extends JFrame implements IGuiView {
 
     String[] operations = new String[]{"Sepia", "Sharpen", "Blur", "Brighten",
         "Luma Component", "Intensity Component", "Value Component", "Red Component",
-        "Green Component", "Blue Component", "Horizontal Flip", "Vertical Flip"};
+        "Green Component", "Blue Component", "Horizontal Flip", "Vertical Flip", "Downscale"};
     Map<String, String> operationToCommand = new HashMap<>();
     for (String op : operations) {
       operationToCommand.put(op, String.join("-", op.toLowerCase().split(" ")));
@@ -85,13 +86,20 @@ public class GuiView extends JFrame implements IGuiView {
       public void actionPerformed(ActionEvent e) {
         if (selectedOp != null) {
           if (selectedOp.equals("Brighten")) {
-            JOptionPane pane = new BrightenSpinnerOptionPane();
-            Object val = pane.getInputValue();
-            Object opt = pane.getValue();
-            if (val != null && opt != null && (int) opt == JOptionPane.OK_OPTION) {
+            getSpinnerOptionPaneInput(new BrightenSpinnerOptionPane(), (Object val) -> {
               features.setScanner(new Scanner("brighten " + val));
               features.run();
-            }
+            });
+          } else if (selectedOp.equals("Downscale")) {
+            getSpinnerOptionPaneInput(new SpinnerOptionPane("What's the new width?", "Downscale", 0,
+                Integer.MAX_VALUE, 1, 1), (Object val) -> {
+              getSpinnerOptionPaneInput(
+                  new SpinnerOptionPane("What's the new height?", "Downscale", 0,
+                      Integer.MAX_VALUE, 1, 1), (Object val2) -> {
+                    features.setScanner(new Scanner("downscale " + val + " " + val2));
+                    features.run();
+                  });
+            });
           } else {
             features.setScanner(new Scanner(operationToCommand.get(selectedOp)));
             features.run();
@@ -132,6 +140,7 @@ public class GuiView extends JFrame implements IGuiView {
       public void actionPerformed(ActionEvent e) {
         fileChooser.showSaveDialog(frame);
         features.setScanner(new Scanner("save " + fileChooser.getSelectedFile().getAbsolutePath()));
+        features.run();
       }
     });
     toolbar.add(saveButton);
@@ -146,6 +155,14 @@ public class GuiView extends JFrame implements IGuiView {
 
     pack();
     setVisible(true);
+  }
+
+  private void getSpinnerOptionPaneInput(JOptionPane pane, Consumer<Object> callback) {
+    Object val = pane.getInputValue();
+    Object opt = pane.getValue();
+    if (val != null && opt != null && (int) opt == JOptionPane.OK_OPTION) {
+      callback.accept(val);
+    }
   }
 
   /**

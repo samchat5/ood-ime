@@ -97,7 +97,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Save file/image not found.\n");
+    assertEquals(app.toString(), "Invalid file found and/or IO Exception occurred.\n");
   }
 
   @Test
@@ -107,7 +107,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Save file/image not found.\n");
+    assertEquals(app.toString(), "Unloaded image.\n");
   }
 
   @Test
@@ -139,7 +139,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Load file not found.\n");
+    assertEquals(app.toString(), "File unknown/path.ppm not found!\n");
   }
 
   @Test
@@ -149,7 +149,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid RED component command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -159,7 +159,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid BLUE component command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -169,7 +169,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid GREEN component command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -179,7 +179,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid LUMA component command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -189,7 +189,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid INTENSITY component command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -199,7 +199,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid VALUE component command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -358,7 +358,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid brightening command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -369,7 +369,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid brightening command.\n");
+    assertEquals(app.toString(), "Given value is invalid\n");
   }
 
   @Test
@@ -380,7 +380,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid brightening command.\n");
+    assertEquals(app.toString(), "Given value is invalid\n");
   }
 
   @Test
@@ -411,7 +411,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid horizontal flip command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -452,7 +452,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid vertical flip command.\n");
+    assertEquals(app.toString(), "Specified image is not loaded\n");
   }
 
   @Test
@@ -480,7 +480,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Illegal blur command.\n");
+    assertEquals(app.toString(), "Unloaded image.\n");
   }
 
   @Test
@@ -513,7 +513,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid greyscale command.\n");
+    assertEquals(app.toString(), "Unloaded image.\n");
   }
 
 
@@ -542,7 +542,7 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Invalid Sepia command.\n");
+    assertEquals(app.toString(), "Unloaded image.\n");
   }
 
   @Test
@@ -554,10 +554,8 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-
     assertEquals(ImageUtil.readImage("test/mytestSharpen.png"), ImageUtil.readImage(
         "res/PNGImages/testSharpened.png"));
-
     if (!new File("test/mytestSharpen.png").delete()) {
       fail();
     }
@@ -570,6 +568,73 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-    assertEquals(app.toString(), "Illegal Sharpen command.\n");
+    assertEquals(app.toString(), "Unloaded image.\n");
+  }
+
+  // Downscale
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleLargeHeight() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "downscale mytest mytestSmall 1 10000\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleLargeWidth() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "downscale mytest mytestSmall 10000 1\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleLargeHeightWidth() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "downscale mytest mytestSmall 10000 10000\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleNegative() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "downscale mytest mytestSmall -1 -1\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleUnloaded() {
+    StringBuilder app = new StringBuilder();
+    String in = "downscale mytest mytestSmall 400 200\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+  }
+
+  @Test
+  public void testDownscaleNormalUsage() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "downscale mytest mytestSmall 205 115\n"
+        + "save test/mytestSmall.png mytestSmall\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestSmall.png"), ImageUtil.readImage("res/PNGImages"
+        + "/testDownscaleSameRatio.png"));
+    if (!new File("test/mytestSmall.png").delete()) {
+      fail();
+    }
   }
 }

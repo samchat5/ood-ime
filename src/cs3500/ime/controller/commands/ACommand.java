@@ -21,8 +21,8 @@ public abstract class ACommand implements IIMECommand {
   public void run(IIMEModel model) throws IllegalStateException {
     try {
       func.accept(model);
-    } catch (Exception e) {
-      throw new IllegalStateException(errorMessage);
+    } catch (IllegalArgumentException | IllegalStateException | NullPointerException e) {
+      throw new IllegalStateException(e.getMessage());
     }
   }
 }

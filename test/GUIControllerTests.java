@@ -243,4 +243,64 @@ public class GUIControllerTests {
       fail();
     }
   }
+
+  @Test
+  public void testDownscaleLargeHeight() {
+    String in = "load res/PNGImages/testOG.png\n"
+        + "downscale 4 100000\n"
+        + "save test/mytestDownscale.png\n";
+    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    cont.setScanner(new Scanner(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestDownscale.png"), ImageUtil.readImage(
+        "res/PNGImages/testOG.png"));
+    if (!new File("test/mytestDownscale.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testDownscaleLargeWidth() {
+    String in = "load res/PNGImages/testOG.png\n"
+        + "downscale 100000 4\n"
+        + "save test/mytestDownscale.png\n";
+    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    cont.setScanner(new Scanner(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestDownscale.png"), ImageUtil.readImage(
+        "res/PNGImages/testOG.png"));
+    if (!new File("test/mytestDownscale.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testDownscaleLargeWidthHeight() {
+    String in = "load res/PNGImages/testOG.png\n"
+        + "downscale 100000 100000\n"
+        + "save test/mytestDownscale.png\n";
+    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    cont.setScanner(new Scanner(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestDownscale.png"), ImageUtil.readImage(
+        "res/PNGImages/testOG.png"));
+    if (!new File("test/mytestDownscale.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testDownscaleNormalUsage() {
+    String in = "load res/PNGImages/testOG.png\n"
+        + "downscale 205 115\n"
+        + "save test/mytestDownscale.png\n";
+    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    cont.setScanner(new Scanner(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestDownscale.png"), ImageUtil.readImage(
+        "res/PNGImages/testDownscaleSameRatio.png"));
+    if (!new File("test/mytestDownscale.png").delete()) {
+      fail();
+    }
+  }
 }

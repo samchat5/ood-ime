@@ -2,6 +2,7 @@ package cs3500.ime.controller;
 
 import cs3500.ime.controller.commands.BlurCommand;
 import cs3500.ime.controller.commands.Brighten;
+import cs3500.ime.controller.commands.Downscale;
 import cs3500.ime.controller.commands.GreyScale;
 import cs3500.ime.controller.commands.HorizontalFlip;
 import cs3500.ime.controller.commands.Load;
@@ -59,6 +60,8 @@ public class GuiController extends AIMEController implements IGuiController {
     knownCommands.put("blur", (Scanner s) -> new BlurCommand("image", "image"));
     knownCommands.put("load", (Scanner s) -> new Load(s.nextLine().strip(), "image"));
     knownCommands.put("save", (Scanner s) -> new Save(s.nextLine().strip(), "image"));
+    knownCommands.put("downscale", (Scanner s) -> new Downscale("image", "image", s.nextInt(),
+        s.nextInt()));
   }
 
   @Override

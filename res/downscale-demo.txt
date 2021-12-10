@@ -1,0 +1,6 @@
+load res/PNGImages/testOG.png test
+downscale test testDownscaleSameRatio 205 115
+downscale test testDownscaleDifferentRatio 400 100
+save res/testDownscaleSameRatio.png testDownscaleSameRatio
+save res/testDownscaleDifferentRatio.png testDownscaleDifferentRatio
+quit

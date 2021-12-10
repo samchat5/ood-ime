@@ -1,5 +1,29 @@
 # IME : Image Manipulation and Enhancement
 
+## Changelog: Extra Credit
+
+### Downscale - Controller
+
+The only changes needed to the controller were the addition of a new `Downscale` command, in the
+same vein of other commands.
+
+### Downscale - Model
+
+The only changes to the model were the addition of a new `downscale` method in the `IIMEModel`
+and `IImage` interfaces. The method in `IImage` does the "number crunching" for the actual
+downscale, and the method in the model just called the `downscale` method in `IImage`, given the
+name of the image, saving it to the destination image. Errors are checked in the model, but are
+thrown in `IImage` (besides `InvalidArgumentException` errors when passing invalid arguments to the
+model directly).
+
+### Downscale - View
+
+A new class `SpinnerOptionPane` was created as a generalized version of
+`BrightenSpinnerOptionPane`, which now extends `SpinnerOptionPane`. The `SpinnerOptionPane`
+class was created so that the downscaling operation can ask for user input for the new image height
+and width. Other than that, another option was added to the dropdown menu for the operation, and
+another case to the handler for the apply button, similar to "brighten".
+
 ## Changelog: HW6
 
 ### Model

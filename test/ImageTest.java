@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotEquals;
 import cs3500.ime.model.GreyscaleComponent;
 import cs3500.ime.model.image.IImage;
 import cs3500.ime.model.image.Image;
+import cs3500.ime.model.image.ImageUtil;
 import cs3500.ime.model.image.pixel.IPixel;
 import cs3500.ime.model.image.pixel.Pixel;
 import java.util.Arrays;
@@ -583,5 +584,34 @@ public class ImageTest {
         assertEquals(new Pixel(red[i][j], green[i][j], blue[i][j]), image.getPixelAt(i, j));
       }
     }
+  }
+
+  // Downscale tests
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleLargeHeight() {
+    emptyImage.downscale(0, 10);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleLargeWidth() {
+    emptyImage.downscale(10, 0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleLargeHeightWidth() {
+    emptyImage.downscale(10, 10);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleNegative() {
+    emptyImage.downscale(-1, -1);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleNormalUsage() {
+    IImage test = ImageUtil.readImage("res/testOG.png");
+    assertEquals(ImageUtil.readImage("res/testDownscaleSameRatio"), test.downscale(205, 115));
+    assertEquals(ImageUtil.readImage("res/testDownscaleDifferentRatio"), test.downscale(400, 100));
   }
 }

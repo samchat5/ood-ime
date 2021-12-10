@@ -427,4 +427,51 @@ public class IMEModelTest {
     IIMEModel model = new IMEModel();
     model.colorTransform("test", "test", new Luma());
   }
+
+  // Downscale
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleLargeHeight() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.downscale("test", "test", 1, 1000000);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleLargeWidth() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.downscale("test", "test", 10000000, 1);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleLargeHeightWidth() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.downscale("test", "test", 1000000, 1000000);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleNegative() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.downscale("test", "test", -1, -1);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testDownscaleNull() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.downscale(null, null, -1, -1);
+  }
+
+
+  @Test
+  public void testDownscaleNormalUsage() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.downscale("test", "test", 205, 115);
+    assertEquals(model.save("test"), ImageUtil.readImage("res/PNGImages/testDownscaleSameRatio"
+        + ".png"));
+  }
 }

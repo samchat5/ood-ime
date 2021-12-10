@@ -3,6 +3,7 @@ import static org.junit.Assert.fail;
 
 import cs3500.ime.controller.commands.BlurCommand;
 import cs3500.ime.controller.commands.Brighten;
+import cs3500.ime.controller.commands.Downscale;
 import cs3500.ime.controller.commands.GreyScale;
 import cs3500.ime.controller.commands.HorizontalFlip;
 import cs3500.ime.controller.commands.Load;
@@ -334,4 +335,52 @@ public class CommandsTest {
       fail();
     }
   }
+
+  // Downscale
+  
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleLargeHeight() {
+    IImage testImage = new Image(1, 1, new IPixel[][]{{new Pixel(255)}});
+    model.load(testImage, "mytest");
+    new Downscale("mytest", "mytest", 1, 2).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleLargeWidth() {
+    IImage testImage = new Image(1, 1, new IPixel[][]{{new Pixel(255)}});
+    model.load(testImage, "mytest");
+    new Downscale("mytest", "mytest", 2, 1).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleLargeHeightWidth() {
+    IImage testImage = new Image(1, 1, new IPixel[][]{{new Pixel(255)}});
+    model.load(testImage, "mytest");
+    new Downscale("mytest", "mytest", 2, 2).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleNegative() {
+    model.load(emptyImage, "mytest");
+    new Downscale("mytest", "mytest", -1, -1).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleNull() {
+    model.load(emptyImage, "mytest");
+    new Downscale(null, null, 0, 0).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testDownscaleUnloaded() {
+    new Downscale("mytest", "mytest", 0, 0).run(model);
+  }
+
+  @Test
+  public void testDownscaleNormalUsage() {
+    model.load(emptyImage, "mytest");
+    new Downscale("mytest", "mytest", 0, 0).run(model);
+    assertEquals(emptyImage, model.save("mytest"));
+  }
+
 }

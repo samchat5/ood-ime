@@ -101,5 +101,17 @@ public interface IIMEModel {
    */
   void filter(String imageName, String destImageName, IFilter filter)
       throws IllegalArgumentException;
+
+  /**
+   * Downscales the image and saves the given image to the new name.
+   *
+   * @param imageName     image to downscale
+   * @param destImageName new image name
+   * @param newWidth      new width of modified image
+   * @param newHeight     new height of modified image
+   * @throws IllegalArgumentException if the image is not loaded, or the arguments are null
+   */
+  void downscale(String imageName, String destImageName, int newWidth, int newHeight)
+      throws IllegalArgumentException;
 }
 

@@ -41,7 +41,6 @@ public class ColorTransformTest {
     return ret;
   }
 
-
   private IPixel[][] pixelArrayFromChannelArrays(int[][] vals)
       throws IllegalArgumentException {
     return pixelArrayFromChannelArrays(vals, vals, vals);

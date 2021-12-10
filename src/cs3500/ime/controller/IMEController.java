@@ -2,6 +2,7 @@ package cs3500.ime.controller;
 
 import cs3500.ime.controller.commands.BlurCommand;
 import cs3500.ime.controller.commands.Brighten;
+import cs3500.ime.controller.commands.Downscale;
 import cs3500.ime.controller.commands.GreyScale;
 import cs3500.ime.controller.commands.HorizontalFlip;
 import cs3500.ime.controller.commands.Load;
@@ -63,6 +64,8 @@ public class IMEController extends AIMEController implements IIMEController {
     knownCommands.put("sharpen", (Scanner s) -> new SharpenCommand(s.next(), s.next()));
     knownCommands.put("blur", (Scanner s) -> new BlurCommand(s.next(), s.next()));
     knownCommands.put("greyscale", (Scanner s) -> new LumaTransform(s.next(), s.next()));
+    knownCommands.put("downscale", (Scanner s) -> new Downscale(s.next(), s.next(), s.nextInt(),
+        s.nextInt()));
   }
 
   /**

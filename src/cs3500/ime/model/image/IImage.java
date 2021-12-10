@@ -81,4 +81,14 @@ public interface IImage {
    */
   IPixel getPixelAt(int row, int col) throws IllegalArgumentException;
 
+  /**
+   * Returns a new downscale version of this {@code IImage}.
+   *
+   * @param newWidth  new width of the downscaled image
+   * @param newHeight new height of the downscaled image
+   * @return a new downscaled version of this {@code IImage}
+   * @throws IllegalArgumentException if newWidth or newHeight are greater than the original, or are
+   *                                  less than 0
+   */
+  IImage downscale(int newWidth, int newHeight) throws IllegalArgumentException;
 }

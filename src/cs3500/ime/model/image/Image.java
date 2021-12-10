@@ -6,6 +6,8 @@ import cs3500.ime.model.image.pixel.Pixel;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.stream.IntStream;
 
 /**
  * Concrete class representing an image. Has an array of pixels, a width, and a height. An image can
@@ -219,6 +221,57 @@ public class Image implements IImage {
     IPixel target = pixelArray[row][col];
     int[] targetValues = target.getValues();
     return new Pixel(targetValues[0], targetValues[1], targetValues[2]);
+  }
+
+  /**
+   * Returns a new downscale version of this {@code IImage}.
+   *
+   * @param newWidth  new width of the downscaled image
+   * @param newHeight new height of the downscaled image
+   * @return a new downscaled version of this {@code IImage}
+   * @throws IllegalArgumentException if newWidth or newHeight are greater than the initial values,
+   *                                  or are less than 0
+   */
+  @Override
+  public IImage downscale(int newWidth, int newHeight) throws IllegalArgumentException {
+    if (newWidth < 0 || newHeight < 0) {
+      throw new IllegalArgumentException("New width and height must be greater than 0.");
+    }
+    if (newWidth > this.width || newHeight > this.height) {
+      throw new IllegalArgumentException(String.format("New dimensions are greater than original "
+          + "dimensions. Width cannot be greater than %d, was %d. Height cannot be greater than "
+          + "%d, was %d.", this.width, newWidth, this.height, newHeight));
+    }
+    IPixel[][] arr = new Pixel[newHeight][newWidth];
+    for (int y_p = 0; y_p < newHeight; y_p++) {
+      for (int x_p = 0; x_p < newWidth; x_p++) {
+        double x = (double) x_p / newWidth * width;
+        double y = (double) y_p / newHeight * height;
+
+        int[] A = getPixelAt((int) Math.floor(y), (int) Math.floor(x)).getValues();
+        int[] B = getPixelAt((int) Math.floor(y), (int) Math.ceil(x)).getValues();
+        int[] C = getPixelAt((int) Math.ceil(y), (int) Math.floor(x)).getValues();
+        int[] D = getPixelAt((int) Math.ceil(y), (int) Math.ceil(x)).getValues();
+
+        // edge case where pixels are all equal to each other. in this case, we just set the new
+        // pixel equal to whatever the original pixel was.
+        if (!Arrays.equals(A, B) && !Arrays.equals(A, C) && !Arrays.equals(B, C)) {
+          BiFunction<Integer, Integer, Double> m_f = (a, b) -> b * (x - Math.floor(x)) + a * (
+              Math.ceil(x) - x);
+          BiFunction<Integer, Integer, Double> n_f = (c, d) -> d * (x - Math.floor(x)) + c * (
+              Math.ceil(x) - x);
+          BiFunction<Double, Double, Integer> c_p =
+              (m, n) -> (int) (n * (y - Math.floor(y)) + m * (Math.ceil(y) - y));
+          int[] colors = IntStream.rangeClosed(0, 2).map((i) -> c_p.apply(m_f.apply(A[i], B[i]),
+              n_f.apply(C[i], D[i]))).toArray();
+
+          arr[y_p][x_p] = new Pixel(colors[0], colors[1], colors[2]);
+        } else {
+          arr[y_p][x_p] = new Pixel(A[0], A[1], A[2]);
+        }
+      }
+    }
+    return new Image(newHeight, newWidth, arr);
   }
 
   /**
