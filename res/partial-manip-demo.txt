@@ -1,0 +1,21 @@
+load PNGImages/testOG.png test
+load PNGImages/masks/testMask.png mask
+red-component test mask testMask
+save PNGImages/masks/testRedMask.png testMask
+green-component test mask testMask
+save PNGImages/masks/testGreenMask.png testMask
+blue-component test mask testMask
+save PNGImages/masks/testBlueMask.png testMask
+greyscale test mask testMask
+save PNGImages/masks/testLumaMask.png testMask
+intensity-component test mask testMask
+save PNGImages/masks/testIntensityMask.png testMask
+value-component test mask testMask
+save PNGImages/masks/testValueMask.png testMask
+blur test mask testMask
+save PNGImages/masks/testBlurMask.png testMask
+sharpen test mask testMask
+save PNGImages/masks/testSharpenMask.png testMask
+sepia test mask testMask
+save PNGImages/masks/testSepiaMask.png testMask
+quit

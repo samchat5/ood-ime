@@ -94,4 +94,29 @@ public class ColorTransformTest {
   public void testSepiaNull() {
     sepia.applyTransform(null);
   }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testBlueNullMask() {
+    blue.applyTransform(color, null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreenNullMask() {
+    green.applyTransform(color, null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testLumaNullMask() {
+    luma.applyTransform(color, null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testRedNullMask() {
+    red.applyTransform(color, null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSepiaNullMask() {
+    sepia.applyTransform(color, null);
+  }
 }

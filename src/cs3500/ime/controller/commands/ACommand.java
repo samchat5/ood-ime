@@ -10,11 +10,9 @@ import java.util.function.Consumer;
 public abstract class ACommand implements IIMECommand {
 
   private final Consumer<IIMEModel> func;
-  private final String errorMessage;
 
   protected ACommand(Consumer<IIMEModel> func, String errorMessage) {
     this.func = func;
-    this.errorMessage = errorMessage;
   }
 
   @Override

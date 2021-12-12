@@ -16,4 +16,15 @@ public interface IColorTransform {
    * @throws IllegalArgumentException if image is null
    */
   IImage applyTransform(IImage image) throws IllegalArgumentException;
+
+
+  /**
+   * Applies this color transformation to the given image, using the given mask.
+   *
+   * @param image image to apply transformation on
+   * @param mask  mask to apply to the image
+   * @return transformed image
+   * @throws IllegalArgumentException if image is null, or mask is invalid
+   */
+  IImage applyTransform(IImage image, boolean[][] mask) throws IllegalArgumentException;
 }

@@ -13,4 +13,9 @@ public class LumaTransform extends ACommand {
     super((IIMEModel m) -> m.colorTransform(imageName, destImageName, new Luma()), "Invalid "
         + "greyscale command.");
   }
+  
+  public LumaTransform(String imageName, String destImageName, String maskImageName) {
+    super((IIMEModel m) -> m.colorTransform(imageName, destImageName, maskImageName, new Luma()),
+        "Invalid greyscale command.");
+  }
 }

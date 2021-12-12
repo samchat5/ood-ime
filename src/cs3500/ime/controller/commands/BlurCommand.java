@@ -14,6 +14,11 @@ public class BlurCommand extends ACommand {
         + "command.");
   }
 
+  public BlurCommand(String imageName, String destImageName, String maskImageName) {
+    super((IIMEModel model) -> model.filter(imageName, destImageName, maskImageName, new Blur()),
+        "Illegal blur command.");
+  }
+
   /**
    * Runs this command on the model object.
    *

@@ -5,6 +5,7 @@ import cs3500.ime.controller.commands.Brighten;
 import cs3500.ime.controller.commands.Downscale;
 import cs3500.ime.controller.commands.GreyScale;
 import cs3500.ime.controller.commands.HorizontalFlip;
+import cs3500.ime.controller.commands.IIMECommand;
 import cs3500.ime.controller.commands.Load;
 import cs3500.ime.controller.commands.LumaTransform;
 import cs3500.ime.controller.commands.Save;
@@ -17,6 +18,8 @@ import cs3500.ime.view.IIMEView;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Concrete implementation of {@code IIMEController}. Uses the command design pattern, with a map of
@@ -49,23 +52,39 @@ public class IMEController extends AIMEController implements IIMEController {
     knownCommands.put("vertical-flip", (Scanner s) -> new VerticalFlip(s.next(), s.next()));
     knownCommands.put("horizontal-flip", (Scanner s) -> new HorizontalFlip(s.next(), s.next()));
     knownCommands.put("value-component",
-        (Scanner s) -> new GreyScale(s.next(), s.next(), GreyscaleComponent.VALUE));
+        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.VALUE));
     knownCommands.put("luma-component",
-        (Scanner s) -> new GreyScale(s.next(), s.next(), GreyscaleComponent.LUMA));
+        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.LUMA));
     knownCommands.put("intensity-component",
-        (Scanner s) -> new GreyScale(s.next(), s.next(), GreyscaleComponent.INTENSITY));
-    knownCommands.put("red-component",
-        (Scanner s) -> new GreyScale(s.next(), s.next(), GreyscaleComponent.RED));
+        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.INTENSITY));
+    knownCommands.put("red-component", (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.RED));
     knownCommands.put("blue-component",
-        (Scanner s) -> new GreyScale(s.next(), s.next(), GreyscaleComponent.BLUE));
+        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.BLUE));
     knownCommands.put("green-component",
-        (Scanner s) -> new GreyScale(s.next(), s.next(), GreyscaleComponent.GREEN));
-    knownCommands.put("sepia", (Scanner s) -> new SepiaCommand(s.next(), s.next()));
-    knownCommands.put("sharpen", (Scanner s) -> new SharpenCommand(s.next(), s.next()));
-    knownCommands.put("blur", (Scanner s) -> new BlurCommand(s.next(), s.next()));
-    knownCommands.put("greyscale", (Scanner s) -> new LumaTransform(s.next(), s.next()));
-    knownCommands.put("downscale", (Scanner s) -> new Downscale(s.next(), s.next(), s.nextInt(),
-        s.nextInt()));
+        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.GREEN));
+    knownCommands.put("sepia", (Scanner s) -> maskCommandCallback(s, SepiaCommand::new,
+        (String s1) -> (String s2, String s3) -> new SepiaCommand(s1, s2, s3)));
+    knownCommands.put("sharpen", (Scanner s) -> maskCommandCallback(s, SharpenCommand::new,
+        (String s1) -> (String s2, String s3) -> new SharpenCommand(s1, s2, s3)));
+    knownCommands.put("blur", (Scanner s) -> maskCommandCallback(s, BlurCommand::new,
+        (String s1) -> (String s2, String s3) -> new BlurCommand(s1, s2, s3)));
+    knownCommands.put("greyscale", (Scanner s) -> maskCommandCallback(s, LumaTransform::new,
+        (String s1) -> (String s2, String s3) -> new LumaTransform(s1, s2, s3)));
+    knownCommands.put("downscale",
+        (Scanner s) -> new Downscale(s.next(), s.next(), s.nextInt(), s.nextInt()));
+  }
+
+  private IIMECommand maskCommandCallback(Scanner s,
+      BiFunction<String, String, IIMECommand> regConstructor,
+      Function<String, BiFunction<String, String, IIMECommand>> maskConstructor) {
+    String[] args = scanner.nextLine().split(" ");
+    return args.length == 3 ? regConstructor.apply(args[1], args[2])
+        : maskConstructor.apply(args[1]).apply(args[3], args[2]);
+  }
+
+  private IIMECommand greyScaleCallback(Scanner s, GreyscaleComponent component) {
+    return maskCommandCallback(s, (String s1, String s2) -> new GreyScale(s1, s2, component),
+        (String s1) -> (String s2, String s3) -> new GreyScale(s1, s2, s3, component));
   }
 
   /**

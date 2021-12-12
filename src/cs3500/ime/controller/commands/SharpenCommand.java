@@ -13,4 +13,9 @@ public class SharpenCommand extends ACommand {
     super((IIMEModel model) -> model.filter(imageName, destImageName, new Sharpen()),
         "Illegal Sharpen command.");
   }
+
+  public SharpenCommand(String imageName, String destImageName, String maskImageName) {
+    super((IIMEModel model) -> model.filter(imageName, destImageName, maskImageName, new Sharpen()),
+        "Illegal Sharpen command.");
+  }
 }

@@ -63,6 +63,39 @@ public class CommandsTest {
     assertEquals(emptyImage, model.save("mytest2"));
   }
 
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameBlurMask() {
+    model.load(emptyImage, "mytest");
+    model.load(emptyImage, "mytest2");
+    new BlurCommand("mytest", null, "mytest2").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameBlurMask() {
+    model.load(emptyImage, "mytest");
+    model.load(emptyImage, "mytest2");
+    new BlurCommand(null, "mytest", "mytest2").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidCommandBlurMask() {
+    new BlurCommand("mytest", "myTestNew", "mask").run(model);
+  }
+
+  @Test
+  public void testNormalUsageBlurMask() {
+    model.load(emptyImage, "mytest");
+    model.load(emptyImage, "mask");
+    new BlurCommand("mytest", "mytest2", "mask").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullMaskImageName() {
+    model.load(emptyImage, "mytest");
+    new BlurCommand("mytest", "mytest", null).run(model);
+  }
+
   // Luma Transform
 
   @Test(expected = IllegalStateException.class)
@@ -74,7 +107,7 @@ public class CommandsTest {
   @Test(expected = IllegalStateException.class)
   public void testNullNewImageNameLumaTransform() {
     model.load(emptyImage, "mytest");
-    new LumaTransform(null, "mytest2").run(model);
+    new LumaTransform(null, "mytest").run(model);
   }
 
   @Test(expected = IllegalStateException.class)
@@ -86,6 +119,41 @@ public class CommandsTest {
   public void testNormalUsageLumaTransform() {
     model.load(emptyImage, "mytest");
     new LumaTransform("mytest", "mytest2").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameLumaTransformMask() {
+    model.load(emptyImage, "mytest");
+    model.load(emptyImage, "mask");
+    new LumaTransform("mytest", null, "mask").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameLumaTransformMask() {
+    model.load(emptyImage, "mytest");
+    model.load(emptyImage, "mask");
+    new LumaTransform(null, "mytest", "mask").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidCommandLumaTransformMask() {
+    new LumaTransform("mytest", "myTestNew", "mask").run(model);
+  }
+
+  @Test
+  public void testNormalUsageLumaTransformMask() {
+    model.load(emptyImage, "mytest");
+    model.load(emptyImage, "mask");
+    new LumaTransform("mytest", "mytest2", "mask").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullMaskImageNameLumaTransform() {
+    model.load(emptyImage, "mytest");
+    new LumaTransform("mytest", "mytest2", null).run(model);
     assertEquals(emptyImage, model.save("mytest2"));
   }
 
@@ -115,6 +183,36 @@ public class CommandsTest {
     assertEquals(emptyImage, model.save("mytest2"));
   }
 
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameSepiaMask() {
+    model.load(emptyImage, "mytest");
+    new SepiaCommand("mytest", null, "mytest").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameSepiaMask() {
+    model.load(emptyImage, "mytest");
+    new SepiaCommand(null, "mytest", "mytest").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidCommandSepiaMask() {
+    new SepiaCommand("mytest", "myTestNew", "mask").run(model);
+  }
+
+  @Test
+  public void testNormalUsageSepiaMask() {
+    model.load(emptyImage, "mytest");
+    new SepiaCommand("mytest", "mytest2", "mytest").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullMaskImageNameSepia() {
+    model.load(emptyImage, "mytest");
+    new SepiaCommand("mytest", "mytest2", null).run(model);
+  }
+
   // Sharpen
 
   @Test(expected = IllegalStateException.class)
@@ -139,6 +237,36 @@ public class CommandsTest {
     model.load(emptyImage, "mytest");
     new SharpenCommand("mytest", "mytest2").run(model);
     assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameSharpenMask() {
+    model.load(emptyImage, "mytest");
+    new SharpenCommand("mytest", null, "mytest").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameSharpenMask() {
+    model.load(emptyImage, "mytest");
+    new SharpenCommand(null, "mytest", "mytest").run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidCommandSharpenMask() {
+    new SharpenCommand("mytest", "myTestNew", "mytest").run(model);
+  }
+
+  @Test
+  public void testNormalUsageSharpenMask() {
+    model.load(emptyImage, "mytest");
+    new SharpenCommand("mytest", "mytest2", "mytest").run(model);
+    assertEquals(emptyImage, model.save("mytest2"));
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullMaskImageNameSharpen() {
+    model.load(emptyImage, "mytest");
+    new SharpenCommand("mytest", "mytest2", null).run(model);
   }
 
   // Brighten
@@ -201,6 +329,45 @@ public class CommandsTest {
       new GreyScale("mytest", "mytestGrey", c).run(model);
       assertEquals(model.save("mytestGrey"), emptyImage);
     }
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullNewImageNameGreyscaleMask() {
+    model.load(emptyImage, "mytest");
+    new GreyScale("mytest", null, "mytest", GreyscaleComponent.BLUE).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullImageNameGreyscaleMask() {
+    model.load(emptyImage, "mytest");
+    new GreyScale(null, "mytest", "mytest", GreyscaleComponent.BLUE).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullComponentGreyScaleMask() {
+    model.load(emptyImage, "mytest");
+    new GreyScale("mytest", "mytest", "mytest", null).run(model);
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testInvalidGreyscaleMask() {
+    IIMEModel model = new IMEModel();
+    new GreyScale("mytest", "mytest", "mytest", GreyscaleComponent.BLUE).run(model);
+  }
+
+  @Test
+  public void testNormalUsageGreyscaleMask() {
+    model.load(emptyImage, "mytest");
+    for (GreyscaleComponent c : GreyscaleComponent.values()) {
+      new GreyScale("mytest", "mytestGrey", "mytest", c).run(model);
+      assertEquals(model.save("mytestGrey"), emptyImage);
+    }
+  }
+
+  @Test(expected = IllegalStateException.class)
+  public void testNullMaskImageNameGreyscale() {
+    model.load(emptyImage, "mytest");
+    new GreyScale("mytest", "mytest", null, GreyscaleComponent.BLUE).run(model);
   }
 
   // Horizontal Flip
@@ -337,7 +504,7 @@ public class CommandsTest {
   }
 
   // Downscale
-  
+
   @Test(expected = IllegalStateException.class)
   public void testDownscaleLargeHeight() {
     IImage testImage = new Image(1, 1, new IPixel[][]{{new Pixel(255)}});

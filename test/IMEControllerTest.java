@@ -124,8 +124,7 @@ public class IMEControllerTest {
   @Test
   public void testUnknownCommandMultipleArgs() {
     StringBuilder app = new StringBuilder();
-    @SuppressWarnings("SpellCheckingInspection")
-    String in = "some-command ei a q whe a a qwke e  a ksk  dad  \nquit\n";
+    String in = "some-command beans rice jesus christ and Byyyyyron\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
@@ -153,6 +152,16 @@ public class IMEControllerTest {
   }
 
   @Test
+  public void testInvalidRedMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "red-component koala mask koalaGrey\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Unloaded image(s).\n");
+  }
+
+  @Test
   public void testInvalidBlue() {
     StringBuilder app = new StringBuilder();
     String in = "blue-component koala koalaGrey\nquit\n";
@@ -160,6 +169,16 @@ public class IMEControllerTest {
         new StringReader(in));
     cont.run();
     assertEquals(app.toString(), "Specified image is not loaded\n");
+  }
+
+  @Test
+  public void testInvalidBlueMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "blue-component koala mask koalaGrey\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Unloaded image(s).\n");
   }
 
   @Test
@@ -173,6 +192,16 @@ public class IMEControllerTest {
   }
 
   @Test
+  public void testInvalidGreenMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "green-component koala mask koalaGrey\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Unloaded image(s).\n");
+  }
+
+  @Test
   public void testInvalidLuma() {
     StringBuilder app = new StringBuilder();
     String in = "luma-component koala koalaGrey\nquit\n";
@@ -180,6 +209,16 @@ public class IMEControllerTest {
         new StringReader(in));
     cont.run();
     assertEquals(app.toString(), "Specified image is not loaded\n");
+  }
+
+  @Test
+  public void testInvalidLumaMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "luma-component koala mask koalaGrey\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Unloaded image(s).\n");
   }
 
   @Test
@@ -193,6 +232,16 @@ public class IMEControllerTest {
   }
 
   @Test
+  public void testInvalidIntensityMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "intensity-component koala mask koalaGrey\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Unloaded image(s).\n");
+  }
+
+  @Test
   public void testInvalidValue() {
     StringBuilder app = new StringBuilder();
     String in = "value-component koala koalaGrey\nquit\n";
@@ -200,6 +249,16 @@ public class IMEControllerTest {
         new StringReader(in));
     cont.run();
     assertEquals(app.toString(), "Specified image is not loaded\n");
+  }
+
+  @Test
+  public void testInvalidValueMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "value-component koala mask koalaGrey\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(app.toString(), "Unloaded image(s).\n");
   }
 
   @Test
@@ -219,6 +278,23 @@ public class IMEControllerTest {
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testRed.png"));
     if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testRedComponentMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "red-component mytest mask mytestMask\n"
+        + "save test/mytestMask.png mytestMask\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestMask.png"), ImageUtil.readImage(
+        "res/PNGImages/testRed.png"));
+    if (!new File("test/mytestMask.png").delete()) {
       fail();
     }
   }
@@ -245,6 +321,23 @@ public class IMEControllerTest {
   }
 
   @Test
+  public void testBlueComponentMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "blue-component mytest mask mytestMask\n"
+        + "save test/mytestMask.png mytestMask\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestMask.png"), ImageUtil.readImage(
+        "res/PNGImages/testBlue.png"));
+    if (!new File("test/mytestMask.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
   public void testGreenComponent() {
     StringBuilder app = new StringBuilder();
     String in = "load res/PNGImages/Koala.png koala\n"
@@ -261,6 +354,23 @@ public class IMEControllerTest {
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testGreen.png"));
     if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testGreenComponentMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "green-component mytest mask mytestMask\n"
+        + "save test/mytestMask.png mytestMask\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestMask.png"), ImageUtil.readImage(
+        "res/PNGImages/testGreen.png"));
+    if (!new File("test/mytestMask.png").delete()) {
       fail();
     }
   }
@@ -287,6 +397,23 @@ public class IMEControllerTest {
   }
 
   @Test
+  public void testLumaComponentMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "luma-component mytest mask mytestMask\n"
+        + "save test/mytestMask.png mytestMask\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestMask.png"), ImageUtil.readImage(
+        "res/PNGImages/testLuma.png"));
+    if (!new File("test/mytestMask.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
   public void testValueComponent() {
     StringBuilder app = new StringBuilder();
     String in = "load res/PNGImages/Koala.png koala\n"
@@ -308,6 +435,23 @@ public class IMEControllerTest {
   }
 
   @Test
+  public void testValueComponentMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "value-component mytest mask mytestMask\n"
+        + "save test/mytestMask.png mytestMask\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestMask.png"), ImageUtil.readImage(
+        "res/PNGImages/testValue.png"));
+    if (!new File("test/mytestMask.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
   public void testIntensityComponent() {
     StringBuilder app = new StringBuilder();
     String in = "load res/PNGImages/Koala.png koala\n"
@@ -324,6 +468,23 @@ public class IMEControllerTest {
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testIntensity.png"));
     if (!new File("test/koalaGrey.ppm").delete() || !new File("test/mytestGrey.ppm").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testIntensityComponentMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "intensity-component mytest mask mytestMask\n"
+        + "save test/mytestMask.png mytestMask\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestMask.png"), ImageUtil.readImage(
+        "res/PNGImages/testIntensity.png"));
+    if (!new File("test/mytestMask.png").delete()) {
       fail();
     }
   }
@@ -464,10 +625,25 @@ public class IMEControllerTest {
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));
     cont.run();
-
     assertEquals(ImageUtil.readImage("test/mytestBlur.png"), ImageUtil.readImage(
         "res/PNGImages/testBlurred.png"));
+    if (!new File("test/mytestBlur.png").delete()) {
+      fail();
+    }
+  }
 
+  @Test
+  public void testBlurMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "blur mytest mask mytestBlur\n"
+        + "save test/mytestBlur.png mytestBlur\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestBlur.png"), ImageUtil.readImage(
+        "res/PNGImages/testBlurred.png"));
     if (!new File("test/mytestBlur.png").delete()) {
       fail();
     }
@@ -507,6 +683,23 @@ public class IMEControllerTest {
   }
 
   @Test
+  public void testLumaTransformMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "greyscale mytest mask mytestLuma\n"
+        + "save test/mytestLuma.png mytestLuma\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestLuma.png"), ImageUtil.readImage(
+        "res/PNGImages/testLuma.png"));
+    if (!new File("test/mytestLuma.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
   public void testLumaUnloaded() {
     StringBuilder app = new StringBuilder();
     String in = " greyscale koala koalaLuma\nquit\n";
@@ -515,7 +708,6 @@ public class IMEControllerTest {
     cont.run();
     assertEquals(app.toString(), "Unloaded image.\n");
   }
-
 
   @Test
   public void testSepiaTransform() {
@@ -536,6 +728,23 @@ public class IMEControllerTest {
   }
 
   @Test
+  public void testSepiaTransformMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "sepia mytest mask mytestSepia\n"
+        + "save test/mytestSepia.png mytestSepia\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestSepia.png"), ImageUtil.readImage(
+        "res/PNGImages/testSepia.png"));
+    if (!new File("test/mytestSepia.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
   public void testSepiaUnloaded() {
     StringBuilder app = new StringBuilder();
     String in = "sepia koala koalaSepia\nquit\n";
@@ -550,6 +759,23 @@ public class IMEControllerTest {
     StringBuilder app = new StringBuilder();
     String in = "load res/PNGImages/testOG.png mytest\n"
         + "sharpen mytest mytestSharpen\n"
+        + "save test/mytestSharpen.png mytestSharpen\nquit\n";
+    IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
+        new StringReader(in));
+    cont.run();
+    assertEquals(ImageUtil.readImage("test/mytestSharpen.png"), ImageUtil.readImage(
+        "res/PNGImages/testSharpened.png"));
+    if (!new File("test/mytestSharpen.png").delete()) {
+      fail();
+    }
+  }
+
+  @Test
+  public void testSharpenMask() {
+    StringBuilder app = new StringBuilder();
+    String in = "load res/PNGImages/testOG.png mytest\n"
+        + "load res/PNGImages/masks/testMaskFull.png mask\n"
+        + "sharpen mytest mask mytestSharpen\n"
         + "save test/mytestSharpen.png mytestSharpen\nquit\n";
     IIMEController cont = new IMEController(new IMEModel(), new IMETextView(app),
         new StringReader(in));

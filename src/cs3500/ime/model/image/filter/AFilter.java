@@ -26,4 +26,12 @@ public abstract class AFilter implements IFilter {
     }
     return target.applyFilter(this.filterKernel);
   }
+
+  @Override
+  public IImage applyFilter(IImage target, boolean[][] mask) throws IllegalArgumentException {
+    if (target == null) {
+      throw new IllegalArgumentException("Null target.");
+    }
+    return target.applyFilter(this.filterKernel, mask);
+  }
 }

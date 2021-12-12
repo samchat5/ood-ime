@@ -24,4 +24,13 @@ public abstract class AColorTransform implements IColorTransform {
     }
     return image.applyTransform(kernel);
   }
+
+
+  @Override
+  public IImage applyTransform(IImage image, boolean[][] mask) throws IllegalArgumentException {
+    if (image == null || mask == null) {
+      throw new IllegalArgumentException("Null image.");
+    }
+    return image.applyTransform(kernel, mask);
+  }
 }

@@ -24,6 +24,7 @@ public class IMEModelTest {
   private final String relPathToRes = "res/";
   private final IImage koala;
   private final IImage testOG;
+  private final IImage mask;
 
   /**
    * Constructor that initializes image objects to speed up tests.
@@ -31,6 +32,7 @@ public class IMEModelTest {
   public IMEModelTest() {
     this.koala = ImageUtil.readImage(relPathToRes + "PNGImages/koala.png");
     this.testOG = ImageUtil.readImage(relPathToRes + "PNGImages/testOG.png");
+    this.mask = ImageUtil.readImage(relPathToRes + "PNGImages/masks/testMask.png");
   }
 
   @Test
@@ -281,9 +283,61 @@ public class IMEModelTest {
         "PNGImages/testIntensity.png"));
   }
 
+  @Test
+  public void testGreyScaleMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "mytest");
+    model.load(this.mask, "mask");
+
+    model.greyScale("mytest", "mytestGrey", "mask", GreyscaleComponent.RED);
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testRedMask.png"));
+
+    model.greyScale("mytest", "mytestGrey", "mask", GreyscaleComponent.BLUE);
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testBlueMask.png"));
+
+    model.greyScale("mytest", "mytestGrey", "mask", GreyscaleComponent.GREEN);
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testGreenMask.png"));
+
+    model.greyScale("mytest", "mytestGrey", "mask", GreyscaleComponent.LUMA);
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testLumaMask.png"));
+
+    model.greyScale("mytest", "mytestGrey", "mask", GreyscaleComponent.VALUE);
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testValueMask.png"));
+
+    model.greyScale("mytest", "mytestGrey", "mask", GreyscaleComponent.INTENSITY);
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testIntensityMask.png"));
+  }
+
   @Test(expected = IllegalArgumentException.class)
-  public void testGreyscaleUnloadedImage() {
-    new IMEModel().greyScale("koala", "koalaGrey", GreyscaleComponent.RED);
+  public void testGreyscaleUnloadedImageMask() {
+    new IMEModel().greyScale("koala", "koalaGrey", "mask", GreyscaleComponent.RED);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreyScaleNullImageNameMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.greyScale(null, "koalaGrey", "koala", GreyscaleComponent.GREEN);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreyScaleNullNewImageNameMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.greyScale("koala", null, "koala", GreyscaleComponent.GREEN);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreyScaleNullComponentMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.greyScale("koala", "koalaGrey", "mask", null);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -310,24 +364,56 @@ public class IMEModelTest {
     model.greyScale("koala", "koalaGrey", null);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreyScaleNullMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.greyScale("koala", "koalaGrey", null, GreyscaleComponent.INTENSITY);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testGreyScaleUnloadedMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.koala, "koala");
+    model.greyScale("koala", "koalaGrey", "mask", GreyscaleComponent.INTENSITY);
+  }
+
   @Test
   public void testBlurFilter() {
     IIMEModel model = new IMEModel();
     model.load(testOG, "testOG");
-
     model.filter("testOG", "testOGBlur", new Blur());
     assertEquals(model.save("testOGBlur"),
         ImageUtil.readImage(relPathToRes + "PNGImages/testBlurred.png"));
   }
 
   @Test
+  public void testBlurFilterMask() {
+    IIMEModel model = new IMEModel();
+    model.load(testOG, "testOG");
+    model.load(mask, "mask");
+    model.filter("testOG", "testOGBlur", "mask", new Blur());
+    assertEquals(model.save("testOGBlur"),
+        ImageUtil.readImage(relPathToRes + "PNGImages/masks/testBlurMask.png"));
+  }
+
+  @Test
   public void testSharpenFilter() {
     IIMEModel model = new IMEModel();
     model.load(testOG, "testOG");
-
     model.filter("testOG", "testOGSharpen", new Sharpen());
     assertEquals(model.save("testOGSharpen"), ImageUtil.readImage(relPathToRes +
         "PNGImages/testSharpened.png"));
+  }
+
+  @Test
+  public void testSharpenFilterMask() {
+    IIMEModel model = new IMEModel();
+    model.load(testOG, "testOG");
+    model.load(mask, "mask");
+    model.filter("testOG", "testOGSharpen", "mask", new Sharpen());
+    assertEquals(model.save("testOGSharpen"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testSharpenMask.png"));
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -357,6 +443,40 @@ public class IMEModelTest {
     model.filter("test", "test", new Blur());
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterNullNameMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.filter(null, "testNew", "test", new Blur());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterNullNewNameMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.filter("test", null, "test", new Sharpen());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterNullFilterMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.filter("test", "testNew", "test", null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterUnloadedMask() {
+    IIMEModel model = new IMEModel();
+    model.filter("test", "test", "mask", new Blur());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testFilterNullMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.filter("test", "test", null, new Blur());
+  }
+
   @Test
   public void testSepia() {
     IIMEModel model = new IMEModel();
@@ -364,6 +484,16 @@ public class IMEModelTest {
     model.colorTransform("test", "testSepia", new Sepia());
     assertEquals(model.save("testSepia"), ImageUtil.readImage(relPathToRes + "PNGImages"
         + "/testSepia.png"));
+  }
+
+  @Test
+  public void testSepiaMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.load(this.mask, "mask");
+    model.colorTransform("test", "testSepia", "mask", new Sepia());
+    assertEquals(model.save("testSepia"), ImageUtil.readImage(relPathToRes + "PNGImages/masks/"
+        + "testSepiaMask.png"));
   }
 
   @Test
@@ -401,6 +531,29 @@ public class IMEModelTest {
         "PNGImages/testLuma.png"));
   }
 
+  @Test
+  public void testGreyScaleUsingTransformMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "mytest");
+    model.load(this.mask, "mask");
+
+    model.colorTransform("mytest", "mytestGrey", "mask", new RedComponent());
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testRedMask.png"));
+
+    model.colorTransform("mytest", "mytestGrey", "mask", new BlueComponent());
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testBlueMask.png"));
+
+    model.colorTransform("mytest", "mytestGrey", "mask", new GreenComponent());
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testGreenMask.png"));
+
+    model.colorTransform("mytest", "mytestGrey", "mask", new Luma());
+    assertEquals(model.save("mytestGrey"), ImageUtil.readImage(relPathToRes +
+        "PNGImages/masks/testLumaMask.png"));
+  }
+
   @Test(expected = IllegalArgumentException.class)
   public void testTransformNullName() {
     IIMEModel model = new IMEModel();
@@ -426,6 +579,40 @@ public class IMEModelTest {
   public void testTransformUnloaded() {
     IIMEModel model = new IMEModel();
     model.colorTransform("test", "test", new Luma());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformNullNameMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.colorTransform(null, "testNew", "test", new Sepia());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformNullNewNameMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.colorTransform("test", null, "mask", new RedComponent());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformNullTransformMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.colorTransform("test", "testNew", "test", null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformUnloadedMask() {
+    IIMEModel model = new IMEModel();
+    model.colorTransform("test", "test", "mask", new Luma());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testTransformNullMask() {
+    IIMEModel model = new IMEModel();
+    model.load(this.testOG, "test");
+    model.colorTransform("test", "test", null, new Luma());
   }
 
   // Downscale
@@ -464,7 +651,6 @@ public class IMEModelTest {
     model.load(this.testOG, "test");
     model.downscale(null, null, -1, -1);
   }
-
 
   @Test
   public void testDownscaleNormalUsage() {

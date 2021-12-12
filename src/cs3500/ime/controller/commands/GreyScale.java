@@ -21,4 +21,10 @@ public class GreyScale extends ACommand {
     super((IIMEModel model) -> model.greyScale(imageName, destImageName, component),
         String.format("Invalid %s component command.", component == null ? "" : component));
   }
+
+  public GreyScale(String imageName, String destImageName,
+      String maskImageName, GreyscaleComponent component) {
+    super((IIMEModel model) -> model.greyScale(imageName, destImageName, maskImageName, component),
+        String.format("Invalid %s component command.", component == null ? "" : component));
+  }
 }

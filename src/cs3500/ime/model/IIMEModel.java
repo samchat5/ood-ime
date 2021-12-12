@@ -113,5 +113,44 @@ public interface IIMEModel {
    */
   void downscale(String imageName, String destImageName, int newWidth, int newHeight)
       throws IllegalArgumentException;
+
+  /**
+   * Applies the given color transform to the image, and creates a new transformed image object of
+   * the given name. Only applies it to the region of the image specified by the passed mask image.
+   *
+   * @param imageName     image to transform
+   * @param destImageName new image name
+   * @param maskImageName image to use as a mask
+   * @param transform     transform to apply
+   * @throws IllegalArgumentException if the images are not loaded, or the arguments are null
+   */
+  void colorTransform(String imageName, String destImageName,
+      String maskImageName, IColorTransform transform) throws IllegalArgumentException;
+
+  /**
+   * Applies the given filter to the image, and creates a new filtered image object of the given
+   * name. Only applies it to the region of the image specified by the passed mask image.
+   *
+   * @param imageName     image to filter
+   * @param destImageName new image name
+   * @param maskImageName image to use as a mask
+   * @param filter        filter to apply
+   * @throws IllegalArgumentException if the images are not loaded, or the arguments are null
+   */
+  void filter(String imageName, String destImageName, String maskImageName, IFilter filter)
+      throws IllegalArgumentException;
+
+  /**
+   * Creates a new image from a given one's greyscale component (given a certain component type),
+   * using a mask image to specify the region to apply the greyscale to.
+   *
+   * @param imageName     image to greyscale
+   * @param destImageName new name to give to image
+   * @param maskImageName image to use as a mask
+   * @param component     component type the user wants (e.g. the red channel or the image)
+   * @throws IllegalArgumentException if the images are not loaded, or the arguments are null
+   */
+  void greyScale(String imageName, String destImageName, String maskImageName,
+      GreyscaleComponent component) throws IllegalArgumentException;
 }
 
