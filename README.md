@@ -7,6 +7,19 @@
 The only changes needed to the controller were the addition of a new `Downscale` command, in the
 same vein of other commands.
 
+### Partial Image Manipulation - Controller
+
+Most of the changes that were made for this feature were done in the controller, to handle the cases
+of multiple images being passed in. The big changes were the lambdas that were mapped to each
+command, which now have to check if a mask is being passed or not. Since this added more complexity
+to the lambdas, we decided to pass private callback functions to the lambdas. These callbacks take
+in the scanner, the "normal" constructor for the command, and the "masked" constructor for the
+command. If the line read from the scanner has 3 arguments, you can assume that the command is a
+"regular" one, otherwise, it is a "masked" one. Then, you call the respective constructor.
+
+We also had to add new constructors for the masked commands to all the command classes supporting
+the feature.
+
 ### Downscale - Model
 
 The only changes to the model were the addition of a new `downscale` method in the `IIMEModel`
@@ -15,6 +28,18 @@ downscale, and the method in the model just called the `downscale` method in `II
 name of the image, saving it to the destination image. Errors are checked in the model, but are
 thrown in `IImage` (besides `InvalidArgumentException` errors when passing invalid arguments to the
 model directly).
+
+### Partial Image Manipulation - Model
+
+Added new overloaded methods for color transforms, filters, and greyscaling. These methods have an
+extra parameter asking for the name of the mask image (in the model). These methods add an extra
+check that the mask image exists, and if it does, they generate a "mask array" (an array of boolean
+representing whether to apply the operation to the pixel or not), and call the appropriate method on
+the `IImage` object. The new methods in `IImage` are the same as the old ones, but skip applying the
+operation if the corresponding pixel in the mask array is `false`. This created a lot of duplicate
+code, so some of similar functionality was abstracted out to private methods like
+`convolveIteration`. The `IFilter` and `IColorTransform` classes also have new overloaded methods
+for `applyTransform/Filter` that take in a mask array, and pass it to the target `IImage`.
 
 ### Downscale - View
 
