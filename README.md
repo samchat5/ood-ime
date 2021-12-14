@@ -20,6 +20,27 @@ command. If the line read from the scanner has 3 arguments, you can assume that 
 We also had to add new constructors for the masked commands to all the command classes supporting
 the feature.
 
+### Previewing - Controller
+
+All the major changes to the controller were done in the `GuiController` class. The first change was
+to convert all the callbacks for the commands to support masks by default. The idea is that if the
+user is not "previewing" an operation, the command can be thought of as using a "full"
+mask (one where all pixels are white). So, the model has at any given point three images:
+
+- "image" - The image that is being manipulated. Will always remain the same during previewing,
+  until the user decides to actually apply the operation to the whole image
+- "mask" - The mask that is being used, is an image of the same size as "image", but with a 200x200
+  white square in the middle, and black pixels everywhere else. If the preview is not "enabled"
+  in the view, this mask is all-white
+- "preview" - The image that is loaded to the preview. It's the same as the original "image", but
+  with the masked operation applied
+
+By default, the preview is not enabled, so we load the mask as all-white upon loading a new image.
+If the preview is closed, the mask is set back to being all-white again. There is also a new public
+method `setMask()` that is called by the view, which passes in the location of the image that is
+being previewed. This method loads up a new mask to the model based on the passed location. The view
+then calls `features.run()` to apply the operation to the preview.
+
 ### Downscale - Model
 
 The only changes to the model were the addition of a new `downscale` method in the `IIMEModel`
@@ -48,6 +69,31 @@ A new class `SpinnerOptionPane` was created as a generalized version of
 class was created so that the downscaling operation can ask for user input for the new image height
 and width. Other than that, another option was added to the dropdown menu for the operation, and
 another case to the handler for the apply button, similar to "brighten".
+
+### Previewing - View
+
+The most changes in the previewing feature occurred in the view. Most of the changes that I did here
+were "cleanup" to make the view more readable (hopefully) and extensible. The general idea here is
+to add a new dialog for the preview, which pops up a scroll pane with the preview image. When a user
+scrolls, the preview image is updated with the currently select operation applied to that area (
+using masks). This is done with `adjustmentListeners` on the scrollbars of the pane. In
+`loadImage()` we now also update the preview image, and only update the normal image scroll pane if
+the preview is not enabled. If a user closes out of the preview dialog, the GUI works as normal and
+the user can then decide whether to apply the operation to the whole image.
+
+On top of this, there was the aforementioned refactoring. The toolbar now has its own class, and
+takes in a list of buttons and components to add to itself. The buttons are also their own
+`private` inner classes to make the code more readable. We didn't feel the need to separate these
+out to their own `public` classes since the functionality is pretty simple. The event listeners for
+the preview are also easily removable or addable using the `private removePreviewPaneListeners()`
+and `addPreviewPaneListeners()` methods. The reasoning for this is that the listeners will reset the
+scroll position of the preview pane whenever a new mask operation is applied. So, we temporarily
+remove the listeners when trying to load the image and reset the scroll position, and then add them
+back so that we don't get an infinite loop of events.
+
+The only `public` method that was added to `IGuiView` was `isPreviewEnabled()`, which returns
+exactly what it sounds like. This is used by the controller to determine whether to apply a full
+mask operation or just the preview.
 
 ## Changelog: HW6
 

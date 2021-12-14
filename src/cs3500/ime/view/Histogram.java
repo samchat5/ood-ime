@@ -30,18 +30,12 @@ public class Histogram extends JPanel {
     this.rasterWidth = raster.getWidth();
   }
 
-  @Override
-  public void paint(Graphics g) {
+  private int[][] calculateHistogram() {
     int[] redCounter = new int[256];
     int[] greenCounter = new int[256];
     int[] blueCounter = new int[256];
     int[] greyCounter = new int[256];
     int max = 0;
-
-    double canvasScaleX = getSize().getWidth() / 256;
-    double canvasScaleY = getSize().getHeight() / 256;
-    ((Graphics2D) g).scale(canvasScaleX, canvasScaleY);
-
     for (int i = 0; i < rasterHeight; i++) {
       for (int j = 0; j < rasterWidth; j++) {
         int[] vals = raster.getPixel(j, i, new int[3]);
@@ -52,7 +46,6 @@ public class Histogram extends JPanel {
         max = Math.max(max, ++greyCounter[grey.isPresent() ? (int) grey.getAsDouble() : 0]);
       }
     }
-
     double scalingFactor = 256f / (double) max;
     int[] redPosList = Arrays.stream(redCounter).map((x) -> (int) (256 - (scalingFactor * x)))
         .toArray();
@@ -62,7 +55,17 @@ public class Histogram extends JPanel {
         .toArray();
     int[] greyPosList = Arrays.stream(greyCounter).map((x) -> (int) (256 - (scalingFactor * x)))
         .toArray();
+    return new int[][]{redPosList, greenPosList, bluePosList, greyPosList};
+  }
 
+  @Override
+  public void paint(Graphics g) {
+    ((Graphics2D) g).scale(getSize().getWidth() / 256, getSize().getHeight() / 256);
+    int[][] lists = calculateHistogram();
+    int[] redPosList = lists[0];
+    int[] greenPosList = lists[1];
+    int[] bluePosList = lists[2];
+    int[] greyPosList = lists[3];
     for (int i = 0; i < 255; i++) {
       g.setColor(Color.RED);
       g.drawLine(i, redPosList[i], i + 1, redPosList[i + 1]);

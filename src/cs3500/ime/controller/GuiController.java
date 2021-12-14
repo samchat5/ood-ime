@@ -129,12 +129,11 @@ public class GuiController extends AIMEController implements IGuiController {
         || topLeft.getY() >= height) {
       throw new IllegalArgumentException("Point out of bounds.");
     }
-    IPixel[][] arr = IntStream.range(0, height)
-        .mapToObj((int y) -> IntStream.range(0, width)
-            .mapToObj((int x) -> topLeft.x <= x && x < topLeft.x + 200 && topLeft.y <= y
-                && y < topLeft.y + 200))
+    model.load(new Image(height, width, IntStream.range(0, height).mapToObj(
+            (int y) -> IntStream.range(0, width).mapToObj(
+                (int x) -> topLeft.x <= x && x < topLeft.x + 200 && topLeft.y <= y
+                    && y < topLeft.y + 200))
         .map(row -> row.map(col -> col ? new Pixel(255) : new Pixel(0)).toArray(Pixel[]::new))
-        .toArray(Pixel[][]::new);
-    model.load(new Image(arr.length, arr[0].length, arr), "mask");
+        .toArray(Pixel[][]::new)), "mask");
   }
 }
