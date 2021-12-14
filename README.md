@@ -304,51 +304,6 @@ at [`/src/cs3500/ime/diagram.jpg`](./src/cs3500/ime/diagram.jpg).
 
 ![diagram](/src/cs3500/ime/diagram.jpg)
 
-## Test Script
-
-### Commands to load example image, modify it and save the output
-
-Run `IME.jar` inside `res/`
-
-```
-load res/PPMImages/testOG.ppm OG
-load res/PNGImages/testOG.png OG-png
-brighten 10 OG OG-brighter
-vertical-flip OG OG-vertical
-horizontal-flip OG OG-horizontal
-value-component OG OG-value
-blur OG OG-blurred
-sharpen OG OG-sharpened
-greyscale OG OG-greyscaled
-sepia OG OG-sepia
-luma-component OG OG-luma
-intensity-component OG OG-intensity
-red-component OG OG-red
-blue-component OG OG-blue
-green-component OG OG-green
-save res/OG-brighter.ppm OG-brighter
-save res/OG-vertical.ppm OG-vertical
-save res/OG-horizontal.ppm OG-horizontal
-save res/OG-value.ppm OG-value
-save res/OG-blurred.ppm OG-blurred
-save res/OG-sharpened.ppm OG-sharpened
-save res/OG-greyscaled.ppm OG-greyscaled
-save res/OG-sepia.ppm OG-sepia
-save res/OG-brighter.png OG-brighter
-save res/OG-brighter.jpg OG-brighter
-save res/OG-brighter.jpeg OG-brighter
-save res/OG-luma.png OG-luma
-save res/OG-intensity.png OG-intensity
-save res/OG-red.png OG-red
-save res/OG-blue.png OG-blue
-save res/OG-green.png OG-green
-save res/OG.jpg OG-png
-save res/OG.jpeg OG-png
-save res/OG.ppm OG-png
-save res/OG.png OG-png
-quit
-```
-
 ## Credits
 
 The image we used for testing the program was taken by me, Samridh Chaturvedi, and I give full
