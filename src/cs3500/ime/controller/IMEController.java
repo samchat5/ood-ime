@@ -52,38 +52,37 @@ public class IMEController extends AIMEController implements IIMEController {
     knownCommands.put("vertical-flip", (Scanner s) -> new VerticalFlip(s.next(), s.next()));
     knownCommands.put("horizontal-flip", (Scanner s) -> new HorizontalFlip(s.next(), s.next()));
     knownCommands.put("value-component",
-        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.VALUE));
+        (Scanner s) -> greyScaleCallback(GreyscaleComponent.VALUE));
     knownCommands.put("luma-component",
-        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.LUMA));
+        (Scanner s) -> greyScaleCallback(GreyscaleComponent.LUMA));
     knownCommands.put("intensity-component",
-        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.INTENSITY));
-    knownCommands.put("red-component", (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.RED));
+        (Scanner s) -> greyScaleCallback(GreyscaleComponent.INTENSITY));
+    knownCommands.put("red-component", (Scanner s) -> greyScaleCallback(GreyscaleComponent.RED));
     knownCommands.put("blue-component",
-        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.BLUE));
+        (Scanner s) -> greyScaleCallback(GreyscaleComponent.BLUE));
     knownCommands.put("green-component",
-        (Scanner s) -> greyScaleCallback(s, GreyscaleComponent.GREEN));
-    knownCommands.put("sepia", (Scanner s) -> maskCommandCallback(s, SepiaCommand::new,
+        (Scanner s) -> greyScaleCallback(GreyscaleComponent.GREEN));
+    knownCommands.put("sepia", (Scanner s) -> maskCommandCallback(SepiaCommand::new,
         (String s1) -> (String s2, String s3) -> new SepiaCommand(s1, s2, s3)));
-    knownCommands.put("sharpen", (Scanner s) -> maskCommandCallback(s, SharpenCommand::new,
+    knownCommands.put("sharpen", (Scanner s) -> maskCommandCallback(SharpenCommand::new,
         (String s1) -> (String s2, String s3) -> new SharpenCommand(s1, s2, s3)));
-    knownCommands.put("blur", (Scanner s) -> maskCommandCallback(s, BlurCommand::new,
+    knownCommands.put("blur", (Scanner s) -> maskCommandCallback(BlurCommand::new,
         (String s1) -> (String s2, String s3) -> new BlurCommand(s1, s2, s3)));
-    knownCommands.put("greyscale", (Scanner s) -> maskCommandCallback(s, LumaTransform::new,
+    knownCommands.put("greyscale", (Scanner s) -> maskCommandCallback(LumaTransform::new,
         (String s1) -> (String s2, String s3) -> new LumaTransform(s1, s2, s3)));
     knownCommands.put("downscale",
         (Scanner s) -> new Downscale(s.next(), s.next(), s.nextInt(), s.nextInt()));
   }
 
-  private IIMECommand maskCommandCallback(Scanner s,
-      BiFunction<String, String, IIMECommand> regConstructor,
+  private IIMECommand maskCommandCallback(BiFunction<String, String, IIMECommand> regConstructor,
       Function<String, BiFunction<String, String, IIMECommand>> maskConstructor) {
     String[] args = scanner.nextLine().split(" ");
     return args.length == 3 ? regConstructor.apply(args[1], args[2])
         : maskConstructor.apply(args[1]).apply(args[3], args[2]);
   }
 
-  private IIMECommand greyScaleCallback(Scanner s, GreyscaleComponent component) {
-    return maskCommandCallback(s, (String s1, String s2) -> new GreyScale(s1, s2, component),
+  private IIMECommand greyScaleCallback(GreyscaleComponent component) {
+    return maskCommandCallback((String s1, String s2) -> new GreyScale(s1, s2, component),
         (String s1) -> (String s2, String s3) -> new GreyScale(s1, s2, s3, component));
   }
 

@@ -18,13 +18,13 @@ public class GreyScale extends ACommand {
    * @throws IllegalArgumentException if component is null
    */
   public GreyScale(String imageName, String destImageName, GreyscaleComponent component) {
-    super((IIMEModel model) -> model.greyScale(imageName, destImageName, component),
-        String.format("Invalid %s component command.", component == null ? "" : component));
+    super((IIMEModel model) -> model.greyScale(imageName, destImageName, component)
+    );
   }
 
   public GreyScale(String imageName, String destImageName,
       String maskImageName, GreyscaleComponent component) {
-    super((IIMEModel model) -> model.greyScale(imageName, destImageName, maskImageName, component),
-        String.format("Invalid %s component command.", component == null ? "" : component));
+    super((IIMEModel model) -> model.greyScale(imageName, destImageName, maskImageName, component)
+    );
   }
 }

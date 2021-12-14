@@ -20,6 +20,6 @@ public class Load extends ACommand {
       String ext = filePath.substring(filePath.lastIndexOf(".") + 1);
       model.load(ext.equalsIgnoreCase("ppm") ? ImageUtil.readPPM(filePath)
           : ImageUtil.readImage(filePath), imageName);
-    }, "Load file not found.");
+    });
   }
 }

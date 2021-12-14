@@ -16,7 +16,6 @@ public class Brighten extends ACommand {
    * @param newImageName image name to save new image to
    */
   public Brighten(int value, String imageName, String newImageName) {
-    super((IIMEModel model) -> model.brighten(imageName, value, newImageName), "Invalid "
-        + "brightening command.");
+    super((IIMEModel model) -> model.brighten(imageName, value, newImageName));
   }
 }

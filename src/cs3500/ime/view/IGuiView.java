@@ -23,4 +23,6 @@ public interface IGuiView extends IIMEView {
    * @param features IGuiController object to use as controller for this GUI
    */
   void acceptFeatures(IGuiController features);
+
+  boolean isPreviewEnabled();
 }

@@ -15,7 +15,6 @@ public class HorizontalFlip extends ACommand {
    * @param destImageName name to give to flipped image
    */
   public HorizontalFlip(String imageName, String destImageName) {
-    super((IIMEModel m) -> m.horizontalFlip(imageName, destImageName), "Invalid horizontal flip "
-        + "command.");
+    super((IIMEModel m) -> m.horizontalFlip(imageName, destImageName));
   }
 }

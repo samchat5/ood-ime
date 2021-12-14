@@ -11,7 +11,7 @@ public abstract class ACommand implements IIMECommand {
 
   private final Consumer<IIMEModel> func;
 
-  protected ACommand(Consumer<IIMEModel> func, String errorMessage) {
+  protected ACommand(Consumer<IIMEModel> func) {
     this.func = func;
   }
 

@@ -10,12 +10,11 @@ import cs3500.ime.model.image.colortransform.Luma;
 public class LumaTransform extends ACommand {
 
   public LumaTransform(String imageName, String destImageName) {
-    super((IIMEModel m) -> m.colorTransform(imageName, destImageName, new Luma()), "Invalid "
-        + "greyscale command.");
+    super((IIMEModel m) -> m.colorTransform(imageName, destImageName, new Luma()));
   }
-  
+
   public LumaTransform(String imageName, String destImageName, String maskImageName) {
-    super((IIMEModel m) -> m.colorTransform(imageName, destImageName, maskImageName, new Luma()),
-        "Invalid greyscale command.");
+    super((IIMEModel m) -> m.colorTransform(imageName, destImageName, maskImageName, new Luma())
+    );
   }
 }

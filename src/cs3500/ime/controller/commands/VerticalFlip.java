@@ -15,7 +15,6 @@ public class VerticalFlip extends ACommand {
    * @param destImageName name to give to flipped image
    */
   public VerticalFlip(String imageName, String destImageName) {
-    super((IIMEModel m) -> m.verticalFlip(imageName, destImageName), "Invalid vertical flip "
-        + "command.");
+    super((IIMEModel m) -> m.verticalFlip(imageName, destImageName));
   }
 }

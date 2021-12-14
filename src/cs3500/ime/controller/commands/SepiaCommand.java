@@ -11,11 +11,11 @@ public class SepiaCommand extends ACommand {
 
   public SepiaCommand(String imageName, String destImageName) {
     super((IIMEModel model) ->
-        model.colorTransform(imageName, destImageName, new Sepia()), "Invalid Sepia command.");
+        model.colorTransform(imageName, destImageName, new Sepia()));
   }
 
   public SepiaCommand(String imageName, String destImageName, String maskImageName) {
     super((IIMEModel model) -> model.colorTransform(imageName, destImageName, maskImageName,
-        new Sepia()), "Invalid Sepia command.");
+        new Sepia()));
   }
 }

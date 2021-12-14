@@ -3,9 +3,14 @@ import static org.junit.Assert.fail;
 
 import cs3500.ime.controller.GuiController;
 import cs3500.ime.controller.IGuiController;
+import cs3500.ime.model.IIMEModel;
 import cs3500.ime.model.IMEModel;
+import cs3500.ime.model.image.Image;
 import cs3500.ime.model.image.ImageUtil;
+import cs3500.ime.model.image.pixel.IPixel;
+import cs3500.ime.model.image.pixel.Pixel;
 import cs3500.ime.view.GuiView;
+import java.awt.Point;
 import java.io.File;
 import java.util.Scanner;
 import org.junit.Test;
@@ -40,7 +45,8 @@ public class GUIControllerTests {
   public void testLoadSave() {
     String in = "load res/PPMImages/testOG.PPM\n"
         + "save test/mytest.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytest.ppm"),
@@ -54,7 +60,8 @@ public class GUIControllerTests {
   public void testLoadSavePNG() {
     String in = "load res/PNGImages/testOG.Png\n"
         + "save test/mytest.png\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readImage("test/mytest.png"),
@@ -69,11 +76,13 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n"
         + "red-component\n"
         + "save test/mytestGrey.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testRed.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
@@ -84,11 +93,13 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n"
         + "blue-component\n"
         + "save test/mytestGrey.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testBlue.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
@@ -99,11 +110,13 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n"
         + "green-component\n"
         + "save test/mytestGrey.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testGreen.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
@@ -114,11 +127,13 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n"
         + "luma-component\n"
         + "save test/mytestGrey.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testLuma.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
@@ -129,11 +144,13 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n"
         + "value-component\n"
         + "save test/mytestGrey.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testValue.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
@@ -144,11 +161,13 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n"
         + "intensity-component\n"
         + "save test/mytestGrey.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestGrey.ppm"), ImageUtil.readImage(
         "res/PNGImages/testIntensity.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestGrey.ppm").delete()) {
       fail();
     }
@@ -159,7 +178,8 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n"
         + "brighten 50\n"
         + "save test/mytestBright.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestBright.ppm"), ImageUtil.readImage(
@@ -174,7 +194,8 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n" +
         "horizontal-flip\n" +
         "save test/mytestFlip.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestFlip.ppm"), ImageUtil.readImage(
@@ -189,7 +210,8 @@ public class GUIControllerTests {
     String in = "load res/PPMImages/testOG.ppm\n" +
         "vertical-flip\n" +
         "save test/mytestFlip.ppm\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readPPM("test/mytestFlip.ppm"), ImageUtil.readImage(
@@ -204,11 +226,13 @@ public class GUIControllerTests {
     String in = "load res/PNGImages/testOG.png\n"
         + "blur\n"
         + "save test/mytestBlur.png\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readImage("test/mytestBlur.png"), ImageUtil.readImage(
         "res/PNGImages/testBlurred.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestBlur.png").delete()) {
       fail();
     }
@@ -219,11 +243,13 @@ public class GUIControllerTests {
     String in = "load res/PNGImages/testOG.png\n"
         + "sepia\n"
         + "save test/mytestSepia.png\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readImage("test/mytestSepia.png"), ImageUtil.readImage(
         "res/PNGImages/testSepia.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestSepia.png").delete()) {
       fail();
     }
@@ -234,11 +260,13 @@ public class GUIControllerTests {
     String in = "load res/PNGImages/testOG.png\n"
         + "sharpen\n"
         + "save test/mytestSharpen.png\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readImage("test/mytestSharpen.png"), ImageUtil.readImage(
         "res/PNGImages/testSharpened.png"));
+    assertEquals(ImageUtil.readImage("res/PNGImages/masks/testMaskFull.png"), model.save("mask"));
     if (!new File("test/mytestSharpen.png").delete()) {
       fail();
     }
@@ -249,7 +277,8 @@ public class GUIControllerTests {
     String in = "load res/PNGImages/testOG.png\n"
         + "downscale 4 100000\n"
         + "save test/mytestDownscale.png\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readImage("test/mytestDownscale.png"), ImageUtil.readImage(
@@ -264,7 +293,8 @@ public class GUIControllerTests {
     String in = "load res/PNGImages/testOG.png\n"
         + "downscale 100000 4\n"
         + "save test/mytestDownscale.png\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readImage("test/mytestDownscale.png"), ImageUtil.readImage(
@@ -279,7 +309,8 @@ public class GUIControllerTests {
     String in = "load res/PNGImages/testOG.png\n"
         + "downscale 100000 100000\n"
         + "save test/mytestDownscale.png\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readImage("test/mytestDownscale.png"), ImageUtil.readImage(
@@ -294,7 +325,8 @@ public class GUIControllerTests {
     String in = "load res/PNGImages/testOG.png\n"
         + "downscale 205 115\n"
         + "save test/mytestDownscale.png\n";
-    IGuiController cont = new GuiController(new IMEModel(), new GuiView());
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
     cont.setScanner(new Scanner(in));
     cont.run();
     assertEquals(ImageUtil.readImage("test/mytestDownscale.png"), ImageUtil.readImage(
@@ -302,5 +334,45 @@ public class GUIControllerTests {
     if (!new File("test/mytestDownscale.png").delete()) {
       fail();
     }
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetMaskNull() {
+    new GuiController(new IMEModel(), new GuiView()).setMask(null);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetMaskUnloadedImage() {
+    new GuiController(new IMEModel(), new GuiView()).setMask(new Point(0, 0));
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testSetMaskOutsideRange() {
+    String in = "load res/PNGImages/testOG.png\n";
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
+    cont.setScanner(new Scanner(in));
+    cont.run();
+    cont.setMask(new Point(10000, 10000));
+  }
+  
+  @Test
+  public void testSetMaskNormalUsage() {
+    String in = "load res/PNGImages/testOG.png\n";
+    IIMEModel model = new IMEModel();
+    IGuiController cont = new GuiController(model, new GuiView());
+    cont.setScanner(new Scanner(in));
+    cont.run();
+    cont.setMask(new Point(0, 0));
+
+    int width = model.save("image").getWidth();
+    int height = model.save("image").getHeight();
+    IPixel[][] maskArr = new IPixel[height][width];
+    for (int i = 0; i < maskArr.length; i++) {
+      for (int j = 0; j < maskArr[i].length; j++) {
+        maskArr[i][j] = i < 200 && j < 200 ? new Pixel(255) : new Pixel(0);
+      }
+    }
+    assertEquals(model.save("mask"), new Image(height, width, maskArr));
   }
 }

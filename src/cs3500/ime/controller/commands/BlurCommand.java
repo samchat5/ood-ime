@@ -10,13 +10,12 @@ import cs3500.ime.model.image.filter.Blur;
 public class BlurCommand extends ACommand {
 
   public BlurCommand(String imageName, String destImageName) {
-    super((IIMEModel model) -> model.filter(imageName, destImageName, new Blur()), "Illegal blur "
-        + "command.");
+    super((IIMEModel model) -> model.filter(imageName, destImageName, new Blur()));
   }
 
   public BlurCommand(String imageName, String destImageName, String maskImageName) {
-    super((IIMEModel model) -> model.filter(imageName, destImageName, maskImageName, new Blur()),
-        "Illegal blur command.");
+    super((IIMEModel model) -> model.filter(imageName, destImageName, maskImageName, new Blur())
+    );
   }
 
   /**

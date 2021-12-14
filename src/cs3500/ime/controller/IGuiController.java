@@ -1,5 +1,6 @@
 package cs3500.ime.controller;
 
+import java.awt.Point;
 import java.util.Scanner;
 
 /**
@@ -10,4 +11,6 @@ import java.util.Scanner;
 public interface IGuiController extends IIMEController {
 
   void setScanner(Scanner s) throws IllegalArgumentException;
+
+  void setMask(Point topLeft) throws IllegalArgumentException;
 }

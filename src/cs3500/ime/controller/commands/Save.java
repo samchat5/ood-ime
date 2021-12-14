@@ -25,6 +25,6 @@ public class Save extends ACommand {
       } else {
         ImageUtil.writeImage(filePath, image);
       }
-    }, "Save file/image not found.");
+    });
   }
 }

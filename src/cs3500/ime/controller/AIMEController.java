@@ -52,7 +52,7 @@ public abstract class AIMEController implements IIMEController {
           }
         }
       }
-    } catch (NoSuchElementException | IOException e) {
+    } catch (NoSuchElementException | IOException | IllegalArgumentException e) {
       throw new IllegalStateException();
     }
   }
