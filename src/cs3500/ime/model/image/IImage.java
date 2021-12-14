@@ -18,6 +18,19 @@ public interface IImage {
   IImage getComponent(GreyscaleComponent component);
 
   /**
+   * Applies filterKernel to this IImage to create a new filtered IImage, using the given mask. The
+   * mask is a 2D array of booleans, of the same size as the image, indicating which pixels should
+   * be greyscaled.
+   *
+   * @param component component to use in greyscale
+   * @param mask      mask to use in greyscale
+   * @return a new greyscaled image
+   * @throws IllegalArgumentException if the mask is null and not the same size as the image
+   */
+  IImage getComponent(GreyscaleComponent component, boolean[][] mask)
+      throws IllegalArgumentException;
+
+  /**
    * Get this {@code IImage} brightened by the given value. A negative value represents darkening.
    *
    * @param value value to brighten by (clamped to -225 to 255)
@@ -49,6 +62,19 @@ public interface IImage {
   IImage applyFilter(double[][] filterKernel) throws IllegalArgumentException;
 
   /**
+   * Applies filterKernel to this IImage to create a new filtered IImage, using the given mask. The
+   * mask is a 2D array of booleans, of the same size as the image, indicating which pixels should
+   * be filtered.
+   *
+   * @param filterKernel filter scaling
+   * @param mask         mask to use in filter
+   * @return a new filtered image
+   * @throws IllegalArgumentException if the kernel is null or invalid, or the mask is null and not
+   *                                  the same size as the image
+   */
+  IImage applyFilter(double[][] filterKernel, boolean[][] mask) throws IllegalArgumentException;
+
+  /**
    * Applies filterKernel to this IIMage to create a new color-transformed IImage.
    *
    * @param transformKernel kernel to use in color transformation
@@ -56,6 +82,19 @@ public interface IImage {
    * @throws IllegalArgumentException if the kernel is null or not 3x3
    */
   IImage applyTransform(double[][] transformKernel) throws IllegalArgumentException;
+
+  /**
+   * Applies a color transform to this image, using the mask. The mask is a 2D array of booleans, of
+   * the same size as the image, indicating which pixels should be transformed.
+   *
+   * @param transformKernel kernel to use in color transformation
+   * @param mask            mask to use in color transformation
+   * @return a new transformed image
+   * @throws IllegalArgumentException if the kernel is null or not 3x3, or the mask is null or not
+   *                                  the same size as the image
+   */
+  IImage applyTransform(double[][] transformKernel, boolean[][] mask)
+      throws IllegalArgumentException;
 
   /**
    * Getter method for image width.
@@ -91,43 +130,4 @@ public interface IImage {
    *                                  less than 0
    */
   IImage downscale(int newWidth, int newHeight) throws IllegalArgumentException;
-
-  /**
-   * Applies a color transform to this image, using the mask. The mask is a 2D array of booleans, of
-   * the same size as the image, indicating which pixels should be transformed.
-   *
-   * @param transformKernel kernel to use in color transformation
-   * @param mask            mask to use in color transformation
-   * @return a new transformed image
-   * @throws IllegalArgumentException if the kernel is null or not 3x3, or the mask is null or not
-   *                                  the same size as the image
-   */
-  IImage applyTransform(double[][] transformKernel, boolean[][] mask)
-      throws IllegalArgumentException;
-
-  /**
-   * Applies filterKernel to this IImage to create a new filtered IImage, using the given mask. The
-   * mask is a 2D array of booleans, of the same size as the image, indicating which pixels should
-   * be filtered.
-   *
-   * @param filterKernel filter scaling
-   * @param mask         mask to use in filter
-   * @return a new filtered image
-   * @throws IllegalArgumentException if the kernel is null or invalid, or the mask is null and not
-   *                                  the same size as the image
-   */
-  IImage applyFilter(double[][] filterKernel, boolean[][] mask) throws IllegalArgumentException;
-
-  /**
-   * Applies filterKernel to this IImage to create a new filtered IImage, using the given mask. The
-   * mask is a 2D array of booleans, of the same size as the image, indicating which pixels should
-   * be greyscaled.
-   *
-   * @param component component to use in greyscale
-   * @param mask      mask to use in greyscale
-   * @return a new greyscaled image
-   * @throws IllegalArgumentException if the mask is null and not the same size as the image
-   */
-  IImage getComponent(GreyscaleComponent component, boolean[][] mask)
-      throws IllegalArgumentException;
 }

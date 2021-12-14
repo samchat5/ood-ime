@@ -132,6 +132,29 @@ public class IMEModel implements IIMEModel {
   }
 
   /**
+   * Creates a new image from a given one's greyscale component (given a certain component type),
+   * using a mask image to specify the region to apply the greyscale to.
+   *
+   * @param imageName     image to greyscale
+   * @param destImageName new name to give to image
+   * @param maskImageName image to use as a mask
+   * @param component     component type the user wants (e.g. the red channel or the image)
+   * @throws IllegalArgumentException if the images are not loaded, or the arguments are null
+   */
+  @Override
+  public void greyScale(String imageName, String destImageName, String maskImageName,
+      GreyscaleComponent component) throws IllegalArgumentException {
+    if (imageName == null || destImageName == null || maskImageName == null || component == null) {
+      throw new IllegalArgumentException("Invalid greyscale.");
+    }
+    if (!this.imageMap.containsKey(imageName) || !this.imageMap.containsKey(maskImageName)) {
+      throw new IllegalArgumentException("Unloaded image(s).");
+    }
+    this.imageMap.put(destImageName, this.imageMap.get(imageName)
+        .getComponent(component, generateMaskArray(this.imageMap.get(maskImageName))));
+  }
+
+  /**
    * Creates a new image from a given one's greyscale component (given a certain component type).
    *
    * @param imageName     image to greyscale
@@ -150,6 +173,29 @@ public class IMEModel implements IIMEModel {
     }
     IImage greyScaledImage = imageMap.get(imageName).getComponent(component);
     imageMap.put(destImageName, greyScaledImage);
+  }
+
+  /**
+   * Applies the given color transform to the image, and creates a new transformed image object of
+   * the given name. Only applies it to the region of the image specified by the passed mask image.
+   *
+   * @param imageName     image to transform
+   * @param destImageName new image name
+   * @param maskImageName image to use as a mask
+   * @param transform     transform to apply
+   * @throws IllegalArgumentException if the images are not loaded, or the arguments are null
+   */
+  @Override
+  public void colorTransform(String imageName, String destImageName, String maskImageName,
+      IColorTransform transform) throws IllegalArgumentException {
+    if (imageName == null || destImageName == null || maskImageName == null || transform == null) {
+      throw new IllegalArgumentException("Invalid color transform.");
+    }
+    if (!this.imageMap.containsKey(imageName) || !this.imageMap.containsKey(maskImageName)) {
+      throw new IllegalArgumentException("Unloaded image(s).");
+    }
+    this.imageMap.put(destImageName, transform.applyTransform(imageMap.get(imageName),
+        generateMaskArray(imageMap.get(maskImageName))));
   }
 
   /**
@@ -195,55 +241,6 @@ public class IMEModel implements IIMEModel {
   }
 
   /**
-   * Downscales the image and saves the given image to the new name.
-   *
-   * @param imageName     image to downscale
-   * @param destImageName new image name
-   * @param newWidth      new width of modified image
-   * @param newHeight     new height of modified image
-   * @throws IllegalArgumentException if the image is not loaded, or the arguments are null
-   */
-  @Override
-  public void downscale(String imageName, String destImageName, int newWidth, int newHeight)
-      throws IllegalArgumentException {
-    if (imageName == null || destImageName == null) {
-      throw new IllegalArgumentException("Invalid downscale.");
-    }
-    if (!this.imageMap.containsKey(imageName)) {
-      throw new IllegalArgumentException("Unloaded image.");
-    }
-    try {
-      this.imageMap.put(destImageName, this.imageMap.get(imageName).downscale(newWidth,
-          newHeight));
-    } catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException(e.getMessage());
-    }
-  }
-
-  /**
-   * Applies the given color transform to the image, and creates a new transformed image object of
-   * the given name. Only applies it to the region of the image specified by the passed mask image.
-   *
-   * @param imageName     image to transform
-   * @param destImageName new image name
-   * @param maskImageName image to use as a mask
-   * @param transform     transform to apply
-   * @throws IllegalArgumentException if the images are not loaded, or the arguments are null
-   */
-  @Override
-  public void colorTransform(String imageName, String destImageName, String maskImageName,
-      IColorTransform transform) throws IllegalArgumentException {
-    if (imageName == null || destImageName == null || maskImageName == null || transform == null) {
-      throw new IllegalArgumentException("Invalid color transform.");
-    }
-    if (!this.imageMap.containsKey(imageName) || !this.imageMap.containsKey(maskImageName)) {
-      throw new IllegalArgumentException("Unloaded image(s).");
-    }
-    this.imageMap.put(destImageName, transform.applyTransform(imageMap.get(imageName),
-        generateMaskArray(imageMap.get(maskImageName))));
-  }
-
-  /**
    * Applies the given filter to the image, and creates a new filtered image object of the given
    * name. Only applies it to the region of the image specified by the passed mask image.
    *
@@ -267,26 +264,29 @@ public class IMEModel implements IIMEModel {
   }
 
   /**
-   * Creates a new image from a given one's greyscale component (given a certain component type),
-   * using a mask image to specify the region to apply the greyscale to.
+   * Downscales the image and saves the given image to the new name.
    *
-   * @param imageName     image to greyscale
-   * @param destImageName new name to give to image
-   * @param maskImageName image to use as a mask
-   * @param component     component type the user wants (e.g. the red channel or the image)
-   * @throws IllegalArgumentException if the images are not loaded, or the arguments are null
+   * @param imageName     image to downscale
+   * @param destImageName new image name
+   * @param newWidth      new width of modified image
+   * @param newHeight     new height of modified image
+   * @throws IllegalArgumentException if the image is not loaded, or the arguments are null
    */
   @Override
-  public void greyScale(String imageName, String destImageName, String maskImageName,
-      GreyscaleComponent component) throws IllegalArgumentException {
-    if (imageName == null || destImageName == null || maskImageName == null || component == null) {
-      throw new IllegalArgumentException("Invalid greyscale.");
+  public void downscale(String imageName, String destImageName, int newWidth, int newHeight)
+      throws IllegalArgumentException {
+    if (imageName == null || destImageName == null) {
+      throw new IllegalArgumentException("Invalid downscale.");
     }
-    if (!this.imageMap.containsKey(imageName) || !this.imageMap.containsKey(maskImageName)) {
-      throw new IllegalArgumentException("Unloaded image(s).");
+    if (!this.imageMap.containsKey(imageName)) {
+      throw new IllegalArgumentException("Unloaded image.");
     }
-    this.imageMap.put(destImageName, this.imageMap.get(imageName)
-        .getComponent(component, generateMaskArray(this.imageMap.get(maskImageName))));
+    try {
+      this.imageMap.put(destImageName, this.imageMap.get(imageName).downscale(newWidth,
+          newHeight));
+    } catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException(e.getMessage());
+    }
   }
 
   private boolean[][] generateMaskArray(IImage maskImage) {

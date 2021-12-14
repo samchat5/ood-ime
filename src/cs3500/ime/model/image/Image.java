@@ -90,6 +90,36 @@ public class Image implements IImage {
   }
 
   /**
+   * Applies filterKernel to this IImage to create a new filtered IImage, using the given mask. The
+   * mask is a 2D array of booleans, of the same size as the image, indicating which pixels should
+   * be greyscaled.
+   *
+   * @param component component to use in greyscale
+   * @param mask      mask to use in greyscale
+   * @return a new greyscaled image
+   * @throws IllegalArgumentException if the mask is null and not the same size as the image
+   */
+  @Override
+  public IImage getComponent(GreyscaleComponent component, boolean[][] mask)
+      throws IllegalArgumentException {
+    if (mask == null || mask.length != height || (mask.length != 0 && mask[0].length != width)) {
+      throw new IllegalArgumentException("Mask must be the same size as the image.");
+    }
+    IPixel[][] newPixelArray = new IPixel[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        if (mask[i][j]) {
+          IPixel foo = pixelArray[i][j];
+          newPixelArray[i][j] = foo.getComponent(component);
+        } else {
+          newPixelArray[i][j] = pixelArray[i][j];
+        }
+      }
+    }
+    return new Image(this.height, this.width, newPixelArray);
+  }
+
+  /**
    * Returns a brightened version of this image.
    *
    * @param value value to brighten
@@ -154,6 +184,71 @@ public class Image implements IImage {
       }
     }
     return new Image(this.height, this.width, newPixelArray);
+  }
+
+  /**
+   * Applies filterKernel to this IImage to create a new filtered IImage, using the given mask. The
+   * mask is a 2D array of booleans, of the same size as the image, indicating which pixels should
+   * be filtered.
+   *
+   * @param filterKernel filter scaling
+   * @param mask         mask to use in filter
+   * @return a new filtered image
+   * @throws IllegalArgumentException if the kernel is null or invalid, or the mask is null and not
+   *                                  the same size as the image
+   */
+  @Override
+  public IImage applyFilter(double[][] filterKernel, boolean[][] mask)
+      throws IllegalArgumentException {
+    if (filterKernel == null || filterKernel.length % 2 == 0 || filterKernel[0].length % 2 == 0) {
+      throw new IllegalArgumentException("Invalid kernel dimensions.");
+    }
+    if (mask == null || mask.length != height || (mask.length != 0 && mask[0].length != width)) {
+      throw new IllegalArgumentException("Mask must be the same size as the image.");
+    }
+    IPixel[][] newPixelArray = new IPixel[this.height][this.width];
+    for (int i = 0; i < this.height; i++) {
+      for (int j = 0; j < this.width; j++) {
+        if (mask[i][j]) {
+          convolveIteration(filterKernel, newPixelArray, i, j);
+        } else {
+          newPixelArray[i][j] = this.pixelArray[i][j];
+        }
+      }
+    }
+    return new Image(this.height, this.width, newPixelArray);
+  }
+
+  /**
+   * Applies a color transform to this image, using the mask. The mask is a 2D array of booleans, of
+   * the same size as the image, indicating which pixels should be transformed.
+   *
+   * @param transformKernel kernel to use in color transformation
+   * @param mask            mask to use in color transformation
+   * @return a new transformed image
+   * @throws IllegalArgumentException if the kernel is null or not 3x3, or the mask is null or not
+   *                                  the same size as the image
+   */
+  @Override
+  public IImage applyTransform(double[][] transformKernel, boolean[][] mask)
+      throws IllegalArgumentException {
+    if (transformKernel == null || transformKernel.length != 3 || transformKernel[0].length != 3) {
+      throw new IllegalArgumentException("Kernel must be 3x3.");
+    }
+    if (mask == null || mask.length != height || (mask.length != 0 && mask[0].length != width)) {
+      throw new IllegalArgumentException("Mask must be the same size as the image.");
+    }
+    IPixel[][] newPixelArray = new Pixel[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        if (mask[i][j]) {
+          newPixelArray[i][j] = this.pixelArray[i][j].applyColorTransform(transformKernel);
+        } else {
+          newPixelArray[i][j] = this.pixelArray[i][j];
+        }
+      }
+    }
+    return new Image(height, width, newPixelArray);
   }
 
   /**
@@ -225,125 +320,30 @@ public class Image implements IImage {
         double x = (double) x_p / newWidth * width;
         double y = (double) y_p / newHeight * height;
 
-        int[] A = getPixelAt((int) Math.floor(y), (int) Math.floor(x)).getValues();
-        int[] B = getPixelAt((int) Math.floor(y), (int) Math.ceil(x)).getValues();
-        int[] C = getPixelAt((int) Math.ceil(y), (int) Math.floor(x)).getValues();
-        int[] D = getPixelAt((int) Math.ceil(y), (int) Math.ceil(x)).getValues();
+        int[] a = getPixelAt((int) Math.floor(y), (int) Math.floor(x)).getValues();
+        int[] b = getPixelAt((int) Math.floor(y), (int) Math.ceil(x)).getValues();
+        int[] c = getPixelAt((int) Math.ceil(y), (int) Math.floor(x)).getValues();
+        int[] d = getPixelAt((int) Math.ceil(y), (int) Math.ceil(x)).getValues();
 
         // edge case where pixels are all equal to each other. in this case, we just set the new
         // pixel equal to whatever the original pixel was.
-        if (!Arrays.equals(A, B) && !Arrays.equals(A, C) && !Arrays.equals(B, C)) {
-          BiFunction<Integer, Integer, Double> m_f = (a, b) -> b * (x - Math.floor(x)) + a * (
+        if (!Arrays.equals(a, b) && !Arrays.equals(a, c) && !Arrays.equals(b, c)) {
+          BiFunction<Integer, Integer, Double> m_f = (a1, b1) -> b1 * (x - Math.floor(x)) + a1 * (
               Math.ceil(x) - x);
-          BiFunction<Integer, Integer, Double> n_f = (c, d) -> d * (x - Math.floor(x)) + c * (
+          BiFunction<Integer, Integer, Double> n_f = (c1, d1) -> d1 * (x - Math.floor(x)) + c1 * (
               Math.ceil(x) - x);
           BiFunction<Double, Double, Integer> c_p =
               (m, n) -> (int) (n * (y - Math.floor(y)) + m * (Math.ceil(y) - y));
-          int[] colors = IntStream.rangeClosed(0, 2).map((i) -> c_p.apply(m_f.apply(A[i], B[i]),
-              n_f.apply(C[i], D[i]))).toArray();
+          int[] colors = IntStream.rangeClosed(0, 2).map((i) -> c_p.apply(m_f.apply(a[i], b[i]),
+              n_f.apply(c[i], d[i]))).toArray();
 
           arr[y_p][x_p] = new Pixel(colors[0], colors[1], colors[2]);
         } else {
-          arr[y_p][x_p] = new Pixel(A[0], A[1], A[2]);
+          arr[y_p][x_p] = new Pixel(a[0], a[1], a[2]);
         }
       }
     }
     return new Image(newHeight, newWidth, arr);
-  }
-
-  /**
-   * Applies a color transform to this image, using the mask. The mask is a 2D array of booleans, of
-   * the same size as the image, indicating which pixels should be transformed.
-   *
-   * @param transformKernel kernel to use in color transformation
-   * @param mask            mask to use in color transformation
-   * @return a new transformed image
-   * @throws IllegalArgumentException if the kernel is null or not 3x3, or the mask is null or not
-   *                                  the same size as the image
-   */
-  @Override
-  public IImage applyTransform(double[][] transformKernel, boolean[][] mask)
-      throws IllegalArgumentException {
-    if (transformKernel == null || transformKernel.length != 3 || transformKernel[0].length != 3) {
-      throw new IllegalArgumentException("Kernel must be 3x3.");
-    }
-    if (mask == null || mask.length != height || (mask.length != 0 && mask[0].length != width)) {
-      throw new IllegalArgumentException("Mask must be the same size as the image.");
-    }
-    IPixel[][] newPixelArray = new Pixel[height][width];
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        if (mask[i][j]) {
-          newPixelArray[i][j] = this.pixelArray[i][j].applyColorTransform(transformKernel);
-        } else {
-          newPixelArray[i][j] = this.pixelArray[i][j];
-        }
-      }
-    }
-    return new Image(height, width, newPixelArray);
-  }
-
-  /**
-   * Applies filterKernel to this IImage to create a new filtered IImage, using the given mask. The
-   * mask is a 2D array of booleans, of the same size as the image, indicating which pixels should
-   * be filtered.
-   *
-   * @param filterKernel filter scaling
-   * @param mask         mask to use in filter
-   * @return a new filtered image
-   * @throws IllegalArgumentException if the kernel is null or invalid, or the mask is null and not
-   *                                  the same size as the image
-   */
-  @Override
-  public IImage applyFilter(double[][] filterKernel, boolean[][] mask)
-      throws IllegalArgumentException {
-    if (filterKernel == null || filterKernel.length % 2 == 0 || filterKernel[0].length % 2 == 0) {
-      throw new IllegalArgumentException("Invalid kernel dimensions.");
-    }
-    if (mask == null || mask.length != height || (mask.length != 0 && mask[0].length != width)) {
-      throw new IllegalArgumentException("Mask must be the same size as the image.");
-    }
-    IPixel[][] newPixelArray = new IPixel[this.height][this.width];
-    for (int i = 0; i < this.height; i++) {
-      for (int j = 0; j < this.width; j++) {
-        if (mask[i][j]) {
-          convolveIteration(filterKernel, newPixelArray, i, j);
-        } else {
-          newPixelArray[i][j] = this.pixelArray[i][j];
-        }
-      }
-    }
-    return new Image(this.height, this.width, newPixelArray);
-  }
-
-  /**
-   * Applies filterKernel to this IImage to create a new filtered IImage, using the given mask. The
-   * mask is a 2D array of booleans, of the same size as the image, indicating which pixels should
-   * be greyscaled.
-   *
-   * @param component component to use in greyscale
-   * @param mask      mask to use in greyscale
-   * @return a new greyscaled image
-   * @throws IllegalArgumentException if the mask is null and not the same size as the image
-   */
-  @Override
-  public IImage getComponent(GreyscaleComponent component, boolean[][] mask)
-      throws IllegalArgumentException {
-    if (mask == null || mask.length != height || (mask.length != 0 && mask[0].length != width)) {
-      throw new IllegalArgumentException("Mask must be the same size as the image.");
-    }
-    IPixel[][] newPixelArray = new IPixel[height][width];
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        if (mask[i][j]) {
-          IPixel foo = pixelArray[i][j];
-          newPixelArray[i][j] = foo.getComponent(component);
-        } else {
-          newPixelArray[i][j] = pixelArray[i][j];
-        }
-      }
-    }
-    return new Image(this.height, this.width, newPixelArray);
   }
 
   private void convolveIteration(double[][] filterKernel, IPixel[][] newPixelArray, int i, int j) {
